@@ -9,6 +9,9 @@
     echo ($nom)." ".($prenom)."</br>";
     
 
-    
+    tomate !!!;
 
+	
+	
+	patate !!!!;
 ?>
