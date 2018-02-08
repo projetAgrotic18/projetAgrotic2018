@@ -72,7 +72,7 @@
             Description du marquage :<br>
             <TEXTAREA name="marquage" rows=10 cols=40></TEXTAREA><Br><br>
             
-            <input type="radio" name="type_paturage" value="collectif" /> Alpage/Pâturage collectif
+            <input type="radio" name="type_paturage" value="collectif" checked /> Alpage/Pâturage collectif
             <input type="radio" name="type_paturage" value="individuel" /> Alpage/Pâturage individuel
             <h2>Transporteur</h2>
             <table>
