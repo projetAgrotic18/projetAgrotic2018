@@ -1,7 +1,7 @@
 
 <?php
 // Connexion, sélection de la base de données
-$dbconn = pg_connect("host=194.199.251.139 dbname=testprojet user=postgres password=postgres")
+$dbconn = pg_connect("host=194.199.251.139 port=5433 dbname=testprojet user=postgres password=postgres")
     or die('Connexion impossible : ' . pg_last_error());
 
 // Exécution de la requête SQL
