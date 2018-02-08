@@ -23,6 +23,10 @@
                 </tr>
             </table>
             <h2>Renseignements généraux</h2>
+            (*)Date départ : 
+            <input id="date_debut" type="date">
+            (*)Date fin :
+            <input id="date_fin" type="date">
             
             
         </form>
