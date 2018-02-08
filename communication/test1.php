@@ -1,0 +1,3 @@
+<? php
+Hellow les gens !
+?>
