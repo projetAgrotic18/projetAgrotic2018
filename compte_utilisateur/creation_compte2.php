@@ -69,8 +69,8 @@
 						<input type=text name='departement' value='Département' size = 100><br/></br/>
 						<input type=submit name='sub' value='valider'><br/><br/>";
 			}
-			// echo "<br/>".$type_form;
-			//pour tester
+			//echo "<br/>".$type_form;
+			
 			?>
 	</body>
 </html>
