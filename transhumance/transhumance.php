@@ -4,6 +4,35 @@
 
     </head>
     <body>
+        <?php
+// Connexion, sélection de la base de données
+
+        $dbconn = pg_connect("host=194.199.251.139 port=5433 dbname=testprojet user=postgres password=postgres")
+                or die('Connexion impossible : ' . pg_last_error());
+
+// Exécution de la requête SQL
+
+        $query1 = "SELECT id_transhumance FROM transhumances"; //sélectionne le premier id  de transhumance disponible
+        $result1 = pg_query($query1) or die('Echec de la requête : ' . pg_error($link));
+        $nbre_col = pg_num_fields($result1);
+        $id = 1;
+
+        while ($row = pg_fetch_array($result1)) {
+
+            if ($id < $row[0]) {
+                break;
+            }
+            $id++;
+        }
+
+// Affichage des résultats en HTML
+// Libère le résultat
+
+        
+// Ferme la connexion
+
+        pg_close($dbconn);
+        ?>
         <script type='text/javascript'>
 
             function valider() {
@@ -17,7 +46,7 @@
                 if (document.form.prenom_responsable.value === "" || regexmot.test(document.form.prenom_responsable.value)) {
                     $msg += "saisissez un prénom  \n";
                 }
-                if (document.form.num_responsable.value === "" ) {
+                if (document.form.num_responsable.value === "") {
                     $msg += "saisissez un numéro  \n";
                 }
 
@@ -32,14 +61,17 @@
             }
 
         </script>
-        
+
 
 
         <h1 align="center"><b>Déclarer une transhumance intrarégionale</b></h1>
         <h2>Renseignements responsable alpage</h2>
         <form method="post" action="validation_transhumance.php" name='form' onsubmit='return valider()' >
             <table>
-
+                <tr>
+                    <td><label>Id Transhumance</label> :</td>
+                    <?php echo "<td><input type='text' name='id_transhumance' value = '$id' readonly ></td>" ?> 
+                </tr>
                 <tr>
                     <td><label>(*)Nom</label> :</td>
                     <td><input type='text' name='nom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
@@ -55,9 +87,9 @@
             </table>
             <h2>Renseignements généraux</h2>
             (*)Date départ : 
-            <input id="date_debut" type="date">
+            <input name="date_arrivee" type="date">
             (*)Date fin :
-            <input id="date_fin" type="date"><br><br>
+            <input name="date_sortie" type="date"><br><br>
             <label>(*)Commune de destination :</label>
             <input type='text' name='commune' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
             <h2>Vos animaux déplacés</h2>
@@ -112,7 +144,7 @@
                         <label>Nom :</label>
                     </td>
                     <td>
-                        <input type='text' name='nom_transp' value =''>
+                        <input type='text' name='nom_transp' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
                     </td>
                     <td>
                         <label>Adresse</label>
@@ -127,13 +159,13 @@
                         <label>Nom de l'entreprise</label>
                     </td>
                     <td>
-                        <input type='text' name='entreprise_trans' value =''>
+                        <input type='text' name='entreprise_transp' value =''>
                     </td>
                     <td>
                         <label>Téléphone</label>
                     </td>
                     <td>
-                        <input type='text' name='tel_transp' value =''>
+                        <input type='text' name='tel_transp' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" value =''>
                     </td>                  
                 </tr>
                 
