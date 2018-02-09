@@ -4,22 +4,53 @@
 
     </head>
     <body>
+        <script type='text/javascript'>
+
+            function valider() {
+
+                var regexmot = /[(\d)]/g;
+                var $msg = "";
+
+                if (document.form.nom_responsable.value === "" || regexmot.test(document.form.nom_responsable.value)) {
+                    $msg += "saisissez un nom  \n";
+                }
+                if (document.form.prenom_responsable.value === "" || regexmot.test(document.form.prenom_responsable.value)) {
+                    $msg += "saisissez un prénom  \n";
+                }
+                if (document.form.num_responsable.value === "" ) {
+                    $msg += "saisissez un numéro  \n";
+                }
+
+                if ($msg === "") {
+                    return true;
+                } else {
+                    alert($msg);
+
+                    return false;
+                }
+
+            }
+
+        </script>
+        
+
+
         <h1 align="center"><b>Déclarer une transhumance intrarégionale</b></h1>
         <h2>Renseignements responsable alpage</h2>
-        <form method="post" action="validation_transhumance.php" name='form' >
+        <form method="post" action="validation_transhumance.php" name='form' onsubmit='return valider()' >
             <table>
 
                 <tr>
                     <td><label>(*)Nom</label> :</td>
-                    <td><input type='text' name='nom_responsable' value =''></td>
+                    <td><input type='text' name='nom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
                 </tr>
                 <tr>
                     <td><label>(*)Prénom</label> :</td>
-                    <td><input type='text' name='prenom_responsable' value =''></td>
+                    <td><input type='text' name='prenom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
                 </tr>
                 <tr>
                     <td> <label>(*)Numéro de téléphone :</label></td>
-                    <td><input type='text' name='num_responsable' value =''></td>
+                    <td><input type='tel' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" name='num_responsable' value =''></td>
                 </tr>
             </table>
             <h2>Renseignements généraux</h2>
@@ -28,7 +59,7 @@
             (*)Date fin :
             <input id="date_fin" type="date"><br><br>
             <label>(*)Commune de destination :</label>
-            <input type='text' name='num_responsable' value =''>
+            <input type='text' name='commune' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
             <h2>Vos animaux déplacés</h2>
             <table>
                 <tr>
@@ -48,10 +79,10 @@
                         Caprins
                     </td>
                     <td>
-                        <input type='text' name='nbr_cap_-' value =''>
+                        <input type='text' name='nbr_cap_-' value ='' pattern = "[0-9]+">
                     </td>
                     <td>
-                        <input type='text' name='nbr_cap_+' value =''>
+                        <input type='text' name='nbr_cap_+' value ='' pattern = "[0-9]+">
                     </td>
 
                 </tr>
@@ -60,10 +91,10 @@
                         Ovins
                     </td>
                     <td>
-                        <input type='text' name='nbr_ov_-' value =''>
+                        <input type='text' name='nbr_ov_-' value ='' pattern = "[0-9]+">
                     </td>
                     <td>
-                        <input type='text' name='nbr_ov_+' value =''>
+                        <input type='text' name='nbr_ov_+' value ='' pattern = "[0-9]+">
                     </td>
 
 
@@ -72,7 +103,7 @@
             Description du marquage :<br>
             <TEXTAREA name="marquage" rows=10 cols=40></TEXTAREA><Br><br>
             
-            <input type="radio" name="type_paturage" value="collectif" /> Alpage/Pâturage collectif
+            <input type="radio" name="type_paturage" value="collectif" checked /> Alpage/Pâturage collectif
             <input type="radio" name="type_paturage" value="individuel" /> Alpage/Pâturage individuel
             <h2>Transporteur</h2>
             <table>
