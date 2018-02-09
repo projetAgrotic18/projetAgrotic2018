@@ -1,0 +1,28 @@
+//Pour appeler la fonction d'ouverture de la BDD,
+//Mettre juste après la balise ouvrante de php (<?php) :
+
+	require "../general/connexionPostgreSQL.class.php";
+
+//Puis la ligne suivante pour établir une connexion avec la BDD du projet :
+
+	$connex = new connexionPostgreSQL();
+
+//Pour faire une requête sur la BDD du projet, écrire ENSUITE la ligne suivante :
+
+	$result = $connex->requete("Mettre votre requête ici");
+
+//Pour parcourir les lignes de votre $result, utiliser :
+
+	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {}
+
+//Pour connaître le nombre de champs du $result :
+
+	pg_num_fields($result);
+
+//Pour connaître le nombre de lignes du $result :
+
+	pg_num_row($result);
+
+//Pour connaître le nom d'un champs du $result :
+
+	pg_field_name($result, $i); //où $i est le champs numéro i
