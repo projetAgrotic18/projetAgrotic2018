@@ -16,3 +16,5 @@
         <input type='passeword' name='mdp' size='10'><br/><br/>
         <input type='submit' name='bouton1' value='Soumettre'>
     </form><br><br>
+</body>
+</html>
