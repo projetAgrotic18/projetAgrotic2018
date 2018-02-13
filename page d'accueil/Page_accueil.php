@@ -14,7 +14,7 @@
         //Vérification de l'existance du compte
         require "../general/connexionPostgreSQL.class.php";
         $connex = new connexionPostgreSQL();
-        $result = $connex->requete("SELECT * FROM comptes_utilisateurs where login='$nom' and mot_de_passe=$mdp");
+        $result = $connex->requete("SELECT * FROM comptes_utilisateurs where login='".$nom."' and mot_de_passe='".$mdp."'");
     
 
 
@@ -33,6 +33,8 @@
             echo "</tr>";
         }
         echo "</table>";
+    
+        
         
         //Si compte existe pas --> message d'erreur
         if (pg_num_rows($result)==0){
@@ -44,6 +46,8 @@
 
         
     ?>
+    
+    
     
     
 <center><h1>Bienvenue sur le site</h1></center><br>
