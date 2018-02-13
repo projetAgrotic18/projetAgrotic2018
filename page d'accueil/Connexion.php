@@ -9,7 +9,7 @@
     <br><br>
     <!-- ddpp, gds, veto, labo, eleveur-->
     <h2>Veuillez vous connecter</h2>
-    <form method='GET' action='Exo8_part2.php'>
+    <form method='GET' action='Page_accueil.php'>
         <p>Saisir votre nom</p><br/>
         <input type='text' name='nom' size='10' value=''><br/>
         <p>Saisir votre mot de passe</p><br/>
