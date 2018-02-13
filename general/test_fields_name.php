@@ -10,3 +10,16 @@ $result = $connex->requete("SELECT * FROM transhumances");
 	}	
     echo "</tr>";
 
+<<<<<<< Updated upstream
+=======
+echo "</BR>";
+
+$result2 = $connex->requete("SELECT * FROM comptes_utilisateurs");
+
+    echo "<tr>";
+    for($i=0; $i<pg_num_fields($result2); $i++){
+		echo pg_field_name($result2, $i)."</br>";  
+	}	
+    echo "</tr>";
+
+>>>>>>> Stashed changes
