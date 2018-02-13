@@ -1,7 +1,14 @@
-    <center><h1>Exercices 8 PHP</h1></center><br>
+<html>
+<head>
+    <META charset="UTF-8">
+    <title>Connexion</title>
+    <script type="text/javascript" src="javascript.js" language="javascript"></script>
+</head>
+<body>    
+<center><h1>Nom du site</h1></center><br>
     <br><br>
-    
-    <h2>Formulaires et contrôles</h2>
+    <!-- ddpp, gds, veto, labo, eleveur-->
+    <h2>Veuillez vous connecter</h2>
     <form method='GET' action='Exo8_part2.php'>
         <p>Saisir votre nom</p><br/>
         <input type='text' name='nom' size='10' value=''><br/>
