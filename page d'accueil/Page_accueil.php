@@ -4,6 +4,15 @@
     <META charset="UTF-8">
     <title>Connexion</title>
     <script type="text/javascript" src="javascript.js" language="javascript"></script>
+    <style>
+        .box {
+            float: left;
+            width: 200px;
+            height: 100px;
+            margin: 1em; 
+            background-color: aquamarine;
+        }
+    </style>
 </head>
 <body>    
     <?php 
@@ -48,13 +57,37 @@
         else {
             echo "<center><h1>Bienvenue sur le site</h1></center><br><br><br>";
             echo "<h2>Page d'acceuil</h2>";
-            $_SESSION['id_compte']=$id;
-        }
-            
+            $_SESSION['id_compte']=$id;?>
     
-
-        
-    ?>
+    <div class='box'>
+        <p>image</p>
+        <a href='../carte/test1.php'>Voir la carte des zones tampons</a>
+    </div>
+    <div class='box'>
+        <p>image</p>
+        <a href='../diagnostic/diagnostic_v1.php'>saisir un diagnostic</a>
+    </div>
+    <div class='box'>
+        <p>image</p>
+        <a>Documents</a>
+    </div>
+    <div class='box'>
+        <p>image</p>
+        <a href='../prophylaxie/README.md'>Voir la carte des zones tampons</a>
+    </div>
+    <div class='box'>
+        <p>image</p>
+        <a href='../transhumance/transhumance.php'>Déclarer une transhumance</a>
+    </div>
+    <div class='box'>
+        <p>image</p>
+        <a href='../zone_tampon/README.md'>Liste des zones tampons</a>
+    </div>
+    
+            
+            
+            
+     <?php   }?>
     
 
     
