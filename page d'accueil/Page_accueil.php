@@ -17,7 +17,7 @@
         $result = $connex->requete("SELECT * FROM comptes_utilisateurs where login='".$nom."' and mot_de_passe='".$mdp."'");
     
 
-
+        // tableau de vérification de la requête
         echo "<table border=1 bordorcolor=black>";
         while ($row=pg_fetch_array($result,null,PGSQL_NUM)) {
             echo "<th>";
@@ -38,22 +38,26 @@
         
         //Si compte existe pas --> message d'erreur
         if (pg_num_rows($result)==0){
+            echo "<center><h1>Nom du site</h1></center><br><br><br>";
+            echo "<h2>Erreur</h2>";
+            echo "<p>Votre login ou votre mot de passe est incorrect</p><br/>";
             
         }
+    
         //Si compte existe  --> page d'accueil + ouverture d'une session 
+        else {
+            echo "<center><h1>Bienvenue sur le site</h1></center><br><br><br>";
+            echo "<h2>Page d'acceuil</h2>";
             $_SESSION['id_compte']=$id;
+        }
+            
     
 
         
     ?>
     
+
     
-    
-    
-<center><h1>Bienvenue sur le site</h1></center><br>
-    <br><br>
-    
-    
-    <button onclick="self.location.href='Exo.php'">Retour</button>
+    <button onclick="self.location.href='Connexion.php'">Retour</button>
 </body>
 </html>
