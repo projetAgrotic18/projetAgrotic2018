@@ -17,4 +17,6 @@ while ($row=pg_fetch_array($result,null,PGSQL_NUM)) {
 }
 echo "</table>";
 
+echo "prout" ;
+
 $connex->fermer;
