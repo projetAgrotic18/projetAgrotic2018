@@ -8,7 +8,7 @@
         <h2>Type de compte:</h2>
 		
 		<!-- Radio-boutonpour sélectionner le type de formulaire à remplir-->
-		<form method = 'POST' name = 'form_eleveur' action = 'compte_utilisateur2.php'>	
+		<form method = 'POST' name = 'form_eleveur' action = 'validation_compte_utilisateur.php'>	
             <INPUT type = radio name = rb value = 'ddpp' >DDPP 
             <INPUT type = radio name = rb value = 'gds'>GDS 
             <INPUT type = radio name = rb value = 'veto'>Vétérinaire / GTV 
