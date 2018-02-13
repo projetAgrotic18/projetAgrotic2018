@@ -55,38 +55,21 @@
 	<input type="date" name="date" size="10"><br/><br/>
 	
 	<h2>Caractéristiques du diagnostic :</h2>
-	Espèce : <br/>	
+	* Espèce : <br/>	
 	<select name="espece">
 		<option value="01">Bovin</option>
 		<option value="02">Ovin</option>
 		<option value="03">Caprin</option>
 	</select><br/><br/>
-	Sexe : <br/>	
+	* Numéro d'identification : <br/>	
+	<input type="text" name="numero" size="20"><br/>
+	* Sexe : <br/>	
 	<select name="sexe">
 		<option value="01">Femelle</option>
 		<option value="02">Mâle</option>
 	</select><br/><br/>
 
-	
-	<?php 
-	$ans_max=20; //années max
-	$mois_max=12; //mois max
-	echo "<select name='années'>";
-	echo "<option value=0> 0 an </option>";
-	echo "<option value=1> 1 an </option>";
-	for ($n=2; $n<=$ans_max; $n++){
-		echo "<option value=". $n .">".$n. " ans </option>";
-	}
-	echo "</select>";
-	echo "<select name='mois'>";
-	echo "<option value=0> <1 mois </option>";
-	for ($n=1; $n<=$mois_max; $n++){
-		echo "<option value=". $n .">".$n." mois </option>";
-	}
-	echo "</select><br/><br/>";
-	
-	// Ci-dessous la section réservée à l'affichage des Symptomes		
-		?>
+
 	<form>
 		Symptomes : <input type="text" size="20" onkeyup="afficheSymptome(this.value)">
 	</form>
