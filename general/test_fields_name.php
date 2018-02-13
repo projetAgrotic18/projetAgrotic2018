@@ -10,8 +10,6 @@ $result = $connex->requete("SELECT * FROM transhumances");
 	}	
     echo "</tr>";
 
-<<<<<<< Updated upstream
-=======
 echo "</BR>";
 
 $result2 = $connex->requete("SELECT * FROM comptes_utilisateurs");
@@ -22,4 +20,3 @@ $result2 = $connex->requete("SELECT * FROM comptes_utilisateurs");
 	}	
     echo "</tr>";
 
->>>>>>> Stashed changes
