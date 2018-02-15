@@ -21,7 +21,7 @@
         $type=$_SESSION["id_type_utilisateur"];
         
         //Vérification de l'existance du compte
-        require "../general/connexionPostgreSQL.class.php";
+       /* require "../general/connexionPostgreSQL.class.php";
         $connex = new connexionPostgreSQL();
         $result = $connex->requete("SELECT * FROM comptes_utilisateurs where login='".$nom."' and mot_de_passe='".$mdp."'");
     
@@ -54,10 +54,12 @@
         }
     
         //Si compte existe  --> page d'accueil + ouverture d'une session 
-        else {
+        else {*/
             echo "<center><h1>Bienvenue sur le site</h1></center><br><br><br>";
             echo "<h2>Page d'acceuil</h2>";
-            $_SESSION['id_compte']=$id;?>
+            echo $nom;
+            echo $type;
+            ?>
     
     <div class='box'>
         <p>image</p>
@@ -87,7 +89,8 @@
             
             
             
-     <?php   }?>
+     <?php //  }
+    ?>
     
 
     
