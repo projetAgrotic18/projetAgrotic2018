@@ -17,8 +17,8 @@
 <body>    
     <?php 
         //Récupération des infos page précédente
-        $nom=$_GET["nom"];
-        $mdp=$_GET["mdp"];
+        $nom=$_SESSION["id_compte_utilisateur"];
+        $type=$_SESSION["id_type_utilisateur"];
         
         //Vérification de l'existance du compte
         require "../general/connexionPostgreSQL.class.php";
