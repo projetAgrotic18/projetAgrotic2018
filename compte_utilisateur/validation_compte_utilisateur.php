@@ -12,7 +12,7 @@
         $adresse2 = $_POST["adresse2"]
         $commune = $_POST["commune"];
         $cp = $_POST["code_postal"];
-        $departement = $_POST["departement"];
+        //$departement = $_POST["departement"];
         $tel = $_POST["telephone"];
         $mail = $_POST["mail"];
         // Connexion, sélection de la base de données
