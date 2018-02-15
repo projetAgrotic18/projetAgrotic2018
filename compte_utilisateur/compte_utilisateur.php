@@ -13,7 +13,7 @@
             <INPUT type = radio name = rb value = 'gds'>GDS 
             <INPUT type = radio name = rb value = 'veto'>Vétérinaire / GTV 
             <INPUT type = radio name = rb value = 'labo'>Laboratoire 
-            <INPUT type = radio name = rb value = 'eleveur'>Eleveur <br/>
+            <INPUT type = radio name = rb value = 'eleveur'>Eleveur <br/><br/><br/>
             Mot de passe : <input type=text name='mot_de_passe' placeholder='Mot de Passe'><br/><br/><br/>
             Nom : <input type=text name='nom' placeholder='Nom'><br/><br/><br/>
             Adresse : <input type=text name='adresse' placeholder='Adresse' size = 100><br/><br/> 
