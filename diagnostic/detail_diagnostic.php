@@ -2,7 +2,7 @@
 
 <head>
 	<META charset = "UTF-8">
-	<title>USD5</title>
+	<title> Détails diagnostic USD5</title>
 </head>
 
 <body>
