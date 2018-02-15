@@ -4,10 +4,12 @@
 	<body>
 		<?php
         
+        $login = $_POST["login"];
         $mdp = $_POST["mot_de_passe"];
         $nom = $_POST["nom"];
         $type = $_POST["rb"];
         $adresse = $_POST["adresse"];
+        $adresse2 = $_POST["adresse2"]
         $commune = $_POST["commune"];
         $cp = $_POST["code_postal"];
         $departement = $_POST["departement"];
@@ -20,10 +22,7 @@
 
 		// Exécution de la requête SQL
 
-			$query = 'INSERT INTO comptes_utilisateurs(mot_de_passe, nom, tel, adresse) VALUES('$mdp', '$nom', '$type','$tel','$adresse')';
-            $query2 = 'INSERT INTO type_utilisateur(libelle_type_utilisateur) VALUES('$type')'
-            $query3 = 'INSERT INTO departements(libelle_dep) VALUES('$departement')';
-            $query4 = 'INSERT INTO communes(nom_commune, code_postal) VALUES('$commune','$cp')';
+			$query = 'INSERT INTO compte_utilisateurs(id_compte, (SELECT id_compte_utilisateur FROM compte_utilisateur WHERE libelle_type_utilisateur=$type), (SELECT id_commune FROM commune WHERE code_postal=$cp), identifiant, mdp, nom, portable, mail, adresse, adresse2) VALUES('', '', '','$login', '$mdp', '$nom', '$tel', '$mail', '$adresse','$adresse2')';
 			$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 
 		    echo "Votre compte a bien été créé";

@@ -14,9 +14,11 @@
             <INPUT type = radio name = rb value = 'veto'>Vétérinaire / GTV 
             <INPUT type = radio name = rb value = 'labo'>Laboratoire 
             <INPUT type = radio name = rb value = 'eleveur'>Eleveur <br/><br/><br/>
+            Login : <input type=text name='login' placeholder='Login'><br/><br/>
             Mot de passe : <input type=text name='mot_de_passe' placeholder='Mot de Passe'><br/><br/><br/>
             Nom : <input type=text name='nom' placeholder='Nom'><br/><br/><br/>
-            Adresse : <input type=text name='adresse' placeholder='Adresse' size = 100><br/><br/> 
+            Adresse : <input type=text name='adresse' placeholder='Adresse' size = 100><br/><br/>
+            Adresse (suite) : <input type=text name='adresse2' placeholder='Adresse (suite)'>
             Commune : <input type=text name='commune' placeholder='Commune' size = 75> 
             Code postal : <input type=text name='code_postal' placeholder='Code Postal' size = 20><br/><br/> 
             Département : <input type=text name='departement' placeholder='Département' size = 100><br/><br/><br/> 
