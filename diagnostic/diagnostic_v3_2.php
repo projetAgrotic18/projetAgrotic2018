@@ -10,13 +10,18 @@
 	<?php	
 	$espece=$_GET["porygon"];
 	
-	$result = $connex->requete("SELECT sympt.libelle_symptome FROM sympt 
-				JOIN symptdiag ON symptdiag.id_sympt=sympt.id_sympt 
-				JOIN diagnostic ON symptdiag.id_diagnostic=diagnostic.id_diagnostic 
-				JOIN espece ON diagnostic.id_espece=espece.id_espece 
-				WHERE espece.libelle_espece=".$_espece);
+	require "../general/connexionPostgreSQL.class.php";
+	$connex = new connexionPostgreSQL();	
+	
+	$result=$connex->requete("SELECT*FROM sympt");
+	
+	// $result = $connex->requete("SELECT sympt.libelle_symptome FROM sympt 
+				// JOIN symptdiag ON symptdiag.id_sympt=sympt.id_sympt 
+				// JOIN diagnostic ON symptdiag.id_diagnostic=diagnostic.id_diagnostic 
+				// JOIN espece ON diagnostic.id_espece=espece.id_espece 
+				// WHERE espece.libelle_espece=".$_espece);
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo $row[0];
+		echo $row[2];
 	}		
 	
 	// if ($espece == 'bovin'){

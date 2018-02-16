@@ -14,7 +14,7 @@
 					porygon:str
 				},
 				success: function(response){
-					document.getElementById("symptomes").innerHTML=response;
+					document.getElementById("symptome").innerHTML=response;
 				}
 			});
 		}
@@ -56,9 +56,6 @@
 	<input type=radio name="espece" value="caprin" onclick=espece_animal(this.value)>Caprin
 	<input type=radio name="espece" value="ovin" onclick=espece_animal(this.value)>Ovin
 	<br/>
-	
-	
-	
 	<span id="symptome"></id>
 
 	</form>
