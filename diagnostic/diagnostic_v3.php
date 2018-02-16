@@ -62,7 +62,7 @@
 
 	</head>
 	<body>
-	<form method="GET" action="diagnostic_v3_2.php">
+	<form method="GET" action="diagnostic_v3_2.php" onsubmit="return valider()" name="formsaisie">
 	
 	<h1>Diagnostic vétérinaire</h1>
 	(*) : champs obligatoires <br/>	

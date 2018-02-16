@@ -5,19 +5,21 @@
 	
 	<body>
 	<h1>Validation</h1>
-	Votre diagnostic a bien été ajouté. <br>
 	
 	<?php
 	if (isset($_GET["nom_exploitant"]) && isset($_GET["nom_exploitation"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
 		
-	//Lien avec l'éleveur
-	$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur JOIN diagnostic ON compte_utilisateur.id_compte=diagnostic.id_compte 
-								WHERE compte_utilisateur.nom='".$_GET["nom_exploitant"]."' AND compte_utilisateur.id_type_utilisateur='7'");
-	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo $row[0];
+		//Lien avec l'éleveur
+		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur JOIN diagnostic ON compte_utilisateur.id_compte=diagnostic.id_compte 
+									WHERE compte_utilisateur.nom='".$_GET["nom_exploitant"]."' AND compte_utilisateur.id_type_utilisateur='7'");
+		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+			echo $row[0];
+		}
 	}
+	else{
 	
-	
+		echo "Rien n'a été ajouté car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
+	}
 	
 	//Insertion de l'id_compte 
 	
@@ -29,7 +31,7 @@
 	// Insertion maladie 
 	// $result= $connex->requete("INSERT INTO maladie(id_maladie, id_espece, libelle_maladie, cat_maladie, precautions) VALUES('', '', '$autre_maladie', '', '')";	
 		
-	} //pour le if
+	 //pour le if
 	
 	?>
 	
