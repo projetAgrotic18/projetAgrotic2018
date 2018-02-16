@@ -25,7 +25,7 @@
                     }
                 },
                 complete: function(){
-                    if (document.getElementById('alerte').innerHTML==""){
+                    if (document.getElementById('alerte').innerHTML=="Connexion établie"){
                         return true;
                     };
                     else{return false};
@@ -34,19 +34,22 @@
 
         };
         
-        function verif2(){
-            
+        function tafonction(){
+            // traitement
+            setTimeout(tafonction,1000); /* rappel après 2 secondes = 2000 millisecondes */
         }
+        tafonction();
+
         
     </script>
 </head>
-<body>    
+<body>
 <center><h1>Nom du site</h1></center><br>
     <br><br>
     <!-- ddpp, gds, veto, labo, eleveur-->
     <h2>Veuillez vous connecter</h2>
     <span id='alerte'></span>
-    <form method='POST' action='Page_accueil.php' onsubmit="return verif()">
+    <form method='POST' action='Page_accueil2.php' onsubmit="return verif()">
         <p>Saisir votre nom</p><br/>
         <input type='text' name='nom' id='nom' size='10' value=''><br/>
         <p>Saisir votre mot de passe</p><br/>

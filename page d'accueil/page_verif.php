@@ -16,9 +16,10 @@
 
     //Si compte existe  --> page d'accueil + ouverture d'une session 
     else {
-        $row=pg_fetch_array($result,null,PGSQL_NUM);
-        $_SESSION["id_compte"]=$row['id_compte'];
-        $_SESSION["id_type_utilisateur"]=$row['id_type_utilisateur'];
+        while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
+                $_SESSION["id_compte"]=$row[0];
+                $_SESSION["id_type_utilisateur"]=$row[1];
+            }
         echo "Success";
     }
 ?>
