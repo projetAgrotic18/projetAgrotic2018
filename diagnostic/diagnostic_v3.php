@@ -30,11 +30,6 @@
 			ok = 0;
 			msg = msg + "[Date]";
 		}
-		if (document.formsaisie.sexe.value == "")
-		{
-			ok = 0;
-			msg = msg + "[Sexe]";
-		}
 		if (document.formsaisie.espece.value == "")
 		{
 			ok = 0;
@@ -71,14 +66,10 @@
 	<h2>Caractéristiques du diagnostic :</h2>
 	Numéro d'identification : <br/>	
 	<input type="text" name="numero" size="20"><br/><br/>	
-	* Sexe : <br/>	
-	<input type=radio name="sexe" value="femelle" onclick=>Femelle
-	<input type=radio name="sexe" value="male" onclick=>Mâle
-	<br/><br/>
 	* Espèce : <br/>	
-	<input type=radio name="espece" value="bovin" onclick=espece_animal(this.value)>Bovin
-	<input type=radio name="espece" value="caprin" onclick=espece_animal(this.value)>Caprin
-	<input type=radio name="espece" value="ovin" onclick=espece_animal(this.value)>Ovin
+	<input type=radio name="espece" value="1">Bovin
+	<input type=radio name="espece" value="2">Ovin
+	<input type=radio name="espece" value="3">Caprin
 	<br/><br/>
 	<!--<span id="symptome"></id>-->
 
@@ -88,9 +79,9 @@
 	
 	//Symptomes : 
 	echo "Symptomes : <br/>";	
-	$result = $connex->requete("SELECT symp.libelle_symptome FROM symp");
+	$result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='symptome' value=".$row[0].">".$row[0]."<br/>";
+		echo "<input type=checkbox name='symptome' value=".$row[0].">".$row[1]."<br/>";
 	}
 	//Autre symptome
 	echo "Autre symptome : <br/>";
@@ -98,9 +89,9 @@
 	
 	//Maladies :
 	echo "Maladies : <br/>";
-	$result = $connex->requete("SELECT libelle_maladie FROM maladie");
+	$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='maladie' value=".$row[0].">".$row[0]."<br/>";
+		echo "<input type=checkbox name='maladie' value=".$row[0].">".$row[1]."<br/>";
 	}
 	//Autre maladie
 	echo "Autre maladie : <br/>";
@@ -108,23 +99,26 @@
 	
 	//Prélèvements :
 	echo "Prélèvements : <br/>";
-	$result = $connex->requete("SELECT libelle_prelevement FROM prelev");
+	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='prelevement' value=".$row[0].">".$row[0]."<br/>";
+		echo "<input type=checkbox name='prelevement' value=".$row[0].">".$row[1]."<br/>";
 	}
 	echo "<br/>";
 	
 	//Analyses :
 	echo "Analyses : <br/>";
-	$result2 = $connex->requete('SELECT libelle_analyse FROM "ANALYSE"');
+	$result2 = $connex->requete('SELECT id_analyse, libelle_analyse FROM "ANALYSE"');
 	while ($row = pg_fetch_array($result2, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='analyse' value=".$row[0].">".$row[0]."<br/>";
+		echo "<input type=checkbox name='analyse' value=".$row[0].">".$row[1]."<br/>";
 	}
 	echo "<br/>";
 	?>
 	
 	Préconisations : <br/>
 	<input type="text" name="preconisation" size="150"><br/><br/>
+	
+	Commentaire laboratoire : <br/>
+	<input type="text" name="commentaire_labo" size="150"><br/><br/>
 	
 	<input type="submit" value="Ajouter ce diagnostic">
 	</form>

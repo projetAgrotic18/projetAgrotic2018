@@ -7,14 +7,33 @@
 	<h1>Validation</h1>
 	
 	<?php
-	if (isset($_GET["nom_exploitant"]) && isset($_GET["nom_exploitation"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
+	
+	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
+		//Connexion
+		require "../general/connexionPostgreSQL.class.php";
+		$connex = new connexionPostgreSQL();	
 		
-		//Lien avec l'éleveur
-		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur JOIN diagnostic ON compte_utilisateur.id_compte=diagnostic.id_compte 
-									WHERE compte_utilisateur.nom='".$_GET["nom_exploitant"]."' AND compte_utilisateur.id_type_utilisateur='7'");
+		//id_compte : id du véto
+		//fichier start
+	
+		//com_id_compte : id de l'éleveur
+		$com_id_compte;	
+		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$_GET["nom_exploitant"]."' AND compte_utilisateur.id_type_utilisateur='9'");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-			echo $row[0];
+			$com_id_compte=$row[0];
 		}
+		
+		//id_espece : $_GET["espece"]
+		
+		//date_diagnostic : $_GET["date"]
+		
+		//preconisation : $_GET["preconisation"]
+		
+		//confirme ? : 1 par défaut
+		
+		//comm_labo	: $_GET["commentaire_labo"]
+		
+		$result= $connex->requete("INSERT INTO diagnostic(id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_lab) VALUES ('7', '".$com_id_compte."', '".$_GET["espece"]."', '".$_GET["date"]."', '".$_GET["preconisation"]."', '1', '".$_GET["commentaire_labo"]."'");
 	}
 	else{
 	
@@ -26,15 +45,14 @@
 	//Insertions des données 
 	
 	// Insertion symptome 
-	// $result= $connex->requete("INSERT INTO symp(id_sympt, id_obl, libelle_symptome) VALUES('', '', '$autre_symptome')";
+	// $result= $connex->requete("INSERT INTO symp(libelle_symptome) VALUES('$autre_symptome')";
 		
 	// Insertion maladie 
-	// $result= $connex->requete("INSERT INTO maladie(id_maladie, id_espece, libelle_maladie, cat_maladie, precautions) VALUES('', '', '$autre_maladie', '', '')";	
+	// $result= $connex->requete("INSERT INTO maladie(libelle_maladie) VALUES('$autre_maladie')";	
 		
 	 //pour le if
 	
 	?>
-	
 	
 	</body>
 </html>
