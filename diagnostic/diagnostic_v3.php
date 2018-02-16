@@ -11,9 +11,9 @@
 	</head>
 	<body>
 	<?php
-	require "../general/connexionPostgreSQL.class.php";
-	$connex = new connexionPostgreSQL();
-	$result = $connex->requete("Mettre votre requête ici");
+	//require "../general/connexionPostgreSQL.class.php";
+	//$connex = new connexionPostgreSQL();
+	//$result = $connex->requete("Mettre votre requête ici");
 	?>
 	
 	<h1>Diagnostic vétérinaire</h1>
