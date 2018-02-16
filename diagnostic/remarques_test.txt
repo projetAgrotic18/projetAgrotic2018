@@ -2,3 +2,7 @@ Attention, pour l'instant :
 
 - on considère qu'il n'y a pas d'homonymes
 - on considère qu'il n'y a qu'une une seule exploitation par personne
+
+Vérifications php + javascript
+
+Confusions sur les champs obligatoires... à revérifier

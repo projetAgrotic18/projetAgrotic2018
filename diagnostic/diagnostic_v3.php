@@ -18,6 +18,46 @@
 				}
 			});
 		}
+		
+	var ok =1;
+	var msg = "Veuillez saisir les informations suivantes :";
+	function valider(){
+		if (document.formsaisie.nom_exploitant.value == "") 	
+		{
+			ok = 0;
+			msg = msg + "\n[Nom de l'exploitant] \n";
+		}
+		if (document.formsaisie.nom_exploitation.value == "") 
+		{
+			ok = 0;
+			msg = msg + "[Nom de l'exploitation] \n";
+		}		
+		if (document.formsaisie.commune.value == "")
+		{
+			ok = 0;
+			msg = msg + "[Commune] \n";
+		}
+		if (document.formsaisie.date.value == "")
+		{
+			ok = 0;
+			msg = msg + "[Date]";
+		}
+		if (document.formsaisie.sexe.value == "")
+		{
+			ok = 0;
+			msg = msg + "[Sexe]";
+		}
+		if (document.formsaisie.espece.value == "")
+		{
+			ok = 0;
+			msg = msg + "[Espèce]";
+		}
+		if (ok !=1)
+		{
+			alert(msg);
+			return false;
+		}
+	}	
 	</script>
 
 	</head>
@@ -30,10 +70,10 @@
 	<!--Caractéristiques-->
 	<h2>Caractéristiques généraux :</h2>
 	* Nom de l'exploitant : <br/>
-	<input type="text" name="nom_exploitant" size="20" value=" "><br/>
+	<input type="text" name="nom_exploitant" size="20"><br/>
 	* Nom de l'exploitation : <br/>
 	<input type="text" name="nom_exploitation" size="20"><br/>
-	* Numéro de l'exploitation : <br/>
+	Numéro de l'exploitation : <br/>
 	<input type="text" name="numero_exploitation" size="20"><br/>
 	* Commune : <br/>
 	<input type="text" name="commune" size="20"><br/>
@@ -41,7 +81,7 @@
 	<input type="date" name="date" size="10"><br/><br/>
 	
 	<h2>Caractéristiques du diagnostic :</h2>
-	* Numéro d'identification : <br/>	
+	Numéro d'identification : <br/>	
 	<input type="text" name="numero" size="20"><br/><br/>	
 	* Sexe : <br/>	
 	<input type=radio name="sexe" value="femelle" onclick=>Femelle
@@ -64,11 +104,9 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome' value=".$row[0].">".$row[0]."<br/>";
 	}
-	echo "<br/>";
-	//autre symptome
-	// echo "Autre symptome : <br/>";
-	// echo "<input type='text' name='autre_symptome' size='60' value=''><br/>";
-	// $result= $connex->requete("INSERT INTO symp(id_sympt, id_obl, libelle_symptome) VALUES('', '', '$autre_symptome')";
+	//Autre symptome
+	echo "Autre symptome : <br/>";
+	echo "<input type='text' name='autre_symptome' size='60' value=''><br/><br/>";
 	
 	//Maladies :
 	echo "Maladies : <br/>";
@@ -76,11 +114,9 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie' value=".$row[0].">".$row[0]."<br/>";
 	}
-	echo "<br/>";
-	//autre maladie
-	// echo "Autre maladie : <br/>";
-	// echo "<input type='text' name='autre_maladie' size='60' value=''><br/>";
-	// $result= $connex->requete("INSERT INTO maladie(id_maladie, id_espece, libelle_maladie, cat_maladie, precautions) VALUES('', '', '$autre_maladie', '', '')";
+	//Autre maladie
+	echo "Autre maladie : <br/>";
+	echo "<input type='text' name='autre_maladie' size='60' value=''><br/><br/>";
 	
 	//Prélèvements :
 	echo "Prélèvements : <br/>";
@@ -98,7 +134,11 @@
 	}
 	echo "<br/>";
 	?>
-	<INPUT type = "submit" value="Ajouter ce diagnostic">
+	
+	Préconisations : <br/>
+	<input type="text" name="preconisation" size="150"><br/><br/>
+	
+	<input type="submit" value="Ajouter ce diagnostic">
 	</form>
 	</body>
 </html>
