@@ -8,16 +8,27 @@
 		<b> Tableau des diagnostics : </b><br/>
 		
 		<?php
+		
 		require "../general/connexionPostgreSQL.class.php";
 		$connex = new connexionPostgreSQL();
-		$result = $connex->requete("SELECT c.nom, c.nom_exploitation, co.nom_commune, e.libelle_espece, m.libelle_maladie, d.date_diagnostic, d.id_diagnostic
-				FROM commune co JOIN compte_utilisateur c ON co.id_commune = c.id_commune
-					JOIN diagnostic d ON c.id_compte = d.id_compte
-					JOIN espece e ON d.id_espece = e.id_espece
-					JOIN maladie m ON e.id_espece = m.id_espece
-				WHERE id_type_utilisateur = 1");
+		$result = $connex->requete("SELECT * FROM diagnostic");
+		
+		$result = $connex->requete("SELECT * from liste_diag");
 
-		$row=pg_fetch_array($result,null,PGSQL_NUM);
+		//Code de Pierre
+		
+		echo "<table border=1 bordorcolor=black>";
+		while ($row=pg_fetch_array($result,null,PGSQL_NUM)) {
+			echo "<tr>";
+			for($i=0; $i<pg_num_fields($result); $i++){
+				echo "<td>".$row[$i]."</td>";
+			}
+			echo "</tr>";
+		}
+		echo "</table>";
+		
+		
+		/* Code de Martin et Laure mis en comm' par Pierre
 		
 		echo "<table border=1>" ;
 		
@@ -41,9 +52,13 @@
 		
 		echo "</table>" ;
 		
+		
+		
 		mysqli_free_result($result);
 		mysqli_close($link);		
+		*/
 		
+		$connex->fermer();
 		?>
 				
 		</body>
