@@ -5,37 +5,36 @@
 	
 	<body>
 	<h1>Validation</h1>
-	Votre diagnostic a bien été ajouté. <br>
 	
-	<?php	
-	$espece=$_GET["porygon"];
+	<?php
+	if (isset($_GET["nom_exploitant"]) && isset($_GET["nom_exploitation"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
+		
+		//Lien avec l'éleveur
+		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur JOIN diagnostic ON compte_utilisateur.id_compte=diagnostic.id_compte 
+									WHERE compte_utilisateur.nom='".$_GET["nom_exploitant"]."' AND compte_utilisateur.id_type_utilisateur='7'");
+		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+			echo $row[0];
+		}
+	}
+	else{
 	
-	require "../general/connexionPostgreSQL.class.php";
-	$connex = new connexionPostgreSQL();	
+		echo "Rien n'a été ajouté car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
+	}
 	
-	$result=$connex->requete("SELECT*FROM sympt");
+	//Insertion de l'id_compte 
 	
-	// $result = $connex->requete("SELECT sympt.libelle_symptome FROM sympt 
-				// JOIN symptdiag ON symptdiag.id_sympt=sympt.id_sympt 
-				// JOIN diagnostic ON symptdiag.id_diagnostic=diagnostic.id_diagnostic 
-				// JOIN espece ON diagnostic.id_espece=espece.id_espece 
-				// WHERE espece.libelle_espece=".$_espece);
-	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo $row[2];
-	}		
+	//Insertions des données 
 	
-	// if ($espece == 'bovin'){
-		// echo "<input type=checkbox name='symptome' value='avortement'>avortement <br/>";
-		// echo "<input type=checkbox name='symptome' value='avortement'>chute production laitière <br/>";
-		// echo "<input type=checkbox name='symptome' value='avortement'>conjonctivite <br/>";
+	// Insertion symptome 
+	// $result= $connex->requete("INSERT INTO symp(id_sympt, id_obl, libelle_symptome) VALUES('', '', '$autre_symptome')";
+		
+	// Insertion maladie 
+	// $result= $connex->requete("INSERT INTO maladie(id_maladie, id_espece, libelle_maladie, cat_maladie, precautions) VALUES('', '', '$autre_maladie', '', '')";	
+		
+	 //pour le if
+	
 	?>
 	
 	
-	<FORM action="diagnostic_v3.php">
-		<INPUT type = "submit" value="Consulter ce diagnostic">
-	</FORM>
-	<FORM action="diagnostic_v3.php">
-		<INPUT type = "submit" value="Ajouter un autre diagnostic">
-	</FORM>
 	</body>
 </html>
