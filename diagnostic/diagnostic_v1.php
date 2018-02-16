@@ -77,7 +77,8 @@
 	<p>Suggestions de symptomes : <br/><span id="txtSymptome"></span></p>
  
 
-	<input type="submit" name="bouton1" value="Ajouter mon diagnostic"> <br/>
+	<input type="submit" name="bouton1" value="Annuler">
+	<input type="submit" name="bouton1" value="Ajouter mon diagnostic"><br/><br/>
 	</form>
 	</body>
 </html>
