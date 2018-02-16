@@ -6,18 +6,6 @@
 
 	<!-- Section Javascript: définition de la fonction gérant la récupération des données -->
 	<script type="text/javascript">
-		function espece_animal(str){
-			$.ajax({
-				type: 'get',
-				url: 'diagnostic_v3_2.php',
-				data: {
-					porygon:str
-				},
-				success: function(response){
-					document.getElementById("symptome").innerHTML=response;
-				}
-			});
-		}
 		
 	var ok =1;
 	var msg = "Veuillez saisir les informations suivantes :";
