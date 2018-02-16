@@ -26,3 +26,8 @@
 //Pour connaître le nom d'un champs du $result :
 
 	pg_field_name($result, $i); //où $i est le champs numéro i
+
+//Pour fermer la connexion à la bdd :
+
+	$connex->fermer;
+
