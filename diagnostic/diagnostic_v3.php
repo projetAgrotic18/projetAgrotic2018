@@ -58,9 +58,9 @@
 	<input type="text" name="nom_exploitation" size="20"><br/>
 	Numéro de l'exploitation : <br/>
 	<input type="text" name="numero_exploitation" size="20"><br/>
-	* Commune : <br/>
+	* Commune du diagnostic : <br/>
 	<input type="text" name="commune" size="20"><br/>
-	* Date : <br/>
+	* Date du diagnostic : <br/>
 	<input type="date" name="date" size="10"><br/><br/>
 	
 	<h2>Caractéristiques du diagnostic :</h2>
