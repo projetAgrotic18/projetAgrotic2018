@@ -9,11 +9,11 @@
 	
 	<?php
 	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
-		$_GET["nom_exploitant"]=$nom_exploitant;
-		$_GET["commune"]=$commune;
-		$_GET["date"]=$date;
-		$_GET["espece"]=$espece;
-		$_GET["preconisation"]=$preconisation;
+		$nom_exploitant = $_GET["nom_exploitant"];
+		$commune = $_GET["commune"];
+		$date = $_GET["date"];
+		$espece = $_GET["espece"];
+		$preconisation = $_GET["preconisation"];
 		$id_veto = $_SESSION["id_veto"];
 		
 		// $_GET["symptome"]=$symptome;
@@ -39,13 +39,15 @@
 		
 		//preconisation : $preconisation
 		
-		$result_id_diag = $connex->("SELECT max(id_diagnostic) FROM diagnostic");
-		while ($row = pg_fecth_array($result_id_diag, nulln PGSQL_NUM)) {
+		$result_id_diag = $connex->requete("SELECT max(id_diagnostic) FROM diagnostic");
+		while ($row = pg_fetch_array($result_id_diag, null, PGSQL_NUM)) {
 			$id_diagnostic = $row[0];
 		}
 		
-		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo)
-			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '')");
+		$id_diagnostic = $id_diagnostic +1;
+		
+		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
+			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$commune."')");
 		
 		#ajouter les symptomes
 		#$result= $connex->requete("INSERT INTO symp(id_sympt, id_obl, libelle_symptome) VALUES ('5', '1', '".$symptome."');
