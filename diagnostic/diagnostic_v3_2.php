@@ -5,37 +5,54 @@
 	
 	<body>
 	<h1>Validation</h1>
-	Votre diagnostic a bien été ajouté. <br>
 	
-	<?php	
-	$espece=$_GET["porygon"];
+	<?php
 	
-	require "../general/connexionPostgreSQL.class.php";
-	$connex = new connexionPostgreSQL();	
+	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
+		//Connexion
+		require "../general/connexionPostgreSQL.class.php";
+		$connex = new connexionPostgreSQL();	
+		
+		//id_compte : id du véto
+		//fichier start
 	
-	$result=$connex->requete("SELECT*FROM sympt");
+		//com_id_compte : id de l'éleveur
+		$com_id_compte;	
+		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$_GET["nom_exploitant"]."' AND compte_utilisateur.id_type_utilisateur='9'");
+		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+			$com_id_compte=$row[0];
+		}
+		
+		//id_espece : $_GET["espece"]
+		
+		//date_diagnostic : $_GET["date"]
+		
+		//preconisation : $_GET["preconisation"]
+		
+		//confirme ? : 1 par défaut
+		
+		//comm_labo	: $_GET["commentaire_labo"]
+		
+		$result= $connex->requete("INSERT INTO diagnostic(id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_lab) VALUES ('7', '".$com_id_compte."', '".$_GET["espece"]."', '".$_GET["date"]."', '".$_GET["preconisation"]."', '1', '".$_GET["commentaire_labo"]."'");
+	}
+	else{
 	
-	// $result = $connex->requete("SELECT sympt.libelle_symptome FROM sympt 
-				// JOIN symptdiag ON symptdiag.id_sympt=sympt.id_sympt 
-				// JOIN diagnostic ON symptdiag.id_diagnostic=diagnostic.id_diagnostic 
-				// JOIN espece ON diagnostic.id_espece=espece.id_espece 
-				// WHERE espece.libelle_espece=".$_espece);
-	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo $row[2];
-	}		
+		echo "Rien n'a été ajouté car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
+	}
 	
-	// if ($espece == 'bovin'){
-		// echo "<input type=checkbox name='symptome' value='avortement'>avortement <br/>";
-		// echo "<input type=checkbox name='symptome' value='avortement'>chute production laitière <br/>";
-		// echo "<input type=checkbox name='symptome' value='avortement'>conjonctivite <br/>";
+	//Insertion de l'id_compte 
+	
+	//Insertions des données 
+	
+	// Insertion symptome 
+	// $result= $connex->requete("INSERT INTO symp(libelle_symptome) VALUES('$autre_symptome')";
+		
+	// Insertion maladie 
+	// $result= $connex->requete("INSERT INTO maladie(libelle_maladie) VALUES('$autre_maladie')";	
+		
+	 //pour le if
+	
 	?>
 	
-	
-	<FORM action="diagnostic_v3.php">
-		<INPUT type = "submit" value="Consulter ce diagnostic">
-	</FORM>
-	<FORM action="diagnostic_v3.php">
-		<INPUT type = "submit" value="Ajouter un autre diagnostic">
-	</FORM>
 	</body>
 </html>
