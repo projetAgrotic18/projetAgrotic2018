@@ -14,21 +14,16 @@
 		{
 			ok = 0;
 			msg = msg + "\n[Nom de l'exploitant] \n";
-		}
-		if (document.formsaisie.nom_exploitation.value == "") 
-		{
-			ok = 0;
-			msg = msg + "[Nom de l'exploitation] \n";
-		}		
-		if (document.formsaisie.commune.value == "")
-		{
-			ok = 0;
-			msg = msg + "[Commune] \n";
-		}
+		}	
 		if (document.formsaisie.date.value == "")
 		{
 			ok = 0;
 			msg = msg + "[Date]";
+		}
+		if (document.formsaisie.commune.value == "")
+		{
+			ok = 0;
+			msg = msg + "[Lieu du diagnostic]";
 		}
 		if (document.formsaisie.espece.value == "")
 		{
@@ -54,18 +49,14 @@
 	<h2>Caractéristiques généraux :</h2>
 	* Nom de l'exploitant : <br/>
 	<input type="text" name="nom_exploitant" size="20"><br/>
-	* Nom de l'exploitation : <br/>
+	  Nom de l'exploitation : <br/>
 	<input type="text" name="nom_exploitation" size="20"><br/>
-	Numéro de l'exploitation : <br/>
-	<input type="text" name="numero_exploitation" size="20"><br/>
 	* Commune du diagnostic : <br/>
 	<input type="text" name="commune" size="20"><br/>
 	* Date du diagnostic : <br/>
 	<input type="date" name="date" size="10"><br/><br/>
 	
 	<h2>Caractéristiques du diagnostic :</h2>
-	Numéro d'identification : <br/>	
-	<input type="text" name="numero" size="20"><br/><br/>	
 	* Espèce : <br/>	
 	<input type=radio name="espece" value="1">Bovin
 	<input type=radio name="espece" value="2">Ovin
