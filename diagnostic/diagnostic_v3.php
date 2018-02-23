@@ -36,7 +36,21 @@
 			alert(msg);
 			return false;
 		}
-	}	
+	}
+	
+	function actu_maladie(liste){
+		$.ajax({
+			type: 'get', 
+			url: 'diagnostic_v3b.php',
+			data: {
+				porygon:liste
+			},
+			success: function (response){
+					document.getElementById("actuFormulaire").innerHTML=response;
+			}
+		});
+	}
+	
 	</script>
 
 	</head>
@@ -76,19 +90,23 @@
 	// Récupération de l'id du compte_utilisateur vétérinaire connecté à l'outil
 	$_SESSION["id_veto"]=7;
 	
+	$_SESSION["choix_symptome"]=array();
 	//Symptomes : 
 	echo "Symptomes : <br/>";	
 	$result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='symptome[]' value=".$row[0].">".$row[1]."<br/>";
+		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
-	
+	echo "<span id='actuFormulaire'></id>";
+
 	//Maladies :
 	echo "Maladies : <br/>";
 	$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
 	}
+	
+	echo "</span>";
 	
 	//Prélèvements :
 	echo "Prélèvements : <br/>";

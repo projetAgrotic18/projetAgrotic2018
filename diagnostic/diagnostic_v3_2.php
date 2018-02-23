@@ -74,7 +74,7 @@
 		}
 	}
 	else{
-		echo "Rien n'a été ajouté à notre base de donnée, car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
+		echo "Rien n'a été ajouté à notre base de données, car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
 	}
 		
 	?>
