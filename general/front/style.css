@@ -37,3 +37,10 @@
     max-height: 60px;
 }
 
+.sonnaille_footer{
+    height: 80px;
+    background-color: #555555;
+    color:white;
+    text-align: center;
+    line-height: 80px;
+}
