@@ -72,25 +72,11 @@
 		for ($i=0; $i<count($analyse); $i++){
 			$result= $connex->requete("INSERT INTO analyses_diag (id_analyse, id_diagnostic) VALUES ('".$analyse[$i]."','".$id_diagnostic."')");
 		}
-
 	}
 	else{
-	
-		echo "Rien n'a été ajouté car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
+		echo "Rien n'a été ajouté à notre base de donnée, car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
 	}
-	
-	//Insertion de l'id_compte 
-	
-	//Insertions des données 
-	
-	// Insertion symptome 
-	// $result= $connex->requete("INSERT INTO symp(libelle_symptome) VALUES('$autre_symptome')";
 		
-	// Insertion maladie 
-	// $result= $connex->requete("INSERT INTO maladie(libelle_maladie) VALUES('$autre_maladie')";	
-		
-	 //pour le if
-	
 	?>
 	
 	</body>

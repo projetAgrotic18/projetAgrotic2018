@@ -82,9 +82,6 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome[]' value=".$row[0].">".$row[1]."<br/>";
 	}
-	//Autre symptome - Les vétérinaires ne peuvent pas ajouter de nouveaux symptomes à la BDD
-	// echo "Autre symptome : <br/>";
-	// echo "<input type='text' name='autre_symptome' size='60' value=''><br/><br/>";
 	
 	//Maladies :
 	echo "Maladies : <br/>";
@@ -92,9 +89,6 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
 	}
-	//Autre maladie - Les vétérinaires ne peuvent pas ajouter de nouvelles maladies à la BDD
-	// echo "Autre maladie : <br/>";
-	// echo "<input type='text' name='autre_maladie' size='60' value=''><br/><br/>";
 	
 	//Prélèvements :
 	echo "Prélèvements : <br/>";
@@ -115,10 +109,7 @@
 	
 	Préconisations : <br/>
 	<input type="text" name="preconisation" size="150"><br/><br/>
-	
-	Commentaire laboratoire : <br/>
-	<input type="text" name="commentaire_labo" size="150"><br/><br/>
-	
+		
 	<input type="submit" value="Ajouter ce diagnostic">
 	</form>
 	</body>
