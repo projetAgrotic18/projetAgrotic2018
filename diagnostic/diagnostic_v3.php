@@ -92,15 +92,16 @@
 	
 	$_SESSION["choix_symptome"]=array();
 	//Symptomes : 
-	echo "Symptomes : <br/>";	
+	echo "<br/>Symptomes : <br/>";	
 	$result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
+	echo "<br/>";
 	echo "<span id='actuFormulaire'></id>";
 
 	//Maladies :
-	echo "Maladies : <br/>";
+	echo "<br/>Maladies : <br/>";
 	$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
@@ -109,7 +110,7 @@
 	echo "</span>";
 	
 	//Prélèvements :
-	echo "Prélèvements : <br/>";
+	echo "<br/>Prélèvements : <br/>";
 	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
@@ -117,7 +118,7 @@
 	echo "<br/>";
 	
 	//Analyses :
-	echo "Analyses : <br/>";
+	echo "<br/>Analyses : <br/>";
 	$result2 = $connex->requete('SELECT id_analyse, libelle_analyse FROM "ANALYSE"');
 	while ($row = pg_fetch_array($result2, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='analyse[]' value=".$row[0].">".$row[1]."<br/>";
