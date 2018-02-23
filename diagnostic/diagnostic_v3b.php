@@ -28,12 +28,13 @@
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
 		}
+	}
 	else{
 		//requete $liste 
 		echo "Maladies : <br/>";
 		$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
+		}
 	}
-
 ?>
