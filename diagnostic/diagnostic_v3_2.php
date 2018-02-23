@@ -9,17 +9,21 @@
 	
 	<?php
 	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
+		
+		echo "Votre diagnostic a bien été ajouté à notre base de données";
+		
 		$nom_exploitant = $_GET["nom_exploitant"];
 		$commune = $_GET["commune"];
 		$date = $_GET["date"];
 		$espece = $_GET["espece"];
 		$preconisation = $_GET["preconisation"];
 		$id_veto = $_SESSION["id_veto"];
+		$symptome=$_GET["symptome"];
+		$maladie=$_GET["maladie"];
+		$prelevement=$_GET["prelevement"];
+		$analyse=$_GET["analyse"];
 		
-		// $_GET["symptome"]=$symptome;
-		// $_GET["maladie"]=$maladie;
-		// $_GET["prelevement"]=$prelevement;
-	
+		
 		//Connexion
 		require "../general/connexionPostgreSQL.class.php";
 		$connex = new connexionPostgreSQL();	
@@ -49,13 +53,26 @@
 		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
 			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$commune."')");
 		
-		#ajouter les symptomes
-		#$result= $connex->requete("INSERT INTO symp(id_sympt, id_obl, libelle_symptome) VALUES ('5', '1', '".$symptome."');
-		#ajouter les maladies
-		#$result= $connex->requete("INSERT INTO maladie(id_maladie, id_espece, libelle_maladie, cat_maladie, precautions) VALUES ('5', '".$espece."', '".$maladie."', '1', '');
-		#ajouter les prélèvements
-		#$result= $connex->requete("INSERT INTO prelev(id_prele, id_doc, id_obl, libelle_prelevement) VALUES ('5', '1', '1', '".$prelevement."');
-	
+		//symptomes
+		for ($i=0; $i<count($symptome); $i++){
+			$result= $connex->requete("INSERT INTO symptdiag (id_sympt, id_diagnostic) VALUES ('".$symptome[$i]."','".$id_diagnostic."')");
+		}
+		
+		//maladies
+		for ($i=0; $i<count($maladie); $i++){
+			$result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$maladie[$i]."','".$id_diagnostic."')");
+		}
+		
+		//prelevements
+		for ($i=0; $i<count($prelevement); $i++){
+			$result= $connex->requete("INSERT INTO prelevement_diag (id_prele, id_diagnostic) VALUES ('".$prelevement[$i]."','".$id_diagnostic."')");
+		}
+		
+		//analyses
+		for ($i=0; $i<count($analyse); $i++){
+			$result= $connex->requete("INSERT INTO analyses_diag (id_analyse, id_diagnostic) VALUES ('".$analyse[$i]."','".$id_diagnostic."')");
+		}
+
 	}
 	else{
 	
