@@ -16,7 +16,7 @@ $nom_respo = $_POST['nom_responsable'];
 $prenom_respo = $_POST['prenom_responsable'];
 $commune = $_POST['commune'];
 $tel_respo = $_POST['num_responsable'];
-$nom_transport = "non specifie";
+$nom_transport = "non spxE9cifixE9";
 $tel_transport = 9999999999;
 
 if ($_POST['nom_transp']!="") {
@@ -29,7 +29,7 @@ if ($_POST['tel_transp']!="") {
 if ($_POST['adresse_transp']!=""){
 	$adresse_transpo = $_POST['adresse_transp'];
 }
-
+	
 if ($_POST['entreprise_transp']!=""){
 	$entreprise_transpo = $_POST['entreprise_transp'];
 }
@@ -82,9 +82,9 @@ while ($line2 = pg_fetch_array($result2, null, PGSQL_ASSOC)) {
 
 // Exécution de la requête SQL
 
-$query3 = $connex->requete("INSERT INTO lot_mvt VALUES ('".$id_transhumance."','" . $id_commune . "','" . $id_compte . "','" . $date_arrivee . "','" . $date_sortie . "','" . $marque . "','" . $nom_respo . "','" . $tel_respo . "','" . $nom_transport . "','" . $tel_transport . "'," . $alpage . ",'" . $nbr_cap_m . "','" . $nbr_cap_p . "','" . $nbr_ov_m . "','" . $nbr_ov_p . "','". $prenom_respo ."','". $adresse_transpo ."','". $entreprise_transpo ."')");
-echo "La transhumance a bien été enregistrée.";
-
+$query3 = $connex->requete("UPDATE lot_mvt SET id_commune='" . $id_commune . "',id_compte='" . $id_compte . "', date_arrivee='" . $date_arrivee . "', date_depart='" . $date_sortie . "', description_marque='" . $marque . "', nom_responsable='" . $nom_respo . "', portable_responsable='" . $tel_respo . "', nom_transporteur='" . $nom_transport . "', contact_transporteur='" . $tel_transport . "', alp_collectif=" . $alpage . ", capr_msm='" . $nbr_cap_m . "', capr_psm='" . $nbr_cap_p . "', ov_msm='" . $nbr_ov_m . "', ov_psm='" . $nbr_ov_p . "', prenom_responsable='". $prenom_respo ."', adresse_transporteur='". $adresse_transpo ."', entreprise_transporteur='". $entreprise_transpo ."' WHERE id_lot_mvt=".$id_transhumance );
+echo "La modification de la transhumance a bien été prise en compte.";
+ 
 // Ferme la connexion
 $connex->fermer();
 ?>
