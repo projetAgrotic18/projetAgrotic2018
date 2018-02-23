@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <html>
 	<head>
 	<META charset="UTF-8">
@@ -51,10 +52,14 @@
 	<input type="text" name="nom_exploitant" size="20"><br/>
 	  Nom de l'exploitation : <br/>
 	<input type="text" name="nom_exploitation" size="20"><br/>
+	<!-- A mettre en autocomplétion en fonction du nom de l'exploitant -->
+	<!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
 	* Commune du diagnostic : <br/>
 	<input type="text" name="commune" size="20"><br/>
+	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
 	* Date du diagnostic : <br/>
 	<input type="date" name="date" size="10"><br/><br/>
+	<!-- La date du jour est récupérée sur l'ordi -->
 	
 	<h2>Caractéristiques du diagnostic :</h2>
 	* Espèce : <br/>	
@@ -68,15 +73,18 @@
 	require "../general/connexionPostgreSQL.class.php";
 	$connex = new connexionPostgreSQL();	
 	
+	// Récupération de l'id du compte_utilisateur vétérinaire connecté à l'outil
+	$_SESSION["id_veto"]=7;
+	
 	//Symptomes : 
 	echo "Symptomes : <br/>";	
 	$result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome' value=".$row[0].">".$row[1]."<br/>";
 	}
-	//Autre symptome
-	echo "Autre symptome : <br/>";
-	echo "<input type='text' name='autre_symptome' size='60' value=''><br/><br/>";
+	//Autre symptome - Les vétérinaires ne peuvent pas ajouter de nouveaux symptomes à la BDD
+	// echo "Autre symptome : <br/>";
+	// echo "<input type='text' name='autre_symptome' size='60' value=''><br/><br/>";
 	
 	//Maladies :
 	echo "Maladies : <br/>";
@@ -84,9 +92,9 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie' value=".$row[0].">".$row[1]."<br/>";
 	}
-	//Autre maladie
-	echo "Autre maladie : <br/>";
-	echo "<input type='text' name='autre_maladie' size='60' value=''><br/><br/>";
+	//Autre maladie - Les vétérinaires ne peuvent pas ajouter de nouvelles maladies à la BDD
+	// echo "Autre maladie : <br/>";
+	// echo "<input type='text' name='autre_maladie' size='60' value=''><br/><br/>";
 	
 	//Prélèvements :
 	echo "Prélèvements : <br/>";
