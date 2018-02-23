@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <html>
 	<head>
 	<META charset="UTF-8">
@@ -8,54 +7,33 @@
 	<h1>Validation</h1>
 	
 	<?php
-	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
-		$nom_exploitant = $_GET["nom_exploitant"];
-		$commune = $_GET["commune"];
-		$date = $_GET["date"];
-		$espece = $_GET["espece"];
-		$preconisation = $_GET["preconisation"];
-		$id_veto = $_SESSION["id_veto"];
-		
-		// $_GET["symptome"]=$symptome;
-		// $_GET["maladie"]=$maladie;
-		// $_GET["prelevement"]=$prelevement;
 	
+	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
 		//Connexion
 		require "../general/connexionPostgreSQL.class.php";
 		$connex = new connexionPostgreSQL();	
 		
-		//id_compte : id du véto : $id_veto
+		//id_compte : id du véto
+		//fichier start
 	
 		//com_id_compte : id de l'éleveur
-		//$com_id_compte;	
-		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$nom_exploitant."'");
+		$com_id_compte;	
+		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$_GET["nom_exploitant"]."' AND compte_utilisateur.id_type_utilisateur='9'");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			$com_id_compte=$row[0];
 		}
 		
-		//id_espece : $espece
+		//id_espece : $_GET["espece"]
 		
-		//date_diagnostic : $date
+		//date_diagnostic : $_GET["date"]
 		
-		//preconisation : $preconisation
+		//preconisation : $_GET["preconisation"]
 		
-		$result_id_diag = $connex->requete("SELECT max(id_diagnostic) FROM diagnostic");
-		while ($row = pg_fetch_array($result_id_diag, null, PGSQL_NUM)) {
-			$id_diagnostic = $row[0];
-		}
+		//confirme ? : 1 par défaut
 		
-		$id_diagnostic = $id_diagnostic +1;
+		//comm_labo	: $_GET["commentaire_labo"]
 		
-		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
-			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$commune."')");
-		
-		#ajouter les symptomes
-		#$result= $connex->requete("INSERT INTO symp(id_sympt, id_obl, libelle_symptome) VALUES ('5', '1', '".$symptome."');
-		#ajouter les maladies
-		#$result= $connex->requete("INSERT INTO maladie(id_maladie, id_espece, libelle_maladie, cat_maladie, precautions) VALUES ('5', '".$espece."', '".$maladie."', '1', '');
-		#ajouter les prélèvements
-		#$result= $connex->requete("INSERT INTO prelev(id_prele, id_doc, id_obl, libelle_prelevement) VALUES ('5', '1', '1', '".$prelevement."');
-	
+		$result= $connex->requete("INSERT INTO diagnostic(id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_lab) VALUES ('7', '".$com_id_compte."', '".$_GET["espece"]."', '".$_GET["date"]."', '".$_GET["preconisation"]."', '1', '".$_GET["commentaire_labo"]."'");
 	}
 	else{
 	
