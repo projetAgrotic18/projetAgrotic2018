@@ -32,7 +32,7 @@
 	//La fonction appellée si plus de 1 symptome. Elle imbrique la première requete autant de fois qu'il y a de symptomes choisis (au-dela de 1)
 	function query_maladie_n($liste, $query_mala) {
 		for ($i= 1; $i < count($liste) ; $i++) {
-			$query_mala = "SELECT selec".$i.".id_maladie FROM (".$query_mala.") AS selec".$i." 
+			$query_mala = "SELECT selec".$i.".id_maladie, selec".$i.".libelle_maladie FROM (".$query_mala.") AS selec".$i." 
 			JOIN symptmala sy".$i." ON selec".$i.".id_maladie = sy".$i.".id_maladie 
 			WHERE sy".$i.".id_sympt = ".$liste[$i];
 		}
@@ -54,6 +54,11 @@
 	//Appelle seulement la fonction de base pour 1 symptome
 	elseif (count($liste) == 1) {
 		$query_mala = query_maladie_1($liste);
+		echo "Maladies : <br/>";
+		$result_mala = $connex->requete($query_mala);
+		while ($row = pg_fetch_array($result_mala, null, PGSQL_NUM)) {
+			echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
+		}
 	}
 	
 	//Vérifie s'il y a plusieurs symptomes
@@ -61,11 +66,11 @@
 	elseif (count($liste) > 1) {
 		$query_mala = query_maladie_1($liste);
 		$query_mala = query_maladie_n($liste, $query_mala);
+		echo "Maladies : <br/>";
+		$result_mala = $connex->requete($query_mala);
+		while ($row = pg_fetch_array($result_mala, null, PGSQL_NUM)) {
+			echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
+		}
 	}
 
-	echo "Maladies : <br/>";
-	$result_mala = $connex->requete($query_mala);
-	while ($row = pg_fetch_array($result_mala, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
-	}
 ?>
