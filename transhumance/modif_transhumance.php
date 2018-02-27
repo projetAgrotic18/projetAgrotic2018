@@ -1,43 +1,54 @@
 <html>
-    
-          
+    <head>
         <title>Déclaration de transhumance</title>
- <!-- inclusion du style CSS de base -->
-	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
+           <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
        
     </head>
     <body>
         <?php
-            require "../general/connexionPostgreSQL.class.php";
-            // Connexion, sélection de la base de données du projet
+// Connexion, sélection de la base de données
 
-            $connex = new connexionPostgreSQL();
+        require "../general/connexionPostgreSQL.class.php";
 
+        $connex = new connexionPostgreSQL();
+
+// Exécution de la requête SQL
+
+		$id_transhumance = $_GET["id_lot_mvt"];
+
+// R&cupération des champs correspondant à la transhumance que l'on veut modifier
+
+		$result = $connex->requete("SELECT * FROM lot_mvt lm JOIN commune c ON lm.id_commune = c.id_commune WHERE lm.id_lot_mvt=".$id_transhumance);
+		while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
+			$date_arrivee = $row[3];
+			$date_depart = $row[4];
+			$description_marque = $row[5];
+			$nom_responsable = $row[6];
+			$tel_responsable = $row[7];
+			$nom_transporteur = $row[8];
+			$contact_transporteur = $row[9];
+			$alp_collectif = $row[10];
+			$capr_msm = $row[11];
+			$capr_psm = $row[12];
+			$ov_msm = $row[13];
+			$ov_psm = $row[14];
+			$prenom_responsable = $row[15];
+			$adresse_transporteur = $row[16];
+			$entreprise_transporteur = $row[17];
+			$commune = $row[20];
+		}
 	
-            // Exécution de la requête SQL
-
-            $result1 =  $connex->requete("SELECT id_lot_mvt FROM lot_mvt ORDER BY id_lot_mvt"); //sélectionne le premier id  de transhumance disponible
-            $nbre_col = pg_num_fields($result1);
-            $id = 1;
-
-            while ($row = pg_fetch_array($result1, null, PGSQL_NUM)) {
-
-                if ($id < $row[0]) {
-                    break;
-                }
-                $id++;
-            }
-            
-                        $rqt="SELECT nom_commune,code_postal FROM commune";
+                
+                       $rqt="SELECT nom_commune,code_postal FROM commune";
                    $result2 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
 
              // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
 
             //$result->execute(array('commune' => '%'.$term.'%'));
 
-
+                   
 
            $array = array(); // on cr�� le tableau 
 
@@ -46,13 +57,13 @@
                //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
                    array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
            }  
+// Affichage des résultats en HTML
+// Libère le résultat
 
-                   // Affichage des résultats en HTML
-                   // Libère le résultat
-
-
-                   // Ferme la connexion
-            $connex->fermer();
+        
+// Ferme la connexion
+      
+        $connex->fermer();
         ?>
         <script type='text/javascript'>
 
@@ -82,8 +93,8 @@
             }
 
         </script>
-        
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+           <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
             
@@ -119,38 +130,36 @@
         
            
         </script> 
-        
-
 
         <h1 align="center"><b>Déclarer une transhumance intrarégionale</b></h1>
         <h2>Renseignements responsable alpage</h2>
-        <form method="post" action="validation_transhumance.php" name='form' onsubmit='return valider()' >
+        <form method="post" action="valid_modif_transhumance.php" name='form' onsubmit='return valider()' >
             <table>
                 <tr>
                     <td><label>Id Transhumance</label> :</td>
-                    <?php echo "<td><input type='text' name='id_lot_mvt' value = '$id' readonly ></td>" ?> 
+                    <?php echo "<td><input type='text' name='id_lot_mvt' value = '$id_transhumance' readonly ></td>" ?> 
                 </tr>
                 <tr>
                     <td><label>(*)Nom</label> :</td>
-                    <td><input type='text' name='nom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
+                    <td><input type='text' name='nom_responsable' value ='<?php echo "$nom_responsable"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
                 </tr>
                 <tr>
                     <td><label>(*)Prénom</label> :</td>
-                    <td><input type='text' name='prenom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
+                    <td><input type='text' name='prenom_responsable' value ='<?php echo "$prenom_responsable"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
                 </tr>
                 <tr>
                     <td> <label>(*)Numéro de téléphone :</label></td>
-                    <td><input type='tel' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" name='num_responsable' value =''></td>
+                    <td><input type='tel' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" name='num_responsable' value ='<?php echo "$tel_responsable" ?>'></td>
                 </tr>
             </table>
             <h2>Renseignements généraux</h2>
             (*)Date départ : 
-            <input name="date_arrivee" type="date">
+            <input name="date_arrivee" type="date" value="<?php echo "$date_arrivee"; ?>">
             (*)Date fin :
-            <input name="date_sortie" type="date"><br><br>
+            <input name="date_sortie" type="date" value="<?php echo "$date_depart"; ?>"><br><br>
             <label>(*)Commune de destination :</label>
-            <input type='text' id="commune" name='commu' value ='' >
-                   <input type='hidden' id='commune_id' name="commune" value =''>
+            <input type='text' id="commune" name='commune' value ='<?php echo "$commune"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+              <input type='hidden' id='commune_id' name="commu" value ='<?php echo "$commune"; ?>'>
             <h2>Vos animaux déplacés</h2>
             <table>
                 <tr>
@@ -170,10 +179,10 @@
                         Caprins
                     </td>
                     <td>
-                        <input type='text' name='nbr_cap_-' value ='' pattern = "[0-9]+">
+                        <input type='text' name='nbr_cap_-' value ='<?php echo "$capr_msm"; ?>' pattern = "[0-9]+">
                     </td>
                     <td>
-                        <input type='text' name='nbr_cap_+' value ='' pattern = "[0-9]+">
+                        <input type='text' name='nbr_cap_+' value ='<?php echo "$capr_psm"; ?>' pattern = "[0-9]+">
                     </td>
 
                 </tr>
@@ -182,20 +191,26 @@
                         Ovins
                     </td>
                     <td>
-                        <input type='text' name='nbr_ov_-' value ='' pattern = "[0-9]+">
+                        <input type='text' name='nbr_ov_-' value ='<?php echo "$ov_msm"; ?>' pattern = "[0-9]+">
                     </td>
                     <td>
-                        <input type='text' name='nbr_ov_+' value ='' pattern = "[0-9]+">
+                        <input type='text' name='nbr_ov_+' value ='<?php echo "$ov_psm"; ?>' pattern = "[0-9]+">
                     </td>
 
 
                 </tr>
             </table>
             Description du marquage :<br>
-            <TEXTAREA name="marquage" rows=10 cols=40></TEXTAREA><Br><br>
-            
-            <input type="radio" name="type_paturage" value=1 checked /> Alpage/Pâturage collectif
-            <input type="radio" name="type_paturage" value=0 /> Alpage/Pâturage individuel
+            <TEXTAREA name="marquage" rows=10 cols=40><?php echo "$description_marque"; ?></TEXTAREA><Br><br>
+           <?php 
+           if($alp_collectif=='t'){
+               echo "<input type='radio' name='type_paturage' value='1' checked/> Alpage/Pâturage collectif";
+               echo "<input type='radio' name='type_paturage' value='0' /> Alpage/Pâturage individuel";
+           } else {
+            echo "<input type='radio' name='type_paturage' value='1' /> Alpage/Pâturage collectif";
+             echo "<input type='radio' name='type_paturage' value='0' checked /> Alpage/Pâturage individuel";
+           }
+           ?>     
             <h2>Transporteur</h2>
             <table>
                 <tr>
@@ -203,13 +218,13 @@
                         <label>Nom :</label>
                     </td>
                     <td>
-                        <input type='text' name='nom_transp' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+                        <input type='text' name='nom_transp' value ='<?php echo "$nom_transporteur"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
                     </td>
                     <td>
                         <label>Adresse</label>
                     </td>
                     <td>
-                        <input type='text' name='adresse_transp' value =''>
+                        <input type='text' name='adresse_transp' value ='<?php echo "$adresse_transporteur"; ?>'>
                     </td>
                     
                 </tr>
@@ -218,19 +233,18 @@
                         <label>Nom de l'entreprise</label>
                     </td>
                     <td>
-                        <input type='text' name='entreprise_transp' value =''>
+                        <input type='text' name='entreprise_transp' value ='<?php echo "$entreprise_transporteur"; ?>'>
                     </td>
                     <td>
                         <label>Téléphone</label>
                     </td>
                     <td>
-                        <input type='text' name='tel_transp' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" value =''>
+                        <input type='text' name='tel_transp' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" value ='<?php echo "$contact_transporteur" ?>'>
                     </td>                  
                 </tr>
                 
             </table>
             <input type='submit'   name='bouton' value='valider'>
-            
         </form>
     </body>
 
