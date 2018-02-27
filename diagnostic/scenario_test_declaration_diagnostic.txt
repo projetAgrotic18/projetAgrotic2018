@@ -1,0 +1,41 @@
+Diagnostic - déclaration sur formulaire :
+
+Lorsque je saisi le nom de l’exploitant, je souhaite avoir de l’autocomplétion depuis la table comte_utilisateur (du type utilisateur éleveur (n°2)).
+
+S’il n’y a pas d’homonymies, je souhaite que soit rempli automatiquement le champ :
+-	Nom de l’exploitation
+
+S’il y a homonymie, ce champ n’est pas rempli automatiquement, mais il y a suggestion des noms d’exploitation des homonymes saisis plus haut.
+
+La date du jour doit être remplie automatiquement. Elle peut néanmoins toujours être changée.
+
+Je veux pouvoir renseigner l’espèce de l’animal que j’ai diagnostiqué.
+
+Je veux que les listes des symptômes et des maladies ne présentent que les symptômes et les maladies en lien avec l’espèce animale que j’ai sélectionnée (pour ovin : chute de laine en symptôme, fièvre catarrhale ovine en maladie par exemple).
+
+Je souhaite pouvoir sélectionner les symptômes que j’ai diagnostiqué dans une liste rangée par ordre alphabétique. 
+
+Si je n’ai pas renseigné de symptômes, je souhaite pouvoir consulter la liste de toutes les maladies, rangées par ordre alphabétique.
+
+Je souhaite pouvoir consulter la liste des maladies, rangées par ordre alphabétique, et pouvoir en sélectionner une ou plusieurs.
+
+Je souhaite que la liste des maladies ne présentent que les noms des maladies en lien avec le ou les symptômes que j’ai choisi dans la liste plus haut.
+
+Je souhaite que s’affiche les prélèvements obligatoires pour la ou les maladies que j’ai sélectionnées (s’il y en a).
+
+Je souhaite pouvoir consulter la liste de tous les prélèvements, rangées par ordre alphabétique, et pourvoir en sélectionner un ou plusieurs, et en désélectionner un ou plusieurs, même s’il des prélèvements obligatoires m’ont déjà été suggérés.
+
+S’il y a des prélèvements obligatoires, je veux que l’outil m’empêche de valider mon diagnostic tant que je n’ai pas coché les cases de chaque prélèvement obligatoire.
+
+Je souhaite qu’une liste d’analyse à effectuer sur les prélèvements que j’ai choisis, ou qui m’ont été suggérés plus haut, s’affiche automatiquement dans ma déclaration de diagnostic.
+
+Quand je clique sur le bouton valider, je souhaite que soit enregistrées dans les tables :
+-	diagnostic
+-	symptdiag
+-	maladie_diag
+-	analyses_diag
+-	prelevement_diag
+
+toutes les informations renseignées plus haut, ainsi que les informations relatives au compte_utilisateur du vétérinaire qui a déclaré le diagnostic.
+
+
