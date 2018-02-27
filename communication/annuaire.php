@@ -2,9 +2,10 @@
     <head>
         <title>Annuaire</title>
 		<META charset="UTF-8"/>
-		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
-        
-         <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+         <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+         		
+		<!--- Style Sonnaille -->
+        <link href="../general/front/style.css" rel="stylesheet">
          
          <!-- Section Javascript : définition de la fonction gérant l'affichage des données clients'-->
 		<script type="text/javascript">
@@ -20,11 +21,7 @@
 					}
 				});
 			}
-		</script>
-		
-		<!--- Style Sonnaille -->
-        <link href="../general/front/style.css" rel="stylesheet">
-       
+		</script> 
     </head>
     <body>
     	
@@ -56,9 +53,7 @@
 					echo "<OPTION selected='selected'>Type de compte</OPTION>";
 					while ($row = pg_fetch_array($result_type)){
 						echo "<OPTION VALUE=".$row[0].">";
-						for ($i=1; $i < $nbr_col; $i++) {
-							echo $row[$i];
-						}
+						echo $row[1];
 						echo "</OPTION>";
 					}
 				echo "</SELECT>";
@@ -69,6 +64,7 @@
 			<p>Annuaire :</p>
 		
 			<span id="ficheCompte"></span>
+			
 			</div>
 		
 		 <!-- Pied de page -->		

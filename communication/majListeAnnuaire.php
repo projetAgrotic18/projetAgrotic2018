@@ -8,8 +8,9 @@
 		
 		/* récupération des données transmises par le formulaire */
 		$result_liste = $_GET["choixListe"];
+		echo $result_liste;
 		
-		require "../general/connexionPostgreSQL.class.php";
+		require ("../general/connexionPostgreSQL.class.php");
         
         // Connexion, sélection de la base de données du projet
 
@@ -20,7 +21,7 @@
         $result_compte =  $connex->requete("SELECT libelle_type_utilisateur AS Type, nom AS Nom, 
             						portable AS Telephone, mail AS Email FROM compte_utilisateur cu 
         							JOIN type_utilisateur tu ON cu.id_type_utilisateur=tu.id_type_utilisateur
-        							WHERE cu.id_type_utilisateur = $result_liste");
+        							WHERE cu.id_type_utilisateur=$result_liste");
 		
 		$nbr_col = pg_num_fields($result_compte);
 		
