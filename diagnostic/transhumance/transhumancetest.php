@@ -1,5 +1,6 @@
 <html>
-    
+    <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
           
         <title>DÃ©claration de transhumance</title>
  <!-- inclusion du style CSS de base -->
@@ -9,52 +10,40 @@
        
     </head>
     <body>
-        <?php
-            require "../general/connexionPostgreSQL.class.php";
-            // Connexion, sÃ©lection de la base de donnÃ©es du projet
+        <?php 
+ 
+//Pour appeler la fonction d'ouverture de la BDD,
+//Mettre juste après la balise ouvrante de php (<?php) :
 
-            $connex = new connexionPostgreSQL();
+	require "../general/connexionPostgreSQL.class.php";
 
-	
-            // ExÃ©cution de la requÃªte SQL
+//Puis la ligne suivante pour établir une connexion avec la BDD du projet :
 
-            $result1 =  $connex->requete("SELECT id_lot_mvt FROM lot_mvt ORDER BY id_lot_mvt"); //sÃ©lectionne le premier id  de transhumance disponible
-            $nbre_col = pg_num_fields($result1);
-            $id = 1;
+	$connex = new connexionPostgreSQL();
 
-            while ($row = pg_fetch_array($result1, null, PGSQL_NUM)) {
+//Pour faire une requête sur la BDD du projet, écrire ENSUITE la ligne suivante :
 
-                if ($id < $row[0]) {
-                    break;
-                }
-                $id++;
-            }
-            
-                        $rqt="SELECT nom_commune,code_postal FROM commune";
-                   $result2 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
+         $rqt="SELECT nom_commune,code_postal FROM commune";
+	$result = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
+     
+  // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
+    
+ //$result->execute(array('commune' => '%'.$term.'%'));
+ 
+ 
+     
+$array = array(); // on créé le tableau 
+ 
+while ($row = pg_fetch_array($result))   // on effectue une boucle pour obtenir les données 
+{ 
+    //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci à notre tableau 
+        array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+}  
 
-             // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
+$connex->fermer; 
 
-            //$result->execute(array('commune' => '%'.$term.'%'));
-
-
-
-           $array = array(); // on créé le tableau 
-
-           while ($row = pg_fetch_array($result2))   // on effectue une boucle pour obtenir les données 
-           { 
-               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci à notre tableau 
-                   array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
-           }  
-
-                   // Affichage des rÃ©sultats en HTML
-                   // LibÃ¨re le rÃ©sultat
-
-
-                   // Ferme la connexion
-            $connex->fermer();
-        ?>
-        <script type='text/javascript'>
+?>
+        <script type='text/javascript'> 
 
             function valider() {
 
@@ -67,7 +56,7 @@
                 if (document.form.prenom_responsable.value === "" || regexmot.test(document.form.prenom_responsable.value)) {
                     $msg += "saisissez un prÃ©nom  \n";
                 }
-                if (document.form.num_responsable.value === "") {
+                if (document.form.num_responsable.value === "" ) {
                     $msg += "saisissez un numÃ©ro  \n";
                 }
 
@@ -80,10 +69,19 @@
                 }
 
             }
-
+            
+            
+         
         </script>
+        <style>
+       
+            #project-description {
+              margin: 0;
+              padding: 0;
+                       }
+         </style>
         
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
             
@@ -91,45 +89,48 @@
             
           
        <script type="text/javascript"> 
-
-                    //   Charge la version 1.4.1. 
-                //  google.load('jquery','1.4.1'); 
-                var liste= <?php echo json_encode($array);?>;
-                   $(function () {      
-               $('#commune').autocomplete({ //apres le #
-                source : liste,  //a definir(c'est un fichier php)  
-                focus: function( event, ui ) {
-              $( "#commune" ).val( ui.item.label );
-              return false;
-              },
-                //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
-                select : function(event, ui){ // lors de la sélection d'une proposition
-               $( '#commune' ).val( ui.item.label);     
-               $('#commune_id').val(ui.item.value);
-              $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
-                return false;
-            }
-          })
-          .autocomplete( "instance" )._renderItem = function( ul, item ) {
-            return $( "<li>" )
-              .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
-              .appendTo( ul );
-          };
-        } );
+           
+              //   Charge la version 1.4.1. 
+          //  google.load('jquery','1.4.1'); 
+          var liste= <?php echo json_encode($array);?>;
+             $(function () {      
+         $('#commune').autocomplete({ //apres le #
+          source : liste,  //a definir(c'est un fichier php)  
+          focus: function( event, ui ) {
+        $( "#commune" ).val( ui.item.label );
+        return false;
+        },
+          //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
+          select : function(event, ui){ // lors de la sélection d'une proposition
+         $( '#commune' ).val( ui.item.label);     
+         $('#commune_id').val(ui.item.value);
+        $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
+          return false;
+      }
+    })
+    .autocomplete( "instance" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
+        .appendTo( ul );
+    };
+  } );
         
            
         </script> 
         
+            
+     
+           
+  
 
+
+     
 
         <h1 align="center"><b>DÃ©clarer une transhumance intrarÃ©gionale</b></h1>
         <h2>Renseignements responsable alpage</h2>
         <form method="post" action="validation_transhumance.php" name='form' onsubmit='return valider()' >
             <table>
-                <tr>
-                    <td><label>Id Transhumance</label> :</td>
-                    <?php echo "<td><input type='text' name='id_lot_mvt' value = '$id' readonly ></td>" ?> 
-                </tr>
+
                 <tr>
                     <td><label>(*)Nom</label> :</td>
                     <td><input type='text' name='nom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
@@ -145,14 +146,16 @@
             </table>
             <h2>Renseignements gÃ©nÃ©raux</h2>
             (*)Date dÃ©part : 
-            <input name="date_arrivee" type="date">
+            <input id="date_debut" type="date">
             (*)Date fin :
-            <input name="date_sortie" type="date"><br><br>
+            <input id="date_fin" type="date"><br><br>
             <label>(*)Commune de destination :</label>
-            <input type='text' id="commune" name='commu' value ='' >
-                   <input type='hidden' id='commune_id' name="commune" value =''>
+            <input type='text' id='commune' name="commu"  value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+            <p id='description'></p>
+            <input type='hidden' id='commune_id' name="commune" value =''>
+            
             <h2>Vos animaux dÃ©placÃ©s</h2>
-            <table>
+            <table> 
                 <tr>
                     <td>
 
@@ -194,8 +197,8 @@
             Description du marquage :<br>
             <TEXTAREA name="marquage" rows=10 cols=40></TEXTAREA><Br><br>
             
-            <input type="radio" name="type_paturage" value=1 checked /> Alpage/PÃ¢turage collectif
-            <input type="radio" name="type_paturage" value=0 /> Alpage/PÃ¢turage individuel
+            <input type="radio" name="type_paturage" value="collectif" checked /> Alpage/PÃ¢turage collectif
+            <input type="radio" name="type_paturage" value="individuel" /> Alpage/PÃ¢turage individuel
             <h2>Transporteur</h2>
             <table>
                 <tr>
@@ -203,7 +206,7 @@
                         <label>Nom :</label>
                     </td>
                     <td>
-                        <input type='text' name='nom_transp' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+                        <input type='text' name='nom_transp' value =''>
                     </td>
                     <td>
                         <label>Adresse</label>
@@ -218,19 +221,20 @@
                         <label>Nom de l'entreprise</label>
                     </td>
                     <td>
-                        <input type='text' name='entreprise_transp' value =''>
+                        <input type='text' name='entreprise_trans' value =''>
                     </td>
                     <td>
                         <label>TÃ©lÃ©phone</label>
                     </td>
                     <td>
-                        <input type='text' name='tel_transp' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" value =''>
+                        <input type='text' name='tel_transp' value =''>
                     </td>                  
                 </tr>
                 
             </table>
             <input type='submit'   name='bouton' value='valider'>
             
+
         </form>
     </body>
 

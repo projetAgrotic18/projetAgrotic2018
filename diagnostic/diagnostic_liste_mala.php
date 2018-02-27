@@ -46,7 +46,7 @@
 		echo "Maladies : <br/>";
 		$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-			echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
+			echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
 	
@@ -57,7 +57,7 @@
 		echo "Maladies : <br/>";
 		$result_mala = $connex->requete($query_mala);
 		while ($row = pg_fetch_array($result_mala, null, PGSQL_NUM)) {
-			echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
+			echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
 	
@@ -69,7 +69,7 @@
 		echo "Maladies : <br/>";
 		$result_mala = $connex->requete($query_mala);
 		while ($row = pg_fetch_array($result_mala, null, PGSQL_NUM)) {
-			echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
+			echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
 
