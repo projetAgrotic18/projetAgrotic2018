@@ -38,12 +38,25 @@
 		}
 	}
 	
-	function actu_maladie(liste){
+	function actu_maladie(sympt_check){
 		$.ajax({
 			type: 'get', 
 			url: 'diagnostic_v3b.php',
 			data: {
-				porygon:liste
+				sympt_check:sympt_check
+			},
+			success: function (response){
+					document.getElementById("actuFormulaire").innerHTML=response;
+			}
+		});
+	}
+	
+	function actu_prelevement(mala_check){
+		$.ajax({
+			type: 'get', 
+			url: 'diagnostic_liste_prelev.php',
+			data: {
+				mala_check:mala_check
 			},
 			success: function (response){
 					document.getElementById("actuFormulaire").innerHTML=response;
@@ -90,7 +103,9 @@
 	// Récupération de l'id du compte_utilisateur vétérinaire connecté à l'outil
 	$_SESSION["id_veto"]=7;
 	
-	$_SESSION["choix_symptome"]=array();
+	$_SESSION["choix_symptomes"]=array();
+	$_SESSiON["choix_maladies"]=array();
+	
 	//Symptomes : 
 	echo "<br/>Symptomes : <br/>";	
 	$result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
@@ -98,16 +113,18 @@
 		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
 	echo "<br/>";
-	echo "<span id='actuFormulaire'></id>";
+	echo "<span id='actuFormulaire_maladie'></id>";
 
 	//Maladies :
 	echo "<br/>Maladies : <br/>";
 	$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
+		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
 	
 	echo "</span>";
+	
+	echo "<span id='actuFormulaire_prelevement'></id>";
 	
 	//Prélèvements :
 	echo "<br/>Prélèvements : <br/>";
@@ -115,7 +132,9 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
 	}
-	echo "<br/>";
+	echo "</span>";
+	
+	
 	
 	//Analyses :
 	echo "<br/>Analyses : <br/>";
