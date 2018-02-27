@@ -1,7 +1,7 @@
 <?php session_start();
 
 	$prele=$_GET["prele_check"];
-	$liste=$_SESSION["choix_prele"];
+	$liste=$_SESSION["choix_prelevements"];
 	$present=FALSE;
 	
 	for ($i=0; $i<count($liste); $i++){
@@ -20,56 +20,43 @@
 	require "../general/connexionPostgreSQL.class.php";
 	$connex = new connexionPostgreSQL();
 	
-	
-	//La fonction qui fait la requete de base qui sert pour un seul symptome
-	//Si plus de 1 maladie, cette requete de base sera construite en premier, puis imbriquée par la fonction query_maladie_n
-	function query_prelevement_1($liste) {
-		$query_prelev = "SELECT p.id_prele, p.libelle_prelevement
-					   FROM prelevmala pm JOIN prelev p ON pm.id_prele = p.id_prele WHERE pm.id_maladie = ".$liste[0];
-		return $query_prelev;
-	}
-	
-	//La fonction appellée si plus de 1 maladie. Elle imbrique la première requete autant de fois qu'il y a de maladies choisies (au-dela de 1)
-	function query_prelevement_n($liste, $query_prelev) {
-		for ($i= 1; $i < count($liste) ; $i++) {
-			$query_prelev = "SELECT selec".$i.".id_prele, selec".$i.".libelle_prelevement FROM (".$query_prelev.") AS selec".$i." 
-			JOIN prelevmala pm".$i." ON selec".$i.".id_prele = pm".$i.".id_prele 
-			WHERE pm".$i.".id_maladie = ".$liste[$i];
-		}
-		return $query_prelev;
-	}
-	
-	//Vérifie s'il y a 0 maladie
-	//Appelle aucune fonction, lance une requête qui appelle tous les symptomes
+	//Vérifie s'il y a 0 prélèvements
+	//Appelle aucune fonction, lance une requête qui appelle toutes les analyses
 	if (count($liste)==0){
-			//Prélèvements :
-		echo "Prelevement : <br/>";
-		$result = $connex->requete("SELECT prelev.id_prele, libelle_prelevement FROM prelev");
+			//Analyses
+		$result = $connex->requete('SELECT a.id_analyse, a.libelle_analyse
+									FROM "ANALYSE" a
+									ORDER BY a.libelle_analyse');
+									
+		echo "Analyses : <br/>";							
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-			echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
+			echo "<input type=checkbox name='analyse[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
 	
-	//Vérifie s'il y a 1 ou plusieurs maladies
-	//Appelle seulement la fonction de base pour 1 maladie
-	elseif (count($liste) == 1) {
-		$query_prelev = query_prelevement_1($liste);
-		echo "Prelevement : <br/>";
-		$result_prelev = $connex->requete($query_prelev);
-		while ($row = pg_fetch_array($result_prelev, null, PGSQL_NUM)) {
-			echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
+	//Vérifie s'il y a 1 ou plusieurs prélèvements
+	//Appelle seulement la fonction de base pour 1 prélèvement
+	else {
+		
+		$where_analyse;
+		for ($i=0 ; $i < count($liste) ; $i++) {
+			$where_analyse = $where_analyse." ap.id_prele = ".$liste[$i]." ";
+			if ($i + 1 < count($liste)) {
+				$where_analyse = $where_analyse." OR ";
+			}
 		}
-	}
-	
-	//Vérifie s'il y a plusieurs maladies
-	//Appelle la fonction pour 1 maladie, puis imbrique cette requete en appellant la fonction query_prelevement_n
-	elseif (count($liste) > 1) {
-		$query_prelev = query_prelevement_1($liste);
-		$query_prelev = query_prelevement_n($liste, $query_prelev);
-		echo "Prelevements : <br/>";
-		$result_prelev = $connex->requete($query_prelev);
-		while ($row = pg_fetch_array($result_prelev, null, PGSQL_NUM)) {
-			echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
+    
+		$query_ana = 'SELECT a.id_analyse, a.libelle_analyse
+							FROM analyse_prelevement ap JOIN "ANALYSE" a ON ap.id_analyse = a.id_analyse
+							WHERE '.$where_analyse.' 
+							GROUP BY a.id_analyse, a.libelle_analyse 
+							ORDER BY a.libelle_analyse';
+		
+		$result = $connex->requete($query_ana);
+		
+		echo "Analyses : <br/>";
+		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+			echo "<input type=checkbox name='analyse[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
 

@@ -64,6 +64,19 @@
 		});
 	}
 	
+	function actu_analyse(prele_check){
+		$.ajax({
+			type: 'get', 
+			url: 'diagnostic_liste_ana.php',
+			data: {
+				prele_check:prele_check
+			},
+			success: function (response){
+					document.getElementById("actuFormulaire_analyse").innerHTML=response;
+			}
+		});
+	}
+	
 	</script>
 
 	</head>
@@ -105,11 +118,11 @@
 	
 	$_SESSION["choix_symptomes"]=array();
 	$_SESSION["choix_maladies"]=array();
-	//$_SESSION["choix_prelevements"]=array();
+	$_SESSION["choix_prelevements"]=array();
 	
 	//Symptomes : 
 	echo "<br/>Symptomes : <br/>";	
-	$result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
+	$result = $connex->requete("SELECT id_sympt, libelle_symptome FROM symp ORDER BY libelle_symptome");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
@@ -118,7 +131,7 @@
 
 	//Maladies :
 	echo "<br/>Maladies : <br/>";
-	$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
+	$result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
@@ -128,20 +141,21 @@
 	
 	//Prélèvements :
 	echo "<br/>Prélèvements : <br/>";
-	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev");
+	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev ORDER BY libelle_prelevement");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
+		echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
 	echo "</span>";
-	
+	echo "<span id='actuFormulaire_analyse'></id>";
 	
 	//Analyses :
 	echo "<br/>Analyses : <br/>";
-	$result2 = $connex->requete('SELECT id_analyse, libelle_analyse FROM "ANALYSE"');
+	$result2 = $connex->requete('SELECT id_analyse, libelle_analyse FROM "ANALYSE" ORDER BY libelle_analyse');
 	while ($row = pg_fetch_array($result2, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='analyse[]' value=".$row[0].">".$row[1]."<br/>";
 	}
 	echo "<br/>";
+	echo "</span>";
 	?>
 	
 	Préconisations : <br/>

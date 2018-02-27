@@ -2,23 +2,21 @@
     <head>
         <META charset="UTF-8">
         <SCRIPT TYPE="text/javascript">
-            function verifRayon(rayon){
-                var valid_r = false
-                if(rayon.type == 'integer'){
-                    valid_r = true
-                } else {
-                    valid_r = false
-                }
-                return(valid_r)
+            function Checked() {
+	           
+	           var COCHE = false;
+	           for (i=0;i < document.getElementsByName(<departement>).length;i++) {
+        	       if(document.getElementsByName(<departement>).item(i).checked) {
+		 	            COCHE = true; break; 
+		              } 
+	               } 
+	           if(COCHE){
+                   alert("Au moins une case cochée"); 
+               }else{ 
+                   alert("Pas de case cochée");
+                    return(false)}
             }
-            
-            
-            
-            function verifPage(valid_r, valid_dep, valid_date){
-                if(valid_r == false || valid_dep == false || valid_date == false){
-                    
-                }
-            }
+
         </SCRIPT>
     </head>
     <body>
@@ -36,7 +34,7 @@
 
                 while ($line = pg_fetch_array($result1) ){
         
-                    echo "<option value =".$line[1].">".$line[0]."</option>";
+                    echo "<option id = ".$line[0]." value =".$line[1].">".$line[0]."</option>";
     
                 }
     
@@ -47,7 +45,7 @@
 
         <BR/><BR/>
 
-        <FORM METHOD = "GET" ACTION = "confirmation_zone_tampon.php">
+        <FORM METHOD = "GET" ACTION = "confirmation_zone_tampon.php" ONSUBMIT = 'return Checked()'>
             <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "val"> Zone tampon par rayon autour du foyer <BR/>
                 Rayon : <INPUT TYPE = "text" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?"> km
         
@@ -57,7 +55,7 @@
             <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "val"> Zone tampon par département <BR/><BR/>
                 <?php
                 while ($line = pg_fetch_array($result2)){
-                    echo "<INPUT TYPE ='checkbox' NAME = ".$line[2]." VALUE = ".$line[1]."> ".$line[1]."<BR/>";
+                    echo "<INPUT TYPE ='checkbox' NAME = 'departement[]' VALUE = ".$line[0]."> ".$line[1]."<BR/>";
                 }
                 //<INPUT TYPE = "checkbox" NAME = "Alpes_de_Haute_Provence" VALUE = "04"> 04   
                 //<INPUT TYPE = "checkbox" NAME = "Hautes_Alpes" VALUE ="05"> 05    
@@ -66,6 +64,7 @@
                 //<INPUT TYPE = "checkbox" NAME = "Var" VALUE ="83"> 83    
                 //<INPUT TYPE = "checkbox" NAME = "Vaucluse" VALUE ="84"> 84<BR/>
                 ?>
+                
                 <BR/>
             <INPUT TYPE = "submit" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
                     
@@ -73,8 +72,8 @@
                 
         <FORM>
             <?php
-                echo "Date de début de transhumance :<BR/><INPUT TYPE ='date' VALUE = ".date('Y-m-d')."><BR/><BR/>";
-                echo "Date de fin de transhumance :<BR/><INPUT TYPE = 'date' VALUE = ".getdate().">";
+                echo "Date de début de quarantaine :<BR/><INPUT TYPE ='date' VALUE = ".date('Y-m-d')."><BR/><BR/>";
+                echo "Date de fin de quarantaine :<BR/><INPUT TYPE = 'date' VALUE = ".getdate().">";
             ?>
         </FORM>
     </body>
