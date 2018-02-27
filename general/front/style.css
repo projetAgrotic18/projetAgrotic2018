@@ -160,3 +160,8 @@ fieldset[disabled] .bouton-sonnaille.focus {
 .center{
     padding-left: 600px;
 }
+
+.textarea{
+    width: 500px;
+    height: 250px;
+}
