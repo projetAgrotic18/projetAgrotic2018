@@ -1,6 +1,25 @@
 <html>
     <head>
         <META charset="UTF-8">
+        <SCRIPT TYPE="text/javascript">
+            function verifRayon(rayon){
+                var valid_r = false
+                if(rayon.type == 'integer'){
+                    valid_r = true
+                } else {
+                    valid_r = false
+                }
+                return(valid_r)
+            }
+            
+            
+            
+            function verifPage(valid_r, valid_dep, valid_date){
+                if(valid_r == false || valid_dep == false || valid_date == false){
+                    
+                }
+            }
+        </SCRIPT>
     </head>
     <body>
         <h1>Ajouter des zones tampons</h1>
@@ -30,7 +49,7 @@
 
         <FORM METHOD = "GET" ACTION = "confirmation_zone_tampon.php">
             <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "val"> Zone tampon par rayon autour du foyer <BR/>
-                Rayon : <INPUT TYPE = "text" NAME = "zt_rayon"> km
+                Rayon : <INPUT TYPE = "text" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?"> km
         
         
             <BR/><BR/>
