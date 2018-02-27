@@ -19,5 +19,9 @@
         <input type='password' name='mdp' id='mdp' size='10'><br/><br/>
         <input type='submit' name='bouton1' value='Soumettre'>
     </form><br><br>
+    <div class='container'>
+        <?php //Ajout mise en page
+        include('../general/front/footer.html');?>
+    </div>
 </body>
 </html>
