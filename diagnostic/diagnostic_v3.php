@@ -41,12 +41,12 @@
 	function actu_maladie(sympt_check){
 		$.ajax({
 			type: 'get', 
-			url: 'diagnostic_v3b.php',
+			url: 'diagnostic_liste_mala.php',
 			data: {
 				sympt_check:sympt_check
 			},
 			success: function (response){
-					document.getElementById("actuFormulaire").innerHTML=response;
+					document.getElementById("actuFormulaire_maladie").innerHTML=response;
 			}
 		});
 	}
@@ -59,7 +59,7 @@
 				mala_check:mala_check
 			},
 			success: function (response){
-					document.getElementById("actuFormulaire").innerHTML=response;
+					document.getElementById("actuFormulaire_prelevement").innerHTML=response;
 			}
 		});
 	}
@@ -74,7 +74,7 @@
 	(*) : champs obligatoires <br/>	
 	
 	<!--Caractéristiques-->
-	<h2>Caractéristiques généraux :</h2>
+	<h2>Caractéristiques générales :</h2>
 	* Nom de l'exploitant : <br/>
 	<input type="text" name="nom_exploitant" size="20"><br/>
 	  Nom de l'exploitation : <br/>
@@ -104,7 +104,8 @@
 	$_SESSION["id_veto"]=7;
 	
 	$_SESSION["choix_symptomes"]=array();
-	$_SESSiON["choix_maladies"]=array();
+	$_SESSION["choix_maladies"]=array();
+	//$_SESSION["choix_prelevements"]=array();
 	
 	//Symptomes : 
 	echo "<br/>Symptomes : <br/>";	
@@ -123,7 +124,6 @@
 	}
 	
 	echo "</span>";
-	
 	echo "<span id='actuFormulaire_prelevement'></id>";
 	
 	//Prélèvements :
@@ -133,7 +133,6 @@
 		echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
 	}
 	echo "</span>";
-	
 	
 	
 	//Analyses :

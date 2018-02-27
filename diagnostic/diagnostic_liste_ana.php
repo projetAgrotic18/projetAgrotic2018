@@ -1,28 +1,28 @@
 <?php session_start();
 
-	$mala=$_GET["mala_check"];
-	$liste=$_SESSION["choix_maladies"];
+	$prele=$_GET["prele_check"];
+	$liste=$_SESSION["choix_prele"];
 	$present=FALSE;
 	
 	for ($i=0; $i<count($liste); $i++){
-		if ($mala==$liste[$i]){
+		if ($prele==$liste[$i]){
 			$present=TRUE;
 			unset($liste[$i]);
 			$liste=array_values($liste);
 		}
 	}	
 		if ($present==FALSE){
-			array_push($liste,$mala);
+			array_push($liste,$prele);
 	}
 	
-	$_SESSION["choix_maladies"]=$liste;
+	$_SESSION["choix_prelevements"]=$liste;
 	
 	require "../general/connexionPostgreSQL.class.php";
 	$connex = new connexionPostgreSQL();
 	
 	
 	//La fonction qui fait la requete de base qui sert pour un seul symptome
-	//Si plus de 1 maladie, cette requete de base sera construite en premier, puis imbriquée par la fonction query_prelevement_n
+	//Si plus de 1 maladie, cette requete de base sera construite en premier, puis imbriquée par la fonction query_maladie_n
 	function query_prelevement_1($liste) {
 		$query_prelev = "SELECT p.id_prele, p.libelle_prelevement
 					   FROM prelevmala pm JOIN prelev p ON pm.id_prele = p.id_prele WHERE pm.id_maladie = ".$liste[0];
