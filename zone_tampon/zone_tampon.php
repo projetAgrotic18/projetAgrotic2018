@@ -22,6 +22,7 @@
                 }
     
             ?></select>
+            <BR/>Commune : <INPUT TYPE = "text" NAME = "zt_commune">
             
         </form>
 
@@ -53,7 +54,8 @@
                 
         <FORM>
             <?php
-                echo "<INPUT TYPE ='date' VALUE = ".getdate()."><BR/>";
+                echo "Date de début de transhumance :<BR/><INPUT TYPE ='date' VALUE = ".date('Y-m-d')."><BR/><BR/>";
+                echo "Date de fin de transhumance :<BR/><INPUT TYPE = 'date' VALUE = ".getdate().">";
             ?>
         </FORM>
     </body>
