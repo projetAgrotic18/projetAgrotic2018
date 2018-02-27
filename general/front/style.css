@@ -141,3 +141,22 @@ fieldset[disabled] .bouton-sonnaille.focus {
     width: 350px;
     height: 60px;
 }
+
+.sonnaille_titre{
+    text-align: center!important;
+    font-size: 36px!important;
+    padding-top: 20px!important;
+}
+
+.fond_gris{
+    background-color: #d0d0d0!important;
+    padding-left: 0px;
+}
+
+.padding{
+    padding: 20px!important;
+}
+
+.center{
+    padding-left: 600px;
+}
