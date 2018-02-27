@@ -14,8 +14,13 @@
         }
     </style>
 </head>
-<body>    
-    <?php 
+<body>   
+    <div class='container'>
+        <?php //Ajout mise en page
+        include('../general/front/navigation.html');?>
+    </div>
+    
+    <?php
         //Vérification de l'existance du compte
         $nom = $_POST["identifiant"];
         $mdp = $_POST["mdp"];
@@ -58,46 +63,119 @@
             while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
                 $_SESSION["id_compte"]=$row[0];
                 $_SESSION["id_type_utilisateur"]=$row[1];
+                $type=$row[1];
+            };
+            
+            //Gestion des modules par type d'utilisateur
+            //Pour chaqsue module, on crée un tableau qui stocke les id des types d'utilisateur ayant accès à un module
+            //Si l'id du type de compte connecté a l'accès à la rubrique, alors le module d'accès est visible
+                        
+            //Module saisie transhumance (éleveur seulement)
+            $tab_saisi_trans=array(2,6);
+            if (in_array($type,$tab_saisi_trans)){    
+                echo "<div class='box'>";
+                    echo "<p>image</p>";
+                    echo "<a href='../transhumance/transhumance.php'>Déclarer une tranhumance</a>";
+                echo "</div>";
             }
+            
+            //Module Liste transhumance (eleveur, GDS)
+            $tab_liste_trans=array(2,3,6);
+            if (in_array($type,$tab_liste_trans)){    
+                echo "<div class='box'>";
+                    echo "<p>image</p>";
+                    echo "<a href='../transhumance/liste_transhumance.php'>Liste des transhumances</a>";
+                echo "</div>";
+            }
+            
+            //Module saisie diagnostic (véto seulement)
+            $tab_saisi_diag=array(1,6);
+            if (in_array($type,$tab_saisi_diag)){    
+                echo "<div class='box'>";
+                    echo "<p>image</p>";
+                    echo "<a href='../diagnostic/diagnostic_v1.php'>Saisir un diagnostic</a>";
+                echo "</div>";
+            }
+                    
+            //Module Liste diagnostics (Véto, GDS)
+            $tab_liste_diag=array(1,3,6);
+            if (in_array($type,$tab_liste_diag)){    
+                echo "<div class='box'>";
+                    echo "<p>image</p>";
+                    echo "<a href='../diagnostic/liste_diagnostic.php'>Liste des diagnostics</a>";
+                echo "</div>";
+            }
+                    
+            //Module saisie zone tampon (GDS)
+            $tab_saisi_ZT=array(3,6);
+            if (in_array($type,$tab_saisi_ZT)){    
+                echo "<div class='box'>";
+                    echo "<p>image</p>";
+                    echo "<a href='../zone_tampon/zone_tampon.php'>Ajouter une zone tampon</a>";
+                echo "</div>";
+            } 
+            
+            //Module ajout doc
+            $tab_ajout_doc=array(6);
+            if (in_array($type,$tab_ajout_doc)){    
+                echo "<div class='box'>";
+                    echo "<p>image</p>";
+                    echo "<a href='../documents/document.php'>Ajouter un document</a>";
+                echo "</div>";
+            } 
+            
+            //Module saisie compte utilisateur
+            $tab_saisi_compte=array(6);
+            if (in_array($type,$tab_saisi_compte)){    
+                echo "<div class='box'>";
+                    echo "<p>image</p>";
+                    echo "<a href='../compte_utilisateur/compte_utilisateur.php'>Ajouter un compte utilisateur</a>";
+                echo "</div>";
+            } 
+            
+            //Module liste comptes utilisateur
+            $tab_liste_compte=array(6);
+            if (in_array($type,$tab_liste_compte)){    
+                echo "<div class='box'>";
+                    echo "<p>image</p>";
+                    echo "<a href='../compte_utilisateur/liste_comptes.php'>Liste des comptes utilisateurs</a>";
+                echo "</div>";
+            } 
+            
+            //Module Carte (visible par tous)              
             ?>
+            <div class='box'>
+                <p>image</p>
+                <a href='../carte/test1.php'>Carte des zones tampons</a>
+            </div>
+            
+            <div class='box'>
+                <p>image</p>
+                <a href='../communication/annuaire.php'>Annuaire</a>
+            </div>
     
-    <div class='box'>
-        <p>image</p>
-        <a href='../carte/test1.php'>Voir la carte des zones tampons</a>
-    </div>
-    <div class='box'>
-        <p>image</p>
-        <a href='../diagnostic/diagnostic_v1.php'>saisir un diagnostic</a>
-    </div>
-    <div class='box'>
-        <p>image</p>
-        <a>Documents</a>
-    </div>
-    <div class='box'>
-        <p>image</p>
-        <a href='../prophylaxie/README.md'>Voir la carte des zones tampons</a>
-    </div>
-    <div class='box'>
-        <p>image</p>
-        <a href='../transhumance/transhumance.php'>Déclarer une transhumance</a>
-    </div>
-    <div class='box'>
-        <p>image</p>
-        <a href='../transhumance/liste_transhumance.php'>Liste transhumances</a>
-    </div>
-    <div class='box'>
-        <p>image</p>
-        <a href='../zone_tampon/README.md'>Liste des zones tampons</a>
-    </div>
+            <div class='box'>
+                <p>image</p>
+                <p href='../zone_tampon/liste_zone_tampon.php'>Liste des zones tampons</p>
+            </div>
+            
+            <div class='box'>
+                <p>image</p>
+                <p href='../documents/liste_documents.php'>Documents</p>
+            </div>
     
-            
-            
-            
-     <?php   }
+    
+    
+            <? php  
+        ;}
     ?>
     
-
-    
+    <br/>
     <button onclick="self.location.href='Connexion.php'">Retour</button>
+    <div class='container'>
+        <?php //Ajout mise en page
+        include('../general/front/footer.html');?>
+    </div>
+
 </body>
 </html>
