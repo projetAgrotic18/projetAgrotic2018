@@ -4,6 +4,12 @@
 	<META charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js">
 	</script>
+        
+    <!-- Load CSS--->
+    <!--- Style Sonnaille-->
+    <LINK rel="stylesheet" type="text/css" href="style.css">
+    <!--- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 	<!-- Section Javascript: définition de la fonction gérant la récupération des données -->
 	<script type="text/javascript">
@@ -38,28 +44,15 @@
 		}
 	}
 	
-	function actu_maladie(sympt_check){
+	function actu_maladie(liste){
 		$.ajax({
 			type: 'get', 
-			url: 'diagnostic_liste_mala.php',
+			url: 'diagnostic_v3b.php',
 			data: {
-				sympt_check:sympt_check
+				porygon:liste
 			},
 			success: function (response){
-					document.getElementById("actuFormulaire_maladie").innerHTML=response;
-			}
-		});
-	}
-	
-	function actu_prelevement(mala_check){
-		$.ajax({
-			type: 'get', 
-			url: 'diagnostic_liste_prelev.php',
-			data: {
-				mala_check:mala_check
-			},
-			success: function (response){
-					document.getElementById("actuFormulaire_prelevement").innerHTML=response;
+					document.getElementById("actuFormulaire").innerHTML=response;
 			}
 		});
 	}
@@ -67,64 +60,70 @@
 	</script>
 
 	</head>
+        
 	<body>
+    <?php include ("../general/Front/navigation.html"); ?>
+        
 	<form method="GET" action="diagnostic_v3_2.php" onsubmit="return valider()" name="formsaisie">
 	
-	<h1>Diagnostic vétérinaire</h1>
-	(*) : champs obligatoires <br/>	
+	<h1 class="sonnaille_titre">Diagnostic vétérinaire</h1>
+	<div class="padding">(*) : champs obligatoires <br/></div>	
 	
 	<!--Caractéristiques-->
-	<h2>Caractéristiques générales :</h2>
-	* Nom de l'exploitant : <br/>
-	<input type="text" name="nom_exploitant" size="20"><br/>
-	  Nom de l'exploitation : <br/>
-	<input type="text" name="nom_exploitation" size="20"><br/>
-	<!-- A mettre en autocomplétion en fonction du nom de l'exploitant -->
-	<!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
-	* Commune du diagnostic : <br/>
-	<input type="text" name="commune" size="20"><br/>
-	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
-	* Date du diagnostic : <br/>
-	<input type="date" name="date" size="10"><br/><br/>
-	<!-- La date du jour est récupérée sur l'ordi -->
-	
+        
+    <div class="fond_gris">
+        <div class="padding">
+	   <h2>Caractéristiques générales :</h2>
+	   * Nom de l'exploitant : <br/>
+	   <input type="text" name="nom_exploitant" size="20"><br/>
+	   Nom de l'exploitation : <br/>
+        <input type="text" name="nom_exploitation" size="20"><br/>
+        
+        <!-- A mettre en autocomplétion en fonction du nom de l'exploitant -->
+        <!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
+        * Commune du diagnostic : <br/>
+        <input type="text" name="commune" size="20"><br/>
+        
+        <!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
+        * Date du diagnostic : <br/>
+        <input type="date" name="date" size="10"><br/><br/>
+        <!-- La date du jour est récupérée sur l'ordi -->
+    </div>
+        </div>
+	<div class="padding">
 	<h2>Caractéristiques du diagnostic :</h2>
 	* Espèce : <br/>	
-	<input type=radio name="espece" value="1">Bovin
-	<input type=radio name="espece" value="2">Ovin
-	<input type=radio name="espece" value="3">Caprin
-	<br/><br/>
+	<input type=radio name="espece" value="1"> Bovin 
+	<input type=radio name="espece" value="2"> Ovin 
+	<input type=radio name="espece" value="3"> Caprin 
+	<br/>
 	<!--<span id="symptome"></id>-->
 
 	<?php
 	require "../general/connexionPostgreSQL.class.php";
-	$connex = new connexionPostgreSQL();
+	$connex = new connexionPostgreSQL();	
 	
 	// Récupération de l'id du compte_utilisateur vétérinaire connecté à l'outil
 	$_SESSION["id_veto"]=7;
 	
-	$_SESSION["choix_symptomes"]=array();
-	$_SESSION["choix_maladies"]=array();
-	//$_SESSION["choix_prelevements"]=array();
-	
+	$_SESSION["choix_symptome"]=array();
 	//Symptomes : 
 	echo "<br/>Symptomes : <br/>";	
 	$result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
-	echo "<br/>";
-	echo "<span id='actuFormulaire_maladie'></id>";
+	//echo "<br/>";
+	echo "<span id='actuFormulaire'></id>";
 
 	//Maladies :
 	echo "<br/>Maladies : <br/>";
 	$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
+		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
 	}
 	
 	echo "</span>";
-	echo "<span id='actuFormulaire_prelevement'></id>";
 	
 	//Prélèvements :
 	echo "<br/>Prélèvements : <br/>";
@@ -132,8 +131,7 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
 	}
-	echo "</span>";
-	
+	//echo "<br/>";
 	
 	//Analyses :
 	echo "<br/>Analyses : <br/>";
@@ -147,7 +145,11 @@
 	Préconisations : <br/>
 	<input type="text" name="preconisation" size="150"><br/><br/>
 		
-	<input type="submit" value="Ajouter ce diagnostic">
+    <div class="center">
+        <input type="submit" class="btn bouton-sonnaille bouton-m" value="Ajouter ce diagnostic">
+    </div>
+        </div>
 	</form>
 	</body>
+    <?php include ("../general/Front/footer.html"); ?>
 </html>
