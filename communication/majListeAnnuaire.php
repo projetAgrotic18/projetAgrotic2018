@@ -7,9 +7,10 @@
 		<?php
 		
 		/* récupération des données transmises par le formulaire */
-		//$result_liste = $_GET["choixListe"];
+		$result_liste = $_GET["choixListe"];
 		
 		require "../general/connexionPostgreSQL.class.php";
+        
         // Connexion, sélection de la base de données du projet
 
         $connex = new connexionPostgreSQL();
@@ -19,14 +20,14 @@
         $result_compte =  $connex->requete("SELECT libelle_type_utilisateur AS Type, nom AS Nom, 
             						portable AS Telephone, mail AS Email FROM compte_utilisateur cu 
         							JOIN type_utilisateur tu ON cu.id_type_utilisateur=tu.id_type_utilisateur
-        							WHERE cu.id_type_utilisateur = 1");
+        							WHERE cu.id_type_utilisateur = $result_liste");
 		
 		$nbr_col = pg_num_fields($result_compte);
 		
 		echo "<TABLE border=1>";
 		echo "<THEAD>";
 		echo "<TR>";
-		for($i = 0; $i < $nbr_col; $o++) {
+		for($i = 0; $i < $nbr_col; $i++) {
 			$nom_champ = pg_field_name($result_compte, $i);
 			echo ("<TH>" . $nom_champ. "</TH>");
 		}
