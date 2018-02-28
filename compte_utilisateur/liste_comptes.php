@@ -15,8 +15,11 @@
 			}
 }
 	</script>
+    
     <?php
         include('../general/front/navigation.html');
+        echo "<center><h1>Comptes utilisateurs</h1></center><br><br>";
+        echo "<h2>Liste des comptes</h2><br><br>";
         
     // Connexion, sélection de la base de données
         
@@ -48,7 +51,7 @@
         $connex->fermer();
 		
 		//<a href='valid_suppr.php?id_compte=".$id."'>
-        
+        echo "<br><br><br>";
         include('../general/front/footer.html');?>
     
 
