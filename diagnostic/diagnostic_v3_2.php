@@ -63,25 +63,29 @@
 			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
 		
 		//INSERTION DANS LES AUTRES TABLES
-		//symptomes
-		// for ($i=0; $i<count($symptome); $i++){
-			// $result= $connex->requete("INSERT INTO symptdiag (id_sympt, id_diagnostic) VALUES ('".$symptome[$i]."','".$id_diagnostic."')");
-		// }
+		//symptomes : $SESSION["insertion_symptomes"]
+		
+		$insertion_symptomes=$_SESSION["choix_symptomes"];
+		for ($i=0; $i<count($insertion_symptomes); $i++){
+			$result= $connex->requete("INSERT INTO symptdiag (id_sympt, id_diagnostic) VALUES ('".$insertion_symptomes[$i]."','".$id_diagnostic."')");
+		}
 		
 		//maladies
-		// for ($i=0; $i<count($maladie); $i++){
-			// $result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$maladie[$i]."','".$id_diagnostic."')");
-		// }
+		$insertion_maladies=$_SESSION["choix_maladies"];
+		for ($i=0; $i<count($insertion_maladies); $i++){
+			$result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$insertion_maladies[$i]."','".$id_diagnostic."')");
+		}
 		
 		//prelevements
-		// for ($i=0; $i<count($prelevement); $i++){
-			// $result= $connex->requete("INSERT INTO prelevement_diag (id_prele, id_diagnostic) VALUES ('".$prelevement[$i]."','".$id_diagnostic."')");
-		// }
+		$insertion_prelevements=$_SESSION["choix_prelevements"];
+		for ($i=0; $i<count($insertion_prelevements); $i++){
+			$result= $connex->requete("INSERT INTO prelevement_diag (id_prele, id_diagnostic) VALUES ('".$insertion_prelevements[$i]."','".$id_diagnostic."')");
+		}
 		
 		//analyses
-		// for ($i=0; $i<count($analyse); $i++){
-			// $result= $connex->requete("INSERT INTO analyses_diag (id_analyse, id_diagnostic) VALUES ('".$analyse[$i]."','".$id_diagnostic."')");
-		// }
+		for ($i=0; $i<count($analyse); $i++){
+			$result= $connex->requete("INSERT INTO analyses_diag (id_analyse, id_diagnostic) VALUES ('".$analyse[$i]."','".$id_diagnostic."')");
+		}
 	}else{
 		echo "Rien n'a été ajouté à notre base de données, car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
 	}
