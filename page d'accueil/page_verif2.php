@@ -1,9 +1,9 @@
 <?php 
-function verif(){   
-    session_start(); // ouverture d'une nouvelle session
+//session_destroy (); //Fermeture d'une session ouverte
+session_start(); // ouverture d'une nouvelle session
      
-    $nom = $_POST['login'];
-    $mdp = $_POST['mdp'];
+    $nom = $_POST["login"];
+    $mdp = $_POST["mdp"];
 
     //Vérification de l'existance du compte
     require "../general/connexionPostgreSQL.class.php";
@@ -12,8 +12,8 @@ function verif(){
 
     //Si compte existe pas --> message d'erreur
     if (pg_num_rows($result)==0){
+        echo "Failed";
         session_destroy (); //Fermeture d'une session ouverte
-        echo 'Failed';
     }
 
     //Si compte existe  --> ouverture d'une session 
@@ -23,7 +23,6 @@ function verif(){
                 $_SESSION["id_compte"]=$row[0];
                 $_SESSION["id_type_utilisateur"]=$row[1];
             }
-        echo 'Success';
+        echo "Success";
     }
-}
 ?>

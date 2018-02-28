@@ -6,7 +6,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js">
 	</script>
 
-	<!-- Section Javascript: définition de la fonction gérant la récupération des données -->
+	<!-- Section Javascript: vérification de l'entrée des champs obligatoires, définition des fonctions -->
 	<script type="text/javascript">
 		
 	var ok =1;
@@ -100,7 +100,7 @@
 	<!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
 	* Commune du diagnostic : <br/>
 	<input type="text" id='commune' name="commune" size="20" value =''><br/>
-       
+   
         
 	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
 	* Date du diagnostic : <br/>
@@ -162,27 +162,17 @@
 	}
 	echo "<br/>";
 	echo "</span>";
-        
-         $rqt="SELECT nom_commune,code_postal FROM commune";
-                   $result2 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
+    
+	//Commune (gestion de l'autocomplétion) : 
+    $rqt="SELECT nom_commune,code_postal FROM commune";
+    $result2 = $connex->requete($rqt);// requête SQL grâce au mot-clé
+    $array = array(); // création du tableau
 
-             // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
+    while ($row = pg_fetch_array($result2)){   // boucle pour obtenir toutes les données
+		array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+    }  
 
-            //$result->execute(array('commune' => '%'.$term.'%'));
-           $array = array(); // on cr�� le tableau 
-
-           while ($row = pg_fetch_array($result2))   // on effectue une boucle pour obtenir les donn�es 
-           { 
-               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
-                   array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
-           }  
-
-                   // Affichage des résultats en HTML
-                   // Libère le résultat
-
-
-                   // Ferme la connexion
-            $connex->fermer();
+    $connex->fermer();
 	?>
 	
         
@@ -192,31 +182,23 @@
 	<input type="submit" value="Ajouter ce diagnostic">
 	</form>
                 
-             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-            
-          
-            
-          
-       <script type="text/javascript"> 
-
-                    //   Charge la version 1.4.1. 
-                //  google.load('jquery','1.4.1'); 
-                var liste= <?php echo json_encode($array);?>;
-                   $(function () {      
-               $('#commune').autocomplete({ //apres le #
-                source : liste,  //a definir(c'est un fichier php)  
-                focus: function( event, ui ) {
-              $( "#commune" ).val( ui.item.label );
-              return false;
-              },
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>     
+    <script type="text/javascript"> 
+	var liste= <?php echo json_encode($array);?>;
+			$(function () {      
+			$('#commune').autocomplete({ //apres le #
+					source : liste,  //a definir( c'est un fichier php)  
+					focus: function( event, ui ) {
+					$( "#commune" ).val( ui.item.label );
+					return false;
+			},
                 //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
-                select : function(event, ui){ // lors de la s�lection d'une proposition
-               $( '#commune' ).val( ui.item.label);     
-               $('#commune_id').val(ui.item.value);
-              $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
-                return false;
+    select : function(event, ui){ // lors de la sélection d'une proposition
+			$( '#commune' ).val( ui.item.label);     
+			$('#commune_id').val(ui.item.value);
+			$('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
+			return false;
             }
           })
           .autocomplete( "instance" )._renderItem = function( ul, item ) {
@@ -224,10 +206,7 @@
               .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
               .appendTo( ul );
           };
-        } );
-        
-           
-        </script>
-            
+        } );    
+    </script>       
 	</body>
 </html>
