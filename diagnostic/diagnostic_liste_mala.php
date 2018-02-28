@@ -72,5 +72,5 @@
 			echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
-
+	
 ?>
