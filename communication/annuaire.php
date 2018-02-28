@@ -77,6 +77,7 @@
 			<p>Annuaire :</p>
 			
 			<span id="listeAnnuaire"></span>
+			<BR/>
 			
 		</div>
 		
