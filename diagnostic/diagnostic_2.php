@@ -87,6 +87,7 @@
 		}
 	}else{
 		echo "Rien n'a été ajouté à notre base de données, car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
+		echo "<form action='diagnostic.php'><input type='submit' value='Nouveau diagnostic'></form>";
 	}
 		
 	?>

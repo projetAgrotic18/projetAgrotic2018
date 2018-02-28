@@ -22,11 +22,11 @@
 			ok = 0;
 			msg = msg + "[Date]";
 		}
-		//if (document.formsaisie.commune.value == "")
-		//{
-		//	ok = 0;
-		//	msg = msg + "[Lieu du diagnostic]";
-		//}
+		// if (document.formsaisie.commune.value == "")
+		// {
+			// ok = 0;
+			// msg = msg + "[Lieu du diagnostic]";
+		// }
 		if (document.formsaisie.espece.value == "")
 		{
 			ok = 0;
