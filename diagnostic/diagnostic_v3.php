@@ -22,11 +22,11 @@
 			ok = 0;
 			msg = msg + "[Date]";
 		}
-		if (document.formsaisie.commune.value == "")
-		{
-			ok = 0;
-			msg = msg + "[Lieu du diagnostic]";
-		}
+		//if (document.formsaisie.commune.value == "")
+		//{
+		//	ok = 0;
+		//	msg = msg + "[Lieu du diagnostic]";
+		//}
 		if (document.formsaisie.espece.value == "")
 		{
 			ok = 0;
@@ -99,8 +99,8 @@
 	<!-- A mettre en autocomplétion en fonction du nom de l'exploitant -->
 	<!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
 	* Commune du diagnostic : <br/>
-	<input type="text" id='commune' name="commune" size="20"><br/>
-
+	<input type="text" id='commune' name="commune" size="20" value =''><br/>
+        <input tpye='hidden' name="commu" id="commune_id" value =''>
         
 	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
 	* Date du diagnostic : <br/>
