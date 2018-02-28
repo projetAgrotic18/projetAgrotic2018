@@ -30,7 +30,7 @@
 									
 		echo "Prelevement : <br/>";							
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-			echo "<input type=checkbox name='prelevement[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
+			echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
 	
@@ -56,7 +56,7 @@
 		
 		echo "Prelevement : <br/>";
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-			echo "<input type=checkbox name='prelevement[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
+			echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
 

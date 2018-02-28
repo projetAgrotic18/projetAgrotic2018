@@ -8,6 +8,7 @@
 	<h1>Validation</h1>
 	
 	<?php
+	//Vérification PHP
 	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
 		
 		echo "Votre diagnostic a bien été ajouté à notre base de données";
@@ -28,21 +29,8 @@
 		require "../general/connexionPostgreSQL.class.php";
 		$connex = new connexionPostgreSQL();	
 		
-		//id_compte : id du véto : $id_veto
-	
-		//com_id_compte : id de l'éleveur
-		//$com_id_compte;	
-		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$nom_exploitant."'");
-		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-			$com_id_compte=$row[0];
-		}
-		
-		//id_espece : $espece
-		
-		//date_diagnostic : $date
-		
-		//preconisation : $preconisation
-		
+		//PREPARATION DE LA REQUETE
+		//id_diagnostic : 
 		$result_id_diag = $connex->requete("SELECT max(id_diagnostic) FROM diagnostic");
 		while ($row = pg_fetch_array($result_id_diag, null, PGSQL_NUM)) {
 			$id_diagnostic = $row[0];
@@ -50,34 +38,54 @@
 		
 		$id_diagnostic = $id_diagnostic +1;
 		
-		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
-			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$commune."')");
-		
-		//symptomes
-		for ($i=0; $i<count($symptome); $i++){
-			$result= $connex->requete("INSERT INTO symptdiag (id_sympt, id_diagnostic) VALUES ('".$symptome[$i]."','".$id_diagnostic."')");
+		//id_compte : id du véto : $id_veto
+	
+		//com_id_compte : id de l'éleveur
+		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$nom_exploitant."'");
+		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+			$com_id_compte=$row[0];
 		}
+		
+		//id_espece : simple le $espece
+		
+		//date_diagnostic : simplement le $date
+		
+		//preconisation : simplement le $preconisation
+                
+        //id_commune : requête pour récupérer l'id à partir du nom $commune
+		$result=$connex->requete("SELECT id_commune from commune where nom_commune='".$commune."'");
+		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+			$id_commune=$row[0];
+		}
+		
+		//INSERTION DANS LA TABLE DIAGNOSTIC : 
+		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
+			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
+		
+		//INSERTION DANS LES AUTRES TABLES
+		//symptomes
+		// for ($i=0; $i<count($symptome); $i++){
+			// $result= $connex->requete("INSERT INTO symptdiag (id_sympt, id_diagnostic) VALUES ('".$symptome[$i]."','".$id_diagnostic."')");
+		// }
 		
 		//maladies
-		for ($i=0; $i<count($maladie); $i++){
-			$result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$maladie[$i]."','".$id_diagnostic."')");
-		}
+		// for ($i=0; $i<count($maladie); $i++){
+			// $result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$maladie[$i]."','".$id_diagnostic."')");
+		// }
 		
 		//prelevements
-		for ($i=0; $i<count($prelevement); $i++){
-			$result= $connex->requete("INSERT INTO prelevement_diag (id_prele, id_diagnostic) VALUES ('".$prelevement[$i]."','".$id_diagnostic."')");
-		}
+		// for ($i=0; $i<count($prelevement); $i++){
+			// $result= $connex->requete("INSERT INTO prelevement_diag (id_prele, id_diagnostic) VALUES ('".$prelevement[$i]."','".$id_diagnostic."')");
+		// }
 		
 		//analyses
-		for ($i=0; $i<count($analyse); $i++){
-			$result= $connex->requete("INSERT INTO analyses_diag (id_analyse, id_diagnostic) VALUES ('".$analyse[$i]."','".$id_diagnostic."')");
-		}
-	}
-	else{
+		// for ($i=0; $i<count($analyse); $i++){
+			// $result= $connex->requete("INSERT INTO analyses_diag (id_analyse, id_diagnostic) VALUES ('".$analyse[$i]."','".$id_diagnostic."')");
+		// }
+	}else{
 		echo "Rien n'a été ajouté à notre base de données, car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
 	}
 		
 	?>
-	
 	</body>
 </html>

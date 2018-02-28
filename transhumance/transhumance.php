@@ -150,7 +150,7 @@
             <input name="date_sortie" type="date"><br><br>
             <label>(*)Commune de destination :</label>
             <input type='text' id="commune" name='commu' value ='' >
-                   <input type='hidden' id='commune_id' name="commune" value =''>
+                  <input type='hidden' id='commune_id' name="commune" value =''> 
             <h2>Vos animaux déplacés</h2>
             <table>
                 <tr>
