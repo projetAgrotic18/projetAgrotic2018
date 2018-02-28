@@ -44,9 +44,6 @@
     	<!-- Appelle de la page regroupant les fonctions -->
         <?php require_once('../general/procedures.php'); ?>
     
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-sm-4">
     				<?php
     					//Appel du fichier contenant la fonction de connexion
 						require ("../general/connexionPostgreSQL.class.php");
@@ -76,8 +73,6 @@
 						echo "</FORM>";
 		
 					?>
-    			</div>
-    		</div>
         	
 			<p>Annuaire :</p>
 			
