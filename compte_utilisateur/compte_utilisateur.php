@@ -108,8 +108,9 @@
             <label for="Adresse Mail">Adresse mail : </label>
             <input type=email name='mail' placeholder='Adresse Mail'><br/><br/><br/>
             
-            <input type="submit" name="bt_submit" value="Valider">
+            <input type="submit" name="bt_submit" value="Valider"><br/><br/>
         </form>
+        <?php include('../general/front/footer.html');?>
         </div>
 	</body>
 </html>
