@@ -100,7 +100,7 @@
 	<!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
 	* Commune du diagnostic : <br/>
 	<input type="text" id='commune' name="commune" size="20" value =''><br/>
-        <input tpye='hidden' name="commu" id="commune_id" value =''>
+       
         
 	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
 	* Date du diagnostic : <br/>
