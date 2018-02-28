@@ -73,82 +73,119 @@
         
     <div class="fond_gris">
         <div class="padding">
-	   <h2>Caractéristiques générales :</h2>
-	   * Nom de l'exploitant : <br/>
-	   <input type="text" name="nom_exploitant" size="20"><br/>
-	   Nom de l'exploitation : <br/>
-        <input type="text" name="nom_exploitation" size="20"><br/>
-        
-        <!-- A mettre en autocomplétion en fonction du nom de l'exploitant -->
-        <!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
-        * Commune du diagnostic : <br/>
-        <input type="text" name="commune" size="20"><br/>
-        
-        <!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
-        * Date du diagnostic : <br/>
-        <input type="date" name="date" size="10"><br/><br/>
+           <h2>Caractéristiques générales :</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">(*) Nom de l'exploitant</label>
+                        <input type='text' name='nom_exploitant' class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">(*) Nom de l'exploitation</label>
+                        <input type='text' name='nom_exploitation' class="form-control">
+                    </div>
+                </div>
+            <!--
+
+            <!-- A mettre en autocomplétion en fonction du nom de l'exploitant -->
+            <!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
+            <div class="form-group col-md-6">
+                <div class="form-row">
+                    <label for="inputcommune">(*) Commune</label>
+                    <input type="text" name="commune" class="form-control"><br/>
+                </div>
+            </div>
+
+            <!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
+            <div class="form-group col-md-6">
+                <div class="form-row">
+                    <label for="inputDate">(*) Date du diagnostic</label>
+                    <input type="date" name="date" class="form-control">
+                </div>
+            </div>
+
         <!-- La date du jour est récupérée sur l'ordi -->
-    </div>
         </div>
+        </div>
+        
 	<div class="padding">
-	<h2>Caractéristiques du diagnostic :</h2>
-	* Espèce : <br/>	
-	<input type=radio name="espece" value="1"> Bovin 
-	<input type=radio name="espece" value="2"> Ovin 
-	<input type=radio name="espece" value="3"> Caprin 
-	<br/>
-	<!--<span id="symptome"></id>-->
-
-	<?php
-	require "../general/connexionPostgreSQL.class.php";
-	$connex = new connexionPostgreSQL();	
-	
-	// Récupération de l'id du compte_utilisateur vétérinaire connecté à l'outil
-	$_SESSION["id_veto"]=7;
-	
-	$_SESSION["choix_symptome"]=array();
-	//Symptomes : 
-	echo "<br/>Symptomes : <br/>";	
-	$result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
-	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
-	}
-	//echo "<br/>";
-	echo "<span id='actuFormulaire'></id>";
-
-	//Maladies :
-	echo "<br/>Maladies : <br/>";
-	$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
-	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
-	}
-	
-	echo "</span>";
-	
-	//Prélèvements :
-	echo "<br/>Prélèvements : <br/>";
-	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev");
-	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='prelevement[]' value=".$row[0].">".$row[1]."<br/>";
-	}
-	//echo "<br/>";
-	
-	//Analyses :
-	echo "<br/>Analyses : <br/>";
-	$result2 = $connex->requete('SELECT id_analyse, libelle_analyse FROM "ANALYSE"');
-	while ($row = pg_fetch_array($result2, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='analyse[]' value=".$row[0].">".$row[1]."<br/>";
-	}
-	echo "<br/>";
-	?>
-	
-	Préconisations : <br/>
-	<input type="text" name="preconisation" size="150"><br/><br/>
-		
-    <div class="center">
-        <input type="submit" class="btn bouton-sonnaille bouton-m" value="Ajouter ce diagnostic">
-    </div>
+        
+        <h2>Caractéristiques du diagnostic :</h2>
+        * Espèce : <br/>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline1" name="espece" class="custom-control-input" value="1">
+          <label class="custom-control-label" for="customRadioInline1">Bovin</label>
         </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline2" name="espece" class="custom-control-input" value="2">
+          <label class="custom-control-label" for="customRadioInline2">Ovin</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline3" name="espece" class="custom-control-input" value="3">
+          <label class="custom-control-label" for="customRadioInline3">Caprin</label>
+        </div>
+        <br>
+
+        <?php
+        require "../general/connexionPostgreSQL.class.php";
+        $connex = new connexionPostgreSQL();	
+
+        // Récupération de l'id du compte_utilisateur vétérinaire connecté à l'outil
+        $_SESSION["id_veto"]=7;
+        
+        $_SESSION["choix_symptome"]=array();
+        
+        //Symptomes : 
+        echo "<br/>Symptomes : <br/>";
+        echo "<select class='custom-select' multiple>  <option selected>Sélectionnez les symptomes</option>";
+        $result = $connex->requete("SELECT symp.id_sympt, symp.libelle_symptome FROM symp");
+        while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+            echo "<option value=".$row[0].">".$row[1]."</option>";
+        }
+        echo "</select>";
+        echo "<br/>";
+        
+        
+        //Maladies :
+        echo "<br/>Maladies : <br/>";
+        echo "<select class='custom-select' multiple>  <option selected>Sélectionnez les maladies</option>";
+        $result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
+        while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+            echo "<option value=".$row[0].">".$row[1]."</option></br>";
+        }
+        echo "</select>";
+        echo "</span>";
+        echo "<br>";
+        
+        //Prélèvements :
+        echo "<br/>Prélèvements : <br/>";
+        echo "<select class='custom-select' multiple>  <option selected>Sélectionnez les prélèvements</option>";
+        $result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev");
+        while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+            echo "<option value=".$row[0].">".$row[1]."</option></br>";
+        }
+        echo "</select>";
+        echo "<br/>";
+
+        //Analyses :
+        echo "<br/>Analyses : <br/>";
+        echo "<select class='custom-select' multiple>  <option selected>Sélectionnez les analyses</option>";
+        $result2 = $connex->requete('SELECT id_analyse, libelle_analyse FROM "ANALYSE"');
+        while ($row = pg_fetch_array($result2, null, PGSQL_NUM)) {
+            echo "<option value=".$row[0].">".$row[1]."</option><br/>";
+        }
+        echo "</select>";
+        echo "<br/>";
+        ?>
+        <br>
+        <div class="form-group">
+          <label for="preconisation">Préconisations :</label>
+          <textarea class="form-control" rows="5" id="preconisations"></textarea>
+        </div>
+
+        <div class="center">
+            <input type="submit" class="btn bouton-sonnaille bouton-m" value="Ajouter ce diagnostic">
+        </div>
+    </div>
 	</form>
 	</body>
     <?php include ("../general/Front/footer.html"); ?>
