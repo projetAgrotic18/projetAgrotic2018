@@ -109,8 +109,6 @@
 				</TABLE>
 			</span>
 			<BR/>
-			
-		</div>
 		
 		 <!-- Pied de page -->		
         <?php include("../general/front/footer.html"); ?>	
