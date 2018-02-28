@@ -9,7 +9,11 @@
 	
 	<?php
 	
+<<<<<<< Updated upstream
 
+=======
+	echo $_GET["commune"];
+>>>>>>> Stashed changes
 	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
 		
 		echo "Votre diagnostic a bien été ajouté à notre base de données";

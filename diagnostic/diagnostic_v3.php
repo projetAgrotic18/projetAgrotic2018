@@ -164,25 +164,18 @@
 	echo "</span>";
         
          $rqt="SELECT nom_commune,code_postal FROM commune";
-                   $result2 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
+                   $result2 = $connex->requete($rqt);// j'effectue ma requÃªte SQL grÃ¢ce au mot-clÃ©?
 
              // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
 
             //$result->execute(array('commune' => '%'.$term.'%'));
-           $array = array(); // on créé le tableau 
+           $array = array(); // on crÃ©e tableau 
 
-           while ($row = pg_fetch_array($result2))   // on effectue une boucle pour obtenir les données 
+           while ($row = pg_fetch_array($result2))   // on effectue une boucle pour obtenir les donnÃ©es 
            { 
-               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci à notre tableau 
+               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci Ã  notre tableau 
                    array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
            }  
-
-                   // Affichage des rÃ©sultats en HTML
-                   // LibÃ¨re le rÃ©sultat
-
-
-                   // Ferme la connexion
-            $connex->fermer();
 	?>
 	
         
@@ -196,8 +189,7 @@
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
             
-          
-            
+  
           
        <script type="text/javascript"> 
 
@@ -212,7 +204,7 @@
               return false;
               },
                 //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
-                select : function(event, ui){ // lors de la sélection d'une proposition
+                select : function(event, ui){ // lors de la sï¿½lection d'une proposition
                $( '#commune' ).val( ui.item.label);     
                $('#commune_id').val(ui.item.value);
               $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
