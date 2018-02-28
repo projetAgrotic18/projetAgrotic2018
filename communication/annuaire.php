@@ -13,6 +13,7 @@
 				$.ajax({
 					type: 'get',
 					url: 'majListeAnnuaire.php',
+					dataType: "html",
 					data: { 
 						choixListe: str
 					},
