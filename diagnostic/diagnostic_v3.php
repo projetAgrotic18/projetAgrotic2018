@@ -2,6 +2,7 @@
 <html>
 	<head>
 	<META charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js">
 	</script>
 
@@ -78,9 +79,12 @@
 	}
 	
 	</script>
+        
 
 	</head>
 	<body>
+         
+         
 	<form method="GET" action="diagnostic_v3_2.php" onsubmit="return valider()" name="formsaisie">
 	
 	<h1>Diagnostic v√©t√©rinaire</h1>
@@ -95,7 +99,9 @@
 	<!-- A mettre en autocompl√©tion en fonction du nom de l'exploitant -->
 	<!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
 	* Commune du diagnostic : <br/>
-	<input type="text" name="commune" size="20"><br/>
+	<input type="text" id='commune' name="commune" size="20"><br/>
+
+        
 	<!-- Champ autocompl√©t√© quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
 	* Date du diagnostic : <br/>
 	<input type="date" name="date" size="10"><br/><br/>
@@ -156,12 +162,72 @@
 	}
 	echo "<br/>";
 	echo "</span>";
+        
+         $rqt="SELECT nom_commune,code_postal FROM commune";
+                   $result2 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
+
+             // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
+
+            //$result->execute(array('commune' => '%'.$term.'%'));
+           $array = array(); // on crÈÈ le tableau 
+
+           while ($row = pg_fetch_array($result2))   // on effectue une boucle pour obtenir les donnÈes 
+           { 
+               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci ‡ notre tableau 
+                   array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+           }  
+
+                   // Affichage des r√©sultats en HTML
+                   // Lib√®re le r√©sultat
+
+
+                   // Ferme la connexion
+            $connex->fermer();
 	?>
 	
+        
 	Pr√©conisations : <br/>
 	<input type="text" name="preconisation" size="150"><br/><br/>
 		
 	<input type="submit" value="Ajouter ce diagnostic">
 	</form>
+                
+             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+            
+          
+            
+          
+       <script type="text/javascript"> 
+
+                    //   Charge la version 1.4.1. 
+                //  google.load('jquery','1.4.1'); 
+                var liste= <?php echo json_encode($array);?>;
+                   $(function () {      
+               $('#commune').autocomplete({ //apres le #
+                source : liste,  //a definir(c'est un fichier php)  
+                focus: function( event, ui ) {
+              $( "#commune" ).val( ui.item.label );
+              return false;
+              },
+                //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
+                select : function(event, ui){ // lors de la sÈlection d'une proposition
+               $( '#commune' ).val( ui.item.label);     
+               $('#commune_id').val(ui.item.value);
+              $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
+                return false;
+            }
+          })
+          .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+              .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
+              .appendTo( ul );
+          };
+        } );
+        
+           
+        </script>
+            
 	</body>
 </html>
