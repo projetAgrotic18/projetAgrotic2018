@@ -37,12 +37,12 @@
 		
 		$id_diagnostic = $id_diagnostic +1;
 		
-		//id_compte : id du véto : $id_veto
+		//ATTENTION : DANS diagnostic, id_compte EST TOUJOURS CELUI DE L ELEVEUR
 	
-		//com_id_compte : id de l'éleveur
+		//id_compte : id de l'éleveur
 		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$nom_exploitant."'");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-			$com_id_compte=$row[0];
+			$id_eleveur=$row[0];
 		}
 		
 		//id_espece : simplement le $espece
@@ -59,7 +59,7 @@
 		
 		//INSERTION DANS LA TABLE DIAGNOSTIC : 
 		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
-			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
+			VALUES ('".$id_diagnostic."', '".$id_eleveur."', '".$id_veto."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
 		
 		//INSERTION DANS LES AUTRES TABLES : 
 		//symptomes : $SESSION["insertion_symptomes"]

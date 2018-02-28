@@ -133,7 +133,7 @@
 	echo "<span id='actuFormulaire_maladie'></id>";
 
 	//Maladies :
-	echo "<br/>Maladies : <br/>";
+	echo "<br/>Maladies possibles : <br/>";
 	$result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
