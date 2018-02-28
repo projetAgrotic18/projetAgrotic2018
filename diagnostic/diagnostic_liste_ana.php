@@ -37,7 +37,6 @@
 	//Vérifie s'il y a 1 ou plusieurs prélèvements
 	//Appelle seulement la fonction de base pour 1 prélèvement
 	else {
-		
 		$where_analyse;
 		for ($i=0 ; $i < count($liste) ; $i++) {
 			$where_analyse = $where_analyse." ap.id_prele = ".$liste[$i]." ";

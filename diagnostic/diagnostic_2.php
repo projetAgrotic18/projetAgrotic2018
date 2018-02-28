@@ -24,7 +24,6 @@
 		$prelevement=$_GET["prelevement"];
 		$analyse=$_GET["analyse"];
 		
-		
 		//Connexion
 		require "../general/connexionPostgreSQL.class.php";
 		$connex = new connexionPostgreSQL();	
@@ -46,7 +45,7 @@
 			$com_id_compte=$row[0];
 		}
 		
-		//id_espece : simple le $espece
+		//id_espece : simplement le $espece
 		
 		//date_diagnostic : simplement le $date
 		
@@ -62,28 +61,33 @@
 		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
 			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
 		
-		//INSERTION DANS LES AUTRES TABLES
-		//symptomes
-		// for ($i=0; $i<count($symptome); $i++){
-			// $result= $connex->requete("INSERT INTO symptdiag (id_sympt, id_diagnostic) VALUES ('".$symptome[$i]."','".$id_diagnostic."')");
-		// }
+		//INSERTION DANS LES AUTRES TABLES : 
+		//symptomes : $SESSION["insertion_symptomes"]
 		
-		//maladies
-		// for ($i=0; $i<count($maladie); $i++){
-			// $result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$maladie[$i]."','".$id_diagnostic."')");
-		// }
+		$insertion_symptomes=$_SESSION["choix_symptomes"];
+		for ($i=0; $i<count($insertion_symptomes); $i++){
+			$result= $connex->requete("INSERT INTO symptdiag (id_sympt, id_diagnostic) VALUES ('".$insertion_symptomes[$i]."','".$id_diagnostic."')");
+		}
 		
-		//prelevements
-		// for ($i=0; $i<count($prelevement); $i++){
-			// $result= $connex->requete("INSERT INTO prelevement_diag (id_prele, id_diagnostic) VALUES ('".$prelevement[$i]."','".$id_diagnostic."')");
-		// }
+		//maladies : $SESSION["insertion_maladies"]
+		$insertion_maladies=$_SESSION["choix_maladies"];
+		for ($i=0; $i<count($insertion_maladies); $i++){
+			$result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$insertion_maladies[$i]."','".$id_diagnostic."')");
+		}
 		
-		//analyses
-		// for ($i=0; $i<count($analyse); $i++){
-			// $result= $connex->requete("INSERT INTO analyses_diag (id_analyse, id_diagnostic) VALUES ('".$analyse[$i]."','".$id_diagnostic."')");
-		// }
+		//prelevements : $SESSION["insertion_prelevements"]
+		$insertion_prelevements=$_SESSION["choix_prelevements"];
+		for ($i=0; $i<count($insertion_prelevements); $i++){
+			$result= $connex->requete("INSERT INTO prelevement_diag (id_prele, id_diagnostic) VALUES ('".$insertion_prelevements[$i]."','".$id_diagnostic."')");
+		}
+		
+		//analyses : $analyse
+		for ($i=0; $i<count($analyse); $i++){
+			$result= $connex->requete("INSERT INTO analyses_diag (id_analyse, id_diagnostic) VALUES ('".$analyse[$i]."','".$id_diagnostic."')");
+		}
 	}else{
 		echo "Rien n'a été ajouté à notre base de données, car vous n'avez pas completé certains champs considérés obligatoires. Recommencez";
+		echo "<form action='diagnostic.php'><input type='submit' value='Nouveau diagnostic'></form>";
 	}
 		
 	?>

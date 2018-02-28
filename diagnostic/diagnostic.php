@@ -22,11 +22,11 @@
 			ok = 0;
 			msg = msg + "[Date]";
 		}
-		//if (document.formsaisie.commune.value == "")
-		//{
-		//	ok = 0;
-		//	msg = msg + "[Lieu du diagnostic]";
-		//}
+		// if (document.formsaisie.commune.value == "")
+		// {
+			// ok = 0;
+			// msg = msg + "[Lieu du diagnostic]";
+		// }
 		if (document.formsaisie.espece.value == "")
 		{
 			ok = 0;
@@ -77,15 +77,12 @@
 			}
 		});
 	}
-	
+		
 	</script>
-        
-
+  
 	</head>
-	<body>
-         
-         
-	<form method="GET" action="diagnostic_v3_2.php" onsubmit="return valider()" name="formsaisie">
+	<body>         
+	<form method="GET" action="diagnostic_2.php" onsubmit="return valider()" name="formsaisie">
 	
 	<h1>Diagnostic vétérinaire</h1>
 	(*) : champs obligatoires <br/>	
