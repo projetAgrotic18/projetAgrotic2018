@@ -17,17 +17,13 @@
 </head>
 <body> 
     <div class='container'>
-        <?php //Ajout mise en page
-        include('../general/front/navigation.html');?>
-    </div>
-    
-    <div class='container'>
-        <?php 
+        <?php
+            //Ajout mise en page
+            include('../general/front/navigation.html');
+        
             //Récupération des infos page précédente
             $id_compte=$_SESSION["id_compte"];
             $type=$_SESSION["id_type_utilisateur"];
-
-
 
             //Vérification de l'existance du compte
             /*$nom = $_POST["login"];
@@ -68,8 +64,8 @@
             else {*/
                 echo "<center><h1>Bienvenue sur le site</h1></center><br><br><br>";
                 echo "<h2>Page d'acceuil</h2>";
-                echo $nom;
-                echo $type;
+                echo 'id :'.$id_compte;
+                echo 'type:'.$type;
 
 
                 //Gestion des modules par type d'utilisateur
@@ -173,12 +169,10 @@
 
 
                 <? php  
-            ;}
+            //;}
         ?>
-    <button onclick="self.location.href='Connexion.php'">Retour</button>
-    </div>
-    
-    <div class='container'>
+        <button onclick="self.location.href='Connexion2.php'">Retour</button>
+
         <?php //Ajout mise en page
         include('../general/front/footer.html');?>
     </div>

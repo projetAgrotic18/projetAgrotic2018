@@ -98,6 +98,15 @@
                         echo "<a href='../diagnostic/diagnostic_v1.php'>Saisir un diagnostic</a>";
                     echo "</div>";
                 }
+                
+                //Module saisie prophylaxie (véto seulement)
+                $tab_saisi_pro=array(1,6);
+                if (in_array($type,$tab_saisi_pro)){    
+                    echo "<div class='box'>";
+                        echo "<p>image</p>";
+                        echo "<a href='../prophylaxie/prophylaxie.php'>Saisir une prophylaxie</a>";
+                    echo "</div>";
+                }
 
                 //Module Liste diagnostics (Véto, GDS)
                 $tab_liste_diag=array(1,3,6);

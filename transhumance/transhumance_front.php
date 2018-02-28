@@ -135,64 +135,65 @@
         <div class="padding">(*) : champs obligatoires <br/></div>
         <br>
         <div class="fond_gris">
-        <div class="padding">
-        <h2>Renseignements responsable alpage</h2>
-        <form method="post" action="validation_transhumance.php" name='form' onsubmit='return valider()' >
-            
-            <div class="form-group">
-                    <label for="inputIdtranshumance">Id Transhumance</label>
-                    <?php echo "<input type='text' class='form-control' placeholder='idtranshumance' name='id_lot_mvt' value = '$id' readonly ></td>" ?>
-            </div>
-            
-            <div class="container">
-                <section class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                                <label for="inputNom">Nom</label>
-                                <input type='text' name='nom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control" placeholder="nom">
-                        </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                            <label for="inputNom">Prenom</label>
-                            <input type='text' name='prenom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control" placeholder="prenom">
+            <div class="padding">
+                <h2>Renseignements responsable alpage</h2>
+                <form method="post" action="validation_transhumance.php" name='form' onsubmit='return valider()' >
+
+                    <div class="form-row">
+                    <div class="form-group col-md-6">
+                            <label for="inputIdtranshumance">Id Transhumance</label>
+                            <?php echo "<input type='text' class='form-control' placeholder='idtranshumance' name='id_lot_mvt' value = '$id' readonly ></td>" ?>
+                    </div>
+                    </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                            <label for="inputNom">Nom</label>
+                            <input type='text' name='nom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">Prenom</label>
+                        <input type='text' name='prenom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
                     </div>
                 </div>
-                </section>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Email</label>
+                      <input type="email" class="form-control" id="inputEmail4">
+                    </div>
+                    <div class="form-group col-md-6">
+                                <label for="inputNom">Numero</label>
+                                <input type='text' name='numero_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
+                        </div>
+                </div>   
+
             </div>
-            <div class="form-group">
-                    <label for="inputNom">Numero</label>
-                    <input type='text' name='numero_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control" placeholder="numero">
-            </div>
-            
-            </div>
-            </div>
+        </div>
         
-            <div class="padding">
+        <div class="padding">
             
             <h2>Renseignements généraux</h2>
                 
-            <div class="container">
-                <section class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="inputDateDepart">(*)Date départ :</label>
-                            <input type="date" class="form-control" id="inputDateDepart" placeholder="Date_depart" name="date_depart">
-                        </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputDateDepart">(*)Date départ :</label>
+                    <input type="date" class="form-control" id="inputDateDepart" placeholder="Date_depart" name="date_depart">
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="inputDateSortie">(*)Date Arrivée :</label>
+                        <input type="date" class="form-control" id="inputDateSortie" placeholder="Date_sortie" name="date_sortie">
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="inputDateSortie">(*)Date Arrivée :</label>
-                            <input type="date" class="form-control" id="inputDateSortie" placeholder="Date_sortie" name="date_sortie">
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
+            
 
             <div class="form-group">
-                            <label for="inputDateDepart">(*)Commune de destination :</label>
-                            <input type="text" class="form-control" id="commune_id" placeholder="Entrez la commune" name="commune">
+                <label for="inputDateDepart">(*)Commune de destination :</label>
+                <input type="text" class="form-control" id="commune_id" placeholder="Entrez la commune" name="commune">
             </div> 
+        </div>
             
             <div class="fond_gris">
             <div class="padding">
@@ -200,60 +201,63 @@
             <h2>Vos animaux déplacés</h2>
                 <br>
             
-            <div class="container">
-            <section class="row">
-                <div class="col-lg-6">
-                    <br>
-                    <br>
-                    <table>
-                        <tr>
-                            <td>
-
-                            </td>
-                            <td>
-                                <i>Agés de moins de 6 mois</i>
-                            </td>
-                            <td>
-                                <i>Agés de plus de 6 mois</i>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                Caprins
-                            </td>
-                            <td>
+            <div class="form-row align-items-center">
+                    <div class="col-lg-6">
+                        <!---<div class="form-row">
+                            <div class="form-group col-md-2">
+                                Caprins                            
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="nbrcap"><i>Ag�s de moins de 6 mois </i>:</label>
                                 <input type='text' name='nbr_cap_-' value ='' pattern = "[0-9]+">
-                            </td>
-                            <td>
-                                <input type='text' name='nbr_cap_+' value ='' pattern = "[0-9]+">
-                            </td>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="nbrcap"><i>Ag�s de plus de 6 mois </i>:</label>
+                                <input type='text' name='nbr_cap_-' value ='' pattern = "[0-9]+">
+                            </div>
+                        </div>-->
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                                           
+                            </div>
+                            <div class="form-group col-md-4">
+                                <i>Agés de moins de 6 mois</i>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <i>Agés de plus de 6 mois</i>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-1">
+                                Caprins                            
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type='text' name='nbr_cap_-' value ='' pattern = "[0-9]+" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type='text' name='nbr_cap_-' value ='' pattern = "[0-9]+" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-1">
+                                Ovins                           
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type='text' name='nbr_ov_-' value ='' pattern = "[0-9]+" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type='text' name='nbr_ov_-' value ='' pattern = "[0-9]+" class="form-control">
+                            </div>
+                        </div>
+                        
 
-                        </tr>
-                        <tr>
-                            <td>
-                                Ovins
-                            </td>
-                            <td>
-                                <input type='text' name='nbr_ov_-' value ='' pattern = "[0-9]+">
-                            </td>
-                            <td>
-                                <input type='text' name='nbr_ov_+' value ='' pattern = "[0-9]+">
-                            </td>
-
-
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-lg-6">
-                    <br>
-                Description du marquage :<br>
-                    <br>
-                <TEXTAREA class="textarea" name="marquage" rows=10 cols=40></TEXTAREA><Br><br>
-                </div>
-                    
-                </section>
-                </div>
+                    </div>
+                    <div class="col-lg-6">
+                        Description du marquage :<br>
+                        <br>
+                        <TEXTAREA class="textarea" name="marquage" rows=10 cols=40></TEXTAREA>
+                    </div>
+            </div>
                 
                     
             <input type="radio" name="type_paturage" value=1 checked /> Alpage/Pâturage collectif
@@ -263,7 +267,31 @@
             </div>
             
             <div class="padding">
-            <h2>Transporteur</h2>
+                <h2>Transporteur</h2>
+                <br>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputNom">Nom</label>
+                      <input type="text" class="form-control" id="NomTransporteur" name='nom_transp' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">Adresse</label>
+                        <input type='text' name='adresse_transp' value ='' class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputNom">Nom de l'entreprise</label>
+                      <input type="text" class="form-control" id="entreprise" name='entreprise_transp' value =''>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">Téléphone</label>
+                        <input type='text'  name='tel_transp' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" value ='' class="form-control">
+                    </div>
+                </div>
+            
+            <!--    
             <table>
                 <tr>
                     <td>
@@ -296,9 +324,10 @@
                 </tr>
                 
             </table>
+-->
             </div>
             <div class="center">
-            <input type='submit' class="btn bouton-sonnaille bouton-m"  name='bouton' value='Valider la Declaration'>
+            <input type='submit' class="btn bouton-sonnaille bouton-m"  name='bouton' value='Valider la Déclaration'>
             </div>
                 <br>
                 <br>
