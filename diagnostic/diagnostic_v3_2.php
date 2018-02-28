@@ -8,6 +8,8 @@
 	<h1>Validation</h1>
 	
 	<?php
+	
+
 	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
 		
 		echo "Votre diagnostic a bien été ajouté à notre base de données";
@@ -42,6 +44,12 @@
 		//date_diagnostic : $date
 		
 		//preconisation : $preconisation
+                
+                //commune
+                $result=$connex->requete("SELECT id_commune from commune where nom_commune='".$commune."'");
+                while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+			$id_commune=$row[0];
+		}
 		
 		$result_id_diag = $connex->requete("SELECT max(id_diagnostic) FROM diagnostic");
 		while ($row = pg_fetch_array($result_id_diag, null, PGSQL_NUM)) {
@@ -51,7 +59,7 @@
 		$id_diagnostic = $id_diagnostic +1;
 		
 		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
-			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$commune."')");
+			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
 		
 		//symptomes
 		for ($i=0; $i<count($symptome); $i++){

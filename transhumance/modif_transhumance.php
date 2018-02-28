@@ -247,7 +247,7 @@
             <input type='submit'   name='bouton' value='valider'>
         </form>
     </body>
-
+</html>
 
 
 
