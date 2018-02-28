@@ -22,6 +22,19 @@
 					}
 				});
 			}
+			function rechercheAnnuaire(str){
+				$.ajax({
+					type: 'get',
+					url: 'majListeAnnuaire.php',
+					dataType: "html",
+					data: { 
+						rechercheListe: str
+					},
+					success: function (response){
+						document.getElementById("listeAnnuaire").innerHTML=response;
+					}
+				});
+			}
 		</script> 
     </head>
     <body>
@@ -69,7 +82,7 @@
     			<div class="col-sm-8">
 					<BR/><BR/> 
     				<FORM>
-    					<INPUT type="text" size="20" value="Recherche"></INPUT>
+    					<INPUT type="text" size="20" value="Recherche" onkeyup="rechercheAnnuaire(tihs.value)"></INPUT>
     				</FORM>
     			</div>
     		</div>
