@@ -1,5 +1,4 @@
 <?php 
-function verif(){   
     session_start(); // ouverture d'une nouvelle session
      
     $nom = $_POST['login'];
@@ -18,12 +17,12 @@ function verif(){
 
     //Si compte existe  --> ouverture d'une session 
     else {
-        session_destroy (); //Fermeture d'une session ouverte
+        //session_destroy (); //Fermeture d'une session ouverte
         while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
                 $_SESSION["id_compte"]=$row[0];
                 $_SESSION["id_type_utilisateur"]=$row[1];
             }
         echo 'Success';
     }
-}
+
 ?>
