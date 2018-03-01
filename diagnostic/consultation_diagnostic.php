@@ -11,7 +11,7 @@
 	$connex = new connexionPostgreSQL();
 	
 	//A partir de l'id_diagnostic de la liste des diagnostics, on peut réussir à visualiser la totalité du diagnostic
-	$id_diagnostic=19;
+	$id_diagnostic=28;
 	
 	echo "<h2>Caractéristiques générales :</h2>";
 	
