@@ -1,25 +1,28 @@
 <html>
     <head>
         <META charset="UTF-8">
-        <SCRIPT TYPE="text/javascript">
-            function Checked() {
-	           
-	           var COCHE = false;
-	           for (i=0;i < document.getElementsByName(<departement>).length;i++) {
-        	       if(document.getElementsByName(<departement>).item(i).checked) {
-		 	            COCHE = true; break; 
-		              } 
-	               } 
-	           if(COCHE){
-                   alert("Au moins une case cochée"); 
-               }else{ 
-                   alert("Pas de case cochée");
-                    return(false)}
+       <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
+        
+         <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <SCRIPT TYPE="text/javascript" LANGUAGE = "Javascript">
+            //verifier si le veto a check une case
+               function Checked() {
+            var count=$('#checkboxes input:checked').length;
+            
+            if(count > 0){             
+                return (true);
+            } else { 
+                alert("Cochez un département");
+                return(false);
             }
-
+        }
+            
         </SCRIPT>
     </head>
     <body>
+        
+        
+       
         <h1>Ajouter des zones tampons</h1>
         <?php
 
@@ -27,10 +30,83 @@
             $connex = new connexionPostgreSQL();
             $result1 = $connex->requete("SELECT libelle_maladie, id_maladie FROM maladie");
             $result2 = $connex->requete("SELECT id_dpt, libelle_dep FROM departement");
+             $result3 =  $connex->requete("SELECT id_zone_tampon FROM zone_tampon ORDER BY id_zone_tampon"); //sélectionne le premier id  de transhumance disponible
+            $nbre_col = pg_num_fields($result1);
+            $id = 1;
 
+            while ($row = pg_fetch_array($result3, null, PGSQL_NUM)) {
+
+                if ($id < $row[0]) {
+                    break;
+                }
+                $id++;
+            }
+            
+                     $rqt="SELECT nom_commune,code_postal FROM commune";
+                   $result4 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
+
+             // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
+
+            //$result->execute(array('commune' => '%'.$term.'%'));
+
+
+
+           $array = array(); // on cr�� le tableau 
+
+           while ($row = pg_fetch_array($result4))   // on effectue une boucle pour obtenir les donn�es 
+           { 
+               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
+                   array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+           }  
+
+                   // Affichage des résultats en HTML
+                   // Libère le résultat
+            
         ?>
-        <form>
-            <select name="liste_maladie"><?php
+        
+         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+            
+            
+          
+       <script type="text/javascript"> 
+
+                    //   Charge la version 1.4.1. 
+                //  google.load('jquery','1.4.1'); 
+                var liste= <?php echo json_encode($array);?>;
+                   $(function () {      
+               $('#commune').autocomplete({ //apres le #
+                source : liste,  //a definir(c'est un fichier php)  
+                focus: function( event, ui ) {
+              $( "#commune" ).val( ui.item.label );
+              return false;
+              },
+                //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
+                select : function(event, ui){ // lors de la s�lection d'une proposition
+               $( '#commune' ).val( ui.item.label);     
+               $('#commune_id').val(ui.item.value);
+              $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
+                return false;
+            }
+          })
+          .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+              .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
+              .appendTo( ul );
+          };
+        } );
+        
+           
+        </script>
+         
+         
+         
+               <FORM METHOD = "POST" ACTION = "confirmation_zone_tampon.php" ONSUBMIT = "return Checked()">
+                   <label>Id zone Tampon</label>:
+                    <?php echo "<td><input type='text' name='id_zt' value = '$id' readonly ></td>" ?>  <br><br>
+           
+                    <select name="liste_maladie"><?php
 
                 while ($line = pg_fetch_array($result1) ){
         
@@ -39,42 +115,38 @@
                 }
     
             ?></select>
-            <BR/>Commune : <INPUT TYPE = "text" NAME = "zt_commune">
+            <BR/>Commune : <input type='text' id="commune" name='commu' value ='' >
+                   <input type='hidden' id='commune_id' name="commune" value =''>
             
-        </form>
+       
 
         <BR/><BR/>
 
-        <FORM METHOD = "GET" ACTION = "confirmation_zone_tampon.php" ONSUBMIT = 'return Checked()'>
-            <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "val"> Zone tampon par rayon autour du foyer <BR/>
+
+            <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "1"> Zone tampon par rayon autour du foyer <BR/>
                 Rayon : <INPUT TYPE = "text" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?"> km
         
         
             <BR/><BR/>
                 
-            <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "val"> Zone tampon par département <BR/><BR/>
+            <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "2"> Zone tampon par département <BR/><BR/>
                 <?php
+                  echo "<div id='checkboxes'>";
                 while ($line = pg_fetch_array($result2)){
                     echo "<INPUT TYPE ='checkbox' NAME = 'departement[]' VALUE = ".$line[0]."> ".$line[1]."<BR/>";
                 }
-                //<INPUT TYPE = "checkbox" NAME = "Alpes_de_Haute_Provence" VALUE = "04"> 04   
-                //<INPUT TYPE = "checkbox" NAME = "Hautes_Alpes" VALUE ="05"> 05    
-                //<INPUT TYPE = "checkbox" NAME = "Alpes_Maritimes" VALUE ="06"> 06<BR/>
-                //<INPUT TYPE = "checkbox" NAME = "Bouches_du_Rhone" VALUE ="13"> 13    
-                //<INPUT TYPE = "checkbox" NAME = "Var" VALUE ="83"> 83    
-                //<INPUT TYPE = "checkbox" NAME = "Vaucluse" VALUE ="84"> 84<BR/>
+                  echo "</div>";
                 ?>
-                
                 <BR/>
-            <INPUT TYPE = "submit" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
-                    
-        </FORM>
                 
-        <FORM>
-            <?php
+                  <?php
                 echo "Date de début de quarantaine :<BR/><INPUT TYPE ='date' VALUE = ".date('Y-m-d')."><BR/><BR/>";
                 echo "Date de fin de quarantaine :<BR/><INPUT TYPE = 'date' VALUE = ".getdate().">";
             ?>
+            <INPUT TYPE = "SUBMIT" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
+                    
+      
+          
         </FORM>
     </body>
 </html>
