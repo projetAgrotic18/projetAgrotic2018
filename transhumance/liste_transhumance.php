@@ -51,7 +51,7 @@ session_start();
 				echo "<tr>";
 				echo "<td>".$date_depart."</td><td>".$date_arrivee."</td><td>".$nom_responsable."</td>";
 				echo "<td><a href='modif_transhumance.php?id_lot_mvt=".$id_lot_mvt."'>Modifier</a></td>";
-				echo "<td><form action='consultation_transhumance.php'> <input type='submit' name='bt_submit' value='Voir les détails'/></form></td>";   // envoie vers la fiche récapitulative de la transhumance
+				echo "<td><form action='consultation_transhumance.php?id_lot_mvt=".$id_lot_mvt."' method='post'> <input type='submit' name='bt_submit' value='Voir les détails'/></form></td>";   // envoie vers la fiche récapitulative de la transhumance
 				echo "</tr>";
 			}
 		echo "</table>";

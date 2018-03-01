@@ -15,22 +15,16 @@
     </style>
     <link rel="stylesheet" href='../general/front/style.css'>
 </head>
-<body> 
+<body>   
     <div class='container'>
         <?php //Ajout mise en page
         include('../general/front/navigation.html');?>
     </div>
     
     <div class='container'>
-        <?php 
-            //Récupération des infos page précédente
-            $id_compte=$_SESSION["id_compte"];
-            $type=$_SESSION["id_type_utilisateur"];
-
-
-
+        <?php
             //Vérification de l'existance du compte
-            /*$nom = $_POST["login"];
+            $nom = $_POST["identifiant"];
             $mdp = $_POST["mdp"];
             require "../general/connexionPostgreSQL.class.php";
             $connex = new connexionPostgreSQL();
@@ -38,7 +32,7 @@
 
 
             // tableau de vérification de la requête
-            echo "<table border=1 bordorcolor=black>";
+           /* echo "<table border=1 bordorcolor=black>";
             while ($row=pg_fetch_array($result,null,PGSQL_NUM)) {
                 echo "<th>";
                 for($i=1; $i<pg_num_fields($result); $i++){
@@ -52,7 +46,7 @@
                 }
                 echo "</tr>";
             }
-            echo "</table>";
+            echo "</table>";*/
 
 
 
@@ -65,12 +59,14 @@
             }
 
             //Si compte existe  --> page d'accueil + ouverture d'une session 
-            else {*/
+            else {
                 echo "<center><h1>Bienvenue sur le site</h1></center><br><br><br>";
                 echo "<h2>Page d'acceuil</h2>";
-                echo $nom;
-                echo $type;
-
+                while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
+                    $_SESSION["id_compte"]=$row[0];
+                    $_SESSION["id_type_utilisateur"]=$row[1];
+                    $type=$row[1];
+                };
 
                 //Gestion des modules par type d'utilisateur
                 //Pour chaqsue module, on crée un tableau qui stocke les id des types d'utilisateur ayant accès à un module
@@ -100,6 +96,15 @@
                     echo "<div class='box'>";
                         echo "<p>image</p>";
                         echo "<a href='../diagnostic/diagnostic_v1.php'>Saisir un diagnostic</a>";
+                    echo "</div>";
+                }
+                
+                //Module saisie prophylaxie (véto seulement)
+                $tab_saisi_pro=array(1,6);
+                if (in_array($type,$tab_saisi_pro)){    
+                    echo "<div class='box'>";
+                        echo "<p>image</p>";
+                        echo "<a href='../prophylaxie/prophylaxie.php'>Saisir une prophylaxie</a>";
                     echo "</div>";
                 }
 
@@ -175,12 +180,14 @@
                 <? php  
             ;}
         ?>
-    <button onclick="self.location.href='Connexion.php'">Retour</button>
+
+        <br/>
+        <button onclick="self.location.href='Connexion.php'">Retour</button>
     </div>
-    
     <div class='container'>
         <?php //Ajout mise en page
         include('../general/front/footer.html');?>
     </div>
+
 </body>
 </html>

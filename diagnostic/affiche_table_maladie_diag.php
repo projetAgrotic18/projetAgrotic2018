@@ -2,7 +2,7 @@
 
 	require "../general/connexionPostgreSQL.class.php";
 	$connex = new connexionPostgreSQL();
-	$result = $connex->requete("SELECT * FROM symptdiag ORDER BY id_diagnostic");
+	$result = $connex->requete("SELECT * FROM maladie_diag ORDER BY id_diagnostic");
 	
 	echo "<table border = 1 bordercolor = black>";
 	echo "<tr>";

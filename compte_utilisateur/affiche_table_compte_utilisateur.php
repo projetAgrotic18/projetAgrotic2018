@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 	require "../general/connexionPostgreSQL.class.php";
 	$connex = new connexionPostgreSQL();
-	$result = $connex->requete("SELECT * FROM symptdiag ORDER BY id_diagnostic");
+	$result = $connex->requete("SELECT * FROM compte_utilisateur");
 	
 	echo "<table border = 1 bordercolor = black>";
 	echo "<tr>";
@@ -22,4 +22,3 @@
 		}
 		echo "</tr>";
 	}
-?>
