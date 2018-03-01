@@ -23,11 +23,13 @@ Je souhaite que la liste des maladies ne présentent que les noms des maladies en
 
 Je souhaite que s’affiche les prélèvements obligatoires pour la ou les maladies que j’ai sélectionnées (s’il y en a).
 
-Je souhaite pouvoir consulter la liste de tous les prélèvements, rangées par ordre alphabétique, et pourvoir en sélectionner un ou plusieurs, et en désélectionner un ou plusieurs, même s’il des prélèvements obligatoires m’ont déjà été suggérés.
+Je souhaite pouvoir consulter la liste de tous les prélèvements, rangées par ordre alphabétique, et pourvoir en sélectionner un ou plusieurs, et en désélectionner un ou plusieurs, même si des prélèvements obligatoires m’ont déjà été suggérés.
 
 S’il y a des prélèvements obligatoires, je veux que l’outil m’empêche de valider mon diagnostic tant que je n’ai pas coché les cases de chaque prélèvement obligatoire.
 
 Je souhaite qu’une liste d’analyse à effectuer sur les prélèvements que j’ai choisis, ou qui m’ont été suggérés plus haut, s’affiche automatiquement dans ma déclaration de diagnostic.
+
+Je souhaite pourvoir écrire dans un champ texte préconisation des mesures à suivre à l’éleveur.
 
 Quand je clique sur le bouton valider, je souhaite que soit enregistrées dans les tables :
 -	diagnostic
