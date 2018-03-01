@@ -1,0 +1,20 @@
+ SELECT d.id_diagnostic,
+    co.id_compte AS id_veto,
+    co.nom AS nom_veterinaire,
+    com.id_compte AS id_eleveur,
+    com.nom AS nom_eleveur,
+    commune.id_commune,
+    commune.nom_commune,
+    e.id_espece,
+    e.libelle_espece,	
+    m.id_maladie,
+    m.libelle_maladie,
+    d.date_diagnostic
+
+   FROM diagnostic d
+     JOIN compte_utilisateur co ON d.id_compte = co.id_compte
+     JOIN compte_utilisateur com ON d.com_id_compte = com.id_compte
+     JOIN commune ON com.id_commune = commune.id_commune
+     JOIN espece e ON d.id_espece = e.id_espece
+     JOIN maladie_diag md ON d.id_diagnostic = md.id_diagnostic
+     JOIN maladie m ON md.id_maladie = m.id_maladie;
