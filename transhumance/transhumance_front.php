@@ -13,6 +13,7 @@
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
         <title>Déclaration de transhumance</title>
+        <link rel="icon" href="sonnaille.ico">
        
     </head>
     <body>
@@ -259,11 +260,15 @@
                     </div>
             </div>
                 
-                    
-            <input type="radio" name="type_paturage" value=1 checked /> Alpage/Pâturage collectif
-            <input type="radio" name="type_paturage" value=0 /> Alpage/Pâturage individuel
-                
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline1" name="type_paturage" class="custom-control-input" value=1>
+              <label class="custom-control-label" for="customRadioInline1">Alpage/Pâturage collectif</label>
             </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline2" name="type_paturage" class="custom-control-input" value=0>
+              <label class="custom-control-label" for="customRadioInline2">Alpage/Pâturage individuel</label>
+            </div>
+                </div>
             </div>
             
             <div class="padding">
