@@ -60,7 +60,7 @@
 		//INSERTION DANS LA TABLE DIAGNOSTIC : 
 		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
 			VALUES ('".$id_diagnostic."', '".$id_eleveur."', '".$id_veto."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
-		
+	
 		//INSERTION DANS LES AUTRES TABLES : 
 		//symptomes : $SESSION["insertion_symptomes"]
 		
