@@ -17,7 +17,7 @@
        
     </head>
     <body>
-        <?php include ("../general/Front/navigation.html"); ?>
+        <?php include ("../general/Front/navigation_eleveur.html"); ?>
         
         <?php
             require "../general/connexionPostgreSQL.class.php";
