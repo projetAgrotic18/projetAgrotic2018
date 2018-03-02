@@ -140,7 +140,7 @@
 	echo "<span id='actuFormulaire_prelevement'></id>";
 	
 	//Prélèvements :
-	echo "<br/>Prélèvements : <br/>";
+	echo "<br/>Prélèvements à réaliser : <br/>";
 	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev ORDER BY libelle_prelevement");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
