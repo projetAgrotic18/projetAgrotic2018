@@ -7,14 +7,40 @@
     </head>
 
     <body>
+        <script>
+            function modifier($i) {
+                console.log($('#date_proph' + $i));
+                $('#date_proph' + $i).prop('readonly', false);
+                $('#remarque' + $i).prop('readonly', false);
+                if (document.getElementById("bouton" + $i).value == "enregistrer les modifications") {
+                    $('#bouton' + $i).prop('type', "submit");
+                }
+                $('#bouton' + $i).prop('value', "enregistrer les modifications");
+
+            }
+
+        </script>
         <?php
-         //connexion à la bdd du projet
+        //connexion à la bdd du projet
         require "../general/connexionPostgreSQL.class.php";
         $connex = new connexionPostgreSQL();
         $id = $_SESSION["id_compte"];
-        
-        if (isset($_POST['date_proph'])){
-            $result1 =  $connex->requete("SELECT id_visite FROM visite_proph ORDER BY id_visite"); //sélectionne le premier id  de transhumance disponible
+
+        if (isset($_POST['date_proph2'])) {
+            $id_compte = $_POST['id_compte_eleveur'];
+            $date_visite = $_POST['date_proph2'];
+            $remarques = $_POST['remarque2'];
+            if ($remarques == NULL) {
+                $remarques = "N/A";
+            }
+            echo $id_compte;
+            echo $date_visite;
+            echo $remarques;
+//            $result = $connex->requete("INSERT INTO table (date_visite,) VALUES ('" . $date_visite . "','" . $remarques . "') WHERE id_compte_eleveur = $id_compte");
+        }
+
+        if (isset($_POST['date_proph'])) {
+            $result1 = $connex->requete("SELECT id_visite FROM visite_proph ORDER BY id_visite"); //sélectionne le premier id  de transhumance disponible
             $nbre_col = pg_num_fields($result1);
             $id_visite = 1;
 
@@ -27,20 +53,19 @@
             }
             $date_visite = $_POST['date_proph'];
             $remarques = $_POST['remarque'];
-            $id_periode_proph =$_POST['id_periode_proph'] ;
-            if ($remarques==NULL){
+            $id_periode_proph = $_POST['id_periode_proph'];
+            if ($remarques == NULL) {
                 $remarques = "N/A";
             }
-            $id_compte=$_POST['id_compte_eleveur'];
-            $result = $connex->requete("INSERT INTO visite_proph VALUES ('".$id_visite."','" . $id_compte . "','" . $id. "','" . $date_visite . "','" . $remarques . "','" . $id_periode_proph . "')");
-            
+            $id_compte = $_POST['id_compte_eleveur'];
+            $result = $connex->requete("INSERT INTO visite_proph VALUES ('" . $id_visite . "','" . $id_compte . "','" . $id . "','" . $date_visite . "','" . $remarques . "','" . $id_periode_proph . "')");
         }
-       
-        
+
+
 
         // Récuperation de la période de prophylaxie la plus récente
 
-       
+
         $result1 = $connex->requete("SELECT MAX(id_periode_proph) FROM periode_proph");
         while ($row1 = pg_fetch_array($result1)) {
             $periode_max = $row1[0];
@@ -90,20 +115,26 @@
 
             $result4 = $connex->requete("SELECT nom_exploitation from compte_utilisateur WHERE id_compte=$value");
             while ($row4 = pg_fetch_array($result4)) {
-                
-                echo "<form method='post' action='prophylaxie.php' name='form' >";
+
+                echo "<form method='post' action='prophylaxie.php'  >";
                 echo "<input type='hidden' name='id_compte_eleveur'  value=$value />";
                 echo "<input type='hidden' name='id_periode_proph'  value=$periode_max />";
                 echo "<td>" . $row4[0] . "</td><td><input name='date_proph' type='date'></td><td><TEXTAREA name='remarque' placeholder='remarques'></TEXTAREA><Br><br></td><td><input type='submit'   name='bouton' value='enregistrer la visite'></td>";
+
+                echo "</form>";
             }
 
             echo "</tr>";
         }
 
         for ($i = 0; $i < count($liste_fait); $i++) {
+            echo "<form method='post' action='prophylaxie.php'  >";
             echo "<tr>";
-            echo "<td>" . $liste_fait_nom[$i] . "</td><td>" . $liste_fait_date[$i] . "</td><td>" . $liste_fait_com[$i] . "</td><td>modifier la visite</td>";
+            echo "<input type='hidden' name='id_compte_eleveur'  value=$liste_fait[$i] />";
+
+            echo "<td>" . $liste_fait_nom[$i] . "</td><td><input id='date_proph$i' name='date_proph2'  type='date' readonly  value=$liste_fait_date[$i]></td><td><TEXTAREA id='remarque$i' name='remarque2'  readonly>$liste_fait_com[$i]</TEXTAREA></td><td><input type='button' id = 'bouton$i'  value='modifier les informations' onclick = modifier($i)></td>";
             echo "</tr>";
+            echo "</form>";
         }
 
         echo "</table>";
