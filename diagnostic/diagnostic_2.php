@@ -9,11 +9,11 @@
 	
 	<?php
 	//Vérification PHP
-	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
+	if (isset($_GET["nom"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
 		
 		echo "Votre diagnostic a bien été ajouté à notre base de données";
 		
-		$nom_exploitant = $_GET["nom_exploitant"];
+		$nom = $_GET["nom"];
 		$commune = $_GET["commune"];
 		$date = $_GET["date"];
 		$espece = $_GET["espece"];
@@ -40,7 +40,7 @@
 		//ATTENTION : DANS diagnostic, id_compte EST TOUJOURS CELUI DE L ELEVEUR
 	
 		//id_compte : id de l'éleveur
-		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$nom_exploitant."'");
+		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$nom."'");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			$id_eleveur=$row[0];
 		}
