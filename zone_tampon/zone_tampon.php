@@ -6,17 +6,21 @@
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
         <SCRIPT TYPE="text/javascript" LANGUAGE = "Javascript">
             //verifier si le veto a check une case
-               function Checked() {
-            var count=$('#checkboxes input:checked').length;
-            
-            if(count > 0){             
-                return (true);
-            } else { 
+       function Checked() {
+           if($('#zt_type').is(':checked'))
+{
+           var count=$('#checkboxes input:checked').length;
+           if(count > 0){             
+               return (true);
+            } else {    
                 alert("Cochez un département");
                 return(false);
             }
-        }
-            
+       
+       
+                       }
+                       
+    }
         </SCRIPT>
     </head>
     <body>
@@ -42,7 +46,7 @@
                 $id++;
             }
             
-                     $rqt="SELECT nom_commune,code_postal FROM commune";
+                     $rqt="SELECT id_commune,nom_commune,code_postal FROM commune";
                    $result4 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
 
              // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
@@ -56,7 +60,7 @@
            while ($row = pg_fetch_array($result4))   // on effectue une boucle pour obtenir les donn�es 
            { 
                //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
-                   array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+                   array_push($array,array('value'=>$row[0],'label'=>$row[1],'desc'=>$row[2]));
            }  
 
                    // Affichage des résultats en HTML
@@ -99,7 +103,7 @@
         
            
         </script>
-         
+            
          
          
                <FORM METHOD = "POST" ACTION = "confirmation_zone_tampon.php" ONSUBMIT = "return Checked()">
@@ -115,7 +119,7 @@
                 }
     
             ?></select>
-            <BR/>Commune : <input type='text' id="commune" name='commu' value ='' >
+            <BR/>Commune : <input type='text' id="commune" name='commune' value ='' >
                    <input type='hidden' id='commune_id' name="commune" value =''>
             
        
@@ -123,13 +127,13 @@
         <BR/><BR/>
 
 
-            <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "1"> Zone tampon par rayon autour du foyer <BR/>
+            <INPUT TYPE = "radio" ID="zt_type2" NAME = "zt_type" VALUE = 1 checked> Zone tampon par rayon autour du foyer <BR/>
                 Rayon : <INPUT TYPE = "text" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?"> km
         
         
             <BR/><BR/>
                 
-            <INPUT TYPE = "radio" NAME = "zt_type" VALUE = "2"> Zone tampon par département <BR/><BR/>
+            <INPUT TYPE = "radio" ID="zt_type" NAME = "zt_type" VALUE = 2> Zone tampon par département <BR/><BR/>
                 <?php
                   echo "<div id='checkboxes'>";
                 while ($line = pg_fetch_array($result2)){
@@ -140,7 +144,6 @@
                 <BR/>
                 
                   <?php
-                echo "Date de début de quarantaine :<BR/><INPUT TYPE ='date' VALUE = ".date('Y-m-d')."><BR/><BR/>";
                 echo "Date de fin de quarantaine :<BR/><INPUT TYPE = 'date' VALUE = ".getdate().">";
             ?>
             <INPUT TYPE = "SUBMIT" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">

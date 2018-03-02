@@ -6,21 +6,20 @@
         <?php
 
         $maladie=$_POST['liste_maladie'];
-        $commune=$_POST['zt_commune'];
+        $idcommune=$_POST['commune'];
         $zonetamponray = $_POST['zt_type'];
         $dept=$_POST['departement'];
-        foreach ($dept as $value) {
-            echo $value;
-}
-
- echo $maladie;
+        $date_fin=$_POST['date'];
+echo $maladie; 
+echo "<br>".$idcommune;
+echo "<br>".$zonetamponray;
 if ($zonetamponray==1){
-    $zonetamponray='TRUE';
     $rayonzt=$_POST['zt_rayon'];
+    $query3 = $connex->requete("INSERT INTO zone_tampon(id_zone_tampon,id_maladie,rayon_prot,date_fin) VALUES ('".$maladie."','" . $idcommune . "','" .$rayonzt. "','" . $date_fin . "')");
+echo "La zone tampon à bien été crée";
 }
 
-       $date_debut=$_POST['Date_debut'];
-       $date_fin=$_POST['Date_fin'];
+       
       
        
       // Connexion, sÃ©lection de la base de donnÃ©es du projet
@@ -29,7 +28,7 @@ if ($zonetamponray==1){
 
         ?>
         
-        <INPUT TYPE = "SUBMIT" ACTION = "liste_zone_tampon.php" VALUE = "Consulter la liste des zones tampon"><BR/><BR/>
+        <INPUT TYPE = "SUBMIT" ACTION = "lis    te_zone_tampon.php" VALUE = "Consulter la liste des zones tampon"><BR/><BR/>
         <INPUT TYPE = "SUBMIT" ACTION = "carte_Paca.php" VALUE = "Consulter la carte">
     </body>
 </html>
