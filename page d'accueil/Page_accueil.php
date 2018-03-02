@@ -73,7 +73,7 @@
         if (in_array($type,$tab_saisi_diag)){    
             echo "<div class='box'>";
                 echo "<p>image</p>";
-                echo "<a href='../diagnostic/diagnostic_v1.php'>Saisir un diagnostic</a>";
+                echo "<a href='../diagnostic/diagnostic.php'>Saisir un diagnostic</a>";
             echo "</div>";
         }
 

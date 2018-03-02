@@ -15,7 +15,10 @@
 			}
 }
 	</script>
+<<<<<<< HEAD
+=======
     
+>>>>>>> test
     <?php
         include('../general/front/navigation.html');
         echo "<center><h1>Comptes utilisateurs</h1></center><br><br>";
@@ -51,9 +54,13 @@
         $connex->fermer();
 		
 		//<a href='valid_suppr.php?id_compte=".$id."'>
+<<<<<<< HEAD
+    ?>
+=======
         echo "<br><br><br>";
         include('../general/front/footer.html');?>
     
+>>>>>>> test
 
     </body>
 </html>
