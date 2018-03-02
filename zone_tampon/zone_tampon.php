@@ -65,7 +65,15 @@
 
                    // Affichage des résultats en HTML
                    // Libère le résultat
-            
+           //Nom exploitant(gestion de l'autocomplétion) : 
+            $rqt3="SELECT nom, nom_exploitation FROM compte_utilisateur WHERE id_type_utilisateur='2'";
+            $result3 = $connex->requete($rqt3);// requête SQL grâce au mot-clé
+            $array3 = array(); // création du tableau
+
+            while ($row = pg_fetch_array($result3)){   // boucle pour obtenir toutes les données
+                        array_push($array3,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+            }  
+
         ?>
         
          <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -101,6 +109,30 @@
           };
         } );
         
+        		
+	var liste2= <?php echo json_encode($array3);?>;
+			$(function () {      
+			$('#exploi').autocomplete({ //apres le #
+					source : liste2,  //a definir( c'est un fichier php)  
+					focus: function( event, ui ) {
+					$( "#nom" ).val( ui.item.label );
+					return false;
+			},
+                //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
+    select : function(event, ui){ // lors de la sélection d'une proposition
+			$( '#exploi' ).val( ui.item.label);     
+			$('#id_compte').val(ui.item.value);
+			$('#description2').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
+			return false;
+            }
+          })
+          .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+              .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
+              .appendTo( ul );
+          };
+        } );    
+        
            
         </script>
             
@@ -109,16 +141,19 @@
                <FORM METHOD = "POST" ACTION = "confirmation_zone_tampon.php" ONSUBMIT = "return Checked()">
                    <label>Id zone Tampon</label>:
                     <?php echo "<td><input type='text' name='id_zt' value = '$id' readonly ></td>" ?>  <br><br>
-           
+                    
                     <select name="liste_maladie"><?php
-
+                        
                 while ($line = pg_fetch_array($result1) ){
         
                     echo "<option id = ".$line[0]." value =".$line[1].">".$line[0]."</option>";
     
                 }
-    
+                
             ?></select>
+                    <BR/>
+                    Nom de l'exploitation: <input type='text' id="exploi" name="exploi" value="">
+                    <input type="hidden" id="id_compte">
             <BR/>Commune : <input type='text' id="commune" name='commune' value ='' >
                    <input type='hidden' id='commune_id' name="commune" value =''>
             
@@ -128,8 +163,8 @@
 
 
             <INPUT TYPE = "radio" ID="zt_type2" NAME = "zt_type" VALUE = 1 checked> Zone tampon par rayon autour du foyer <BR/>
-                Rayon : <INPUT TYPE = "text" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?"> km
-        
+                Rayon de protection : <INPUT TYPE = "text" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?"> km <BR/>
+                Rayon de surveillance : <input TYPE = "text" NAME = "zt_rayon2" PATTERN = "\d+(,\d{2})?"> km
         
             <BR/><BR/>
                 
@@ -143,9 +178,9 @@
                 ?>
                 <BR/>
                 
-                  <?php
-                echo "Date de fin de quarantaine :<BR/><INPUT TYPE = 'date' VALUE = ".getdate().">";
-            ?>
+                  
+                 Date de fin de quarantaine :<BR/><INPUT  TYPE = 'date' NAME='datefin'>
+           
             <INPUT TYPE = "SUBMIT" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
                     
       
