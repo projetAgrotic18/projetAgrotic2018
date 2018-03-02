@@ -1,10 +1,14 @@
 <html>
     <head>
         <title>Déclaration de transhumance</title>
+<<<<<<< HEAD
+
+=======
            <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
        
+>>>>>>> test
     </head>
     <body>
         <?php
@@ -39,6 +43,9 @@
 			$entreprise_transporteur = $row[17];
 			$commune = $row[20];
 		}
+<<<<<<< HEAD
+		
+=======
 	
                 
                        $rqt="SELECT nom_commune,code_postal FROM commune";
@@ -57,12 +64,17 @@
                //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
                    array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
            }  
+>>>>>>> test
 // Affichage des résultats en HTML
 // Libère le résultat
 
         
 // Ferme la connexion
+<<<<<<< HEAD
+
+=======
       
+>>>>>>> test
         $connex->fermer();
         ?>
         <script type='text/javascript'>
@@ -94,6 +106,9 @@
 
         </script>
 
+<<<<<<< HEAD
+
+=======
            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -130,6 +145,7 @@
         
            
         </script> 
+>>>>>>> test
 
         <h1 align="center"><b>Déclarer une transhumance intrarégionale</b></h1>
         <h2>Renseignements responsable alpage</h2>
@@ -158,8 +174,12 @@
             (*)Date fin :
             <input name="date_sortie" type="date" value="<?php echo "$date_depart"; ?>"><br><br>
             <label>(*)Commune de destination :</label>
+<<<<<<< HEAD
+            <input type='text' name='commune' value ='<?php echo "$commune"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+=======
             <input type='text' id="commune" name='commune' value ='<?php echo "$commune"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
               <input type='hidden' id='commune_id' name="commu" value ='<?php echo "$commune"; ?>'>
+>>>>>>> test
             <h2>Vos animaux déplacés</h2>
             <table>
                 <tr>
@@ -201,6 +221,12 @@
                 </tr>
             </table>
             Description du marquage :<br>
+<<<<<<< HEAD
+            <TEXTAREA name="marquage" rows=10 cols=40 value='<?php echo "$description_marque"; ?>'></TEXTAREA><Br><br>
+            
+            <input type="radio" name="type_paturage" value="collectif" checked /> Alpage/Pâturage collectif
+            <input type="radio" name="type_paturage" value="individuel" /> Alpage/Pâturage individuel
+=======
             <TEXTAREA name="marquage" rows=10 cols=40><?php echo "$description_marque"; ?></TEXTAREA><Br><br>
            <?php 
            if($alp_collectif=='t'){
@@ -211,6 +237,7 @@
              echo "<input type='radio' name='type_paturage' value='0' checked /> Alpage/Pâturage individuel";
            }
            ?>     
+>>>>>>> test
             <h2>Transporteur</h2>
             <table>
                 <tr>
@@ -247,7 +274,11 @@
             <input type='submit'   name='bouton' value='valider'>
         </form>
     </body>
+<<<<<<< HEAD
+
+=======
 </html>
+>>>>>>> test
 
 
 

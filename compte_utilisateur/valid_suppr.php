@@ -15,7 +15,7 @@
   
            // Ferme la connexion
 
-        pg_close($connex);                 
+        $connex->fermer();                 
     ?>
     <form action='liste_comptes.php' method='GET' name='form_retour_liste'>
         <input type='submit' name='bt_retour' value='Retour'>
