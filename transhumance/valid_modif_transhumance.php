@@ -6,7 +6,11 @@ require "../general/connexionPostgreSQL.class.php";
 $id_transhumance = $_POST['id_lot_mvt'];
 $date_arrivee = $_POST['date_arrivee'];
 $date_sortie = $_POST['date_sortie'];
+<<<<<<< HEAD
 $marque = "non specifiee";
+=======
+$commune = $_POST['commune'];
+>>>>>>> test
 
 if ($_POST['marquage']!="") {
     $marque = $_POST['marquage'];
@@ -14,7 +18,11 @@ if ($_POST['marquage']!="") {
 
 $nom_respo = $_POST['nom_responsable'];
 $prenom_respo = $_POST['prenom_responsable'];
+<<<<<<< HEAD
 $commune = $_POST['commune'];
+=======
+$commune = $_POST['commu'];
+>>>>>>> test
 $tel_respo = $_POST['num_responsable'];
 $nom_transport = "non spxE9cifixE9";
 $tel_transport = 9999999999;
@@ -71,6 +79,11 @@ while ($line1 = pg_fetch_array($result1, null, PGSQL_ASSOC)) {
     foreach ($line1 as $col_value1) {
         $id_commune = $col_value1;
     }
+<<<<<<< HEAD
+=======
+   
+   //$id_commune = $row[0];
+>>>>>>> test
 }
 $result2 = $connex->requete("SELECT id_compte FROM compte_utilisateur WHERE nom = '" . $nom_respo . "'");
 while ($line2 = pg_fetch_array($result2, null, PGSQL_ASSOC)) {
@@ -82,6 +95,11 @@ while ($line2 = pg_fetch_array($result2, null, PGSQL_ASSOC)) {
 
 // Exécution de la requête SQL
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> test
 $query3 = $connex->requete("UPDATE lot_mvt SET id_commune='" . $id_commune . "',id_compte='" . $id_compte . "', date_arrivee='" . $date_arrivee . "', date_depart='" . $date_sortie . "', description_marque='" . $marque . "', nom_responsable='" . $nom_respo . "', portable_responsable='" . $tel_respo . "', nom_transporteur='" . $nom_transport . "', contact_transporteur='" . $tel_transport . "', alp_collectif=" . $alpage . ", capr_msm='" . $nbr_cap_m . "', capr_psm='" . $nbr_cap_p . "', ov_msm='" . $nbr_ov_m . "', ov_psm='" . $nbr_ov_p . "', prenom_responsable='". $prenom_respo ."', adresse_transporteur='". $adresse_transpo ."', entreprise_transporteur='". $entreprise_transpo ."' WHERE id_lot_mvt=".$id_transhumance );
 echo "La modification de la transhumance a bien été prise en compte.";
  

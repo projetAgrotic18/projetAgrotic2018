@@ -1,0 +1,18 @@
+ SELECT d.id_diagnostic,
+    com.id_compte AS id_veto,
+    com.nom AS nom_veterinaire,
+    co.id_compte AS id_eleveur,
+    co.nom AS nom_eleveur,
+    d.id_commune,
+    commune.nom_commune,
+    e.id_espece,
+    e.libelle_espece,
+    d.date_diagnostic,
+    d.confirme,
+    d.preconisation
+   FROM diagnostic d
+     LEFT JOIN compte_utilisateur co ON d.id_compte = co.id_compte
+     JOIN compte_utilisateur com ON d.com_id_compte = com.id_compte
+     JOIN commune ON commune.id_commune = d.id_commune
+     JOIN espece e ON d.id_espece = e.id_espece
+  GROUP BY d.id_diagnostic, com.id_compte, com.nom, co.id_compte, co.nom, d.id_commune, commune.nom_commune, e.id_espece, e.libelle_espece, d.date_diagnostic, d.confirme, d.preconisation;

@@ -18,7 +18,7 @@
 	
             // Exécution de la requête SQL
 
-            $result1 =  $connex->requete("SELECT id_lot_mvt FROM lot_mvt"); //sélectionne le premier id  de transhumance disponible
+            $result1 =  $connex->requete("SELECT id_lot_mvt FROM lot_mvt ORDER BY id_lot_mvt"); //sélectionne le premier id  de transhumance disponible
             $nbre_col = pg_num_fields($result1);
             $id = 1;
 
@@ -150,7 +150,7 @@
             <input name="date_sortie" type="date"><br><br>
             <label>(*)Commune de destination :</label>
             <input type='text' id="commune" name='commu' value ='' >
-                   <input type='hidden' id='commune_id' name="commune" value =''>
+                  <input type='hidden' id='commune_id' name="commune" value =''> 
             <h2>Vos animaux déplacés</h2>
             <table>
                 <tr>

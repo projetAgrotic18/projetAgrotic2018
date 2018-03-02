@@ -1,6 +1,7 @@
 <html>
 	<head>
-		<META charset="UTF-8">
+		<META charset="UTF-8"/>
+        <link rel="stylesheet" href='../general/front/style.css'>    
 	</head>
 	<body>
 	<script>
@@ -14,7 +15,15 @@
 			}
 }
 	</script>
+<<<<<<< HEAD
+=======
+    
+>>>>>>> test
     <?php
+        include('../general/front/navigation.html');
+        echo "<center><h1>Comptes utilisateurs</h1></center><br><br>";
+        echo "<h2>Liste des comptes</h2><br><br>";
+        
     // Connexion, sélection de la base de données
         
         require "../general/connexionPostgreSQL.class.php";
@@ -45,7 +54,13 @@
         $connex->fermer();
 		
 		//<a href='valid_suppr.php?id_compte=".$id."'>
+<<<<<<< HEAD
     ?>
+=======
+        echo "<br><br><br>";
+        include('../general/front/footer.html');?>
+    
+>>>>>>> test
 
     </body>
 </html>
