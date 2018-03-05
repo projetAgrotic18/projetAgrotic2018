@@ -44,7 +44,11 @@
 			$connex->fermer();
 		?>
 		<div class="center">
+<<<<<<< Updated upstream
 		<form action='compte_utilisateur.php' method='GET' name='form_retour_liste'>
+=======
+		<form action='compte_utilisateur_front.php' method='GET' name='form_retour_liste'>
+>>>>>>> Stashed changes
 			<input type='submit' name='bt_retour' value='Retour' class="btn bouton-sonnaille bouton-m">
 		</form> 
         </div>
