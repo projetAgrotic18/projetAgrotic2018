@@ -89,20 +89,20 @@
 	
 	<!--Caractéristiques-->
 	<h2>Caractéristiques générales :</h2>
-	* Nom de l'exploitant : <br/>
+	(*) Nom de l'exploitant : <br/>
 	<input type="text" id='nom' name="nom" size="20"><br/>
 	 
-	* Commune du diagnostic : <br/>
+	(*) Commune du diagnostic : <br/>
 	<input type="text" id='commune' name="commune" size="20" value =''><br/>
    
         
 	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
-	* Date du diagnostic : <br/>
+	(*) Date du diagnostic : <br/>
 	<input type="date" name="date" size="10"><br/><br/>
 	<!-- La date du jour est récupérée sur l'ordi -->
 	
 	<h2>Caractéristiques du diagnostic :</h2>
-	* Espèce : <br/>	
+	(*) Espèce : <br/>	
 	<input type=radio name="espece" value="1">Bovin
 	<input type=radio name="espece" value="2">Ovin
 	<input type=radio name="espece" value="3">Caprin
