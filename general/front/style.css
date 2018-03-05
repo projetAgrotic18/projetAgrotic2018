@@ -36,6 +36,27 @@
     max-height: 60px;
 }
 
+.right_button{
+    padding: 300%;
+}
+
+.right_button_veto{
+    padding: 210%;
+}
+
+.right_button_gds{
+    padding:50%;
+}
+
+.deconnexion{
+    color: white;
+    text-decoration: none;
+}
+
+.deconnexion:hover{
+    color:white;
+    text-decoration: none;
+}
 /********************************************** Footer ********************************************/
 
 .sonnaille_footer{
