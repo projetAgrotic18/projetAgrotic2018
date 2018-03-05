@@ -18,25 +18,23 @@
               }
         $maladie=$_POST['liste_maladie'];
         $idzt=$_POST['id_zt'];
-        $zonetamponray = $_POST['zt_type'];
-        $dept=$_POST['departement'];
         $date_fin=$_POST['datefin'];
         $active="TRUE";
      //   echo $dept;
     //    echo $zonetamponray;
-if ($zonetamponray==1)
-    {
+
         $rayonztprot=$_POST['zt_rayon'];
         $rayonztsurv=$_POST['zt_rayon2'];
-        $query3 = $connex->requete("INSERT INTO zone_tampon(id_maladie,id_compte,id_zone_tampon,rayon_prot,rayon_surv,date_fin,active) VALUES('".$maladie."','".$id_compte."','". $idzt ."','" .$rayonztprot. "','" .$rayonztsurv. "','" . $date_fin . "','".$active."')");
+        $commune=$_POST['commune'];
+
+         $query5 = $connex->requete("SELECT id_dpt FROM commune WHERE nom_commune='".$commune."'");
+      while ($row = pg_fetch_array($query5)) 
+              {
+                           $id_dpt = $row[0];
+              }
+        $query3 = $connex->requete("INSERT INTO zone_tampon(id_maladie,id_compte,id_zone_tampon,rayon_prot,rayon_surv,date_fin,active,id_dpt) VALUES('".$maladie."','".$id_compte."','". $idzt ."','" .$rayonztprot. "','" .$rayonztsurv. "','" . $date_fin . "','".$active."','".$id_dpt."')");
         echo "La zone tampon à bien été crée";
-     }// else {
-       //   $rayonztprot=0;
-        //  $rayonztsurv=0;
-       //$query4 = $connex->requete("INSERT INTO zone_tampon(id_maladie,id_compte,id_zone_tampon,rayon_prot,rayon_surv,date_fin,active,id_dpt) VALUES('".$maladie."','".$id_compte."','". $idzt ."','" .$rayonztprot. "','" .$rayonztsurv. "','" . $date_fin . "','".$active."','".$dept."')");
-       // echo "La zone tampon à bien été crée";
-    // }
-         
+            
         ?>
         <form type="POST" action="liste_zone_tampon.php" >
         <INPUT TYPE = "SUBMIT" VALUE = "Consulter la liste des zones tampon">

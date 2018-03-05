@@ -4,24 +4,7 @@
        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <SCRIPT TYPE="text/javascript" LANGUAGE = "Javascript">
-            //verifier si le veto a check une case
-       function Checked() {
-           if($('#zt_type').is(':checked'))
-{
-           var count=$('#checkboxes input:checked').length;
-           if(count > 0){             
-               return (true);
-            } else {    
-                alert("Cochez un département");
-                return(false);
-            }
-       
-       
-                       }
-                       
-    }
-        </SCRIPT>
+    
     </head>
     <body>
         
@@ -138,11 +121,12 @@
             
          
          
-               <FORM METHOD = "POST" ACTION = "confirmation_zone_tampon.php" ONSUBMIT = "return Checked()">
+               <FORM METHOD = "POST" ACTION = "confirmation_zone_tampon.php" >
                    <label>Id zone Tampon</label>:
                     <?php echo "<td><input type='text' name='id_zt' value = '$id' readonly ></td>" ?>  <br><br>
                     
-                    <select name="liste_maladie"><?php
+                    <label>Maladie concern�e</label>:
+                    <select name="liste_maladie"><?php 
                         
                 while ($line = pg_fetch_array($result1) ){
         
@@ -150,32 +134,27 @@
     
                 }
                 
-            ?></select>
+            ?>
+                    </select>
+                    <br>
                     <BR/>
                     Nom de l'exploitation: <input type='text' id="exploi" name="exploi" value="">
                     <input type="hidden" id="id_compte">
             <BR/>Commune : <input type='text' id="commune" name='commune' value ='' >
-                   <input type='hidden' id='commune_id' name="commune" value =''>
+                   <input type='hidden' id='commune_id' name="commu" value =''>
             
        
 
         <BR/><BR/>
 
 
-            <INPUT TYPE = "radio" ID="zt_type2" NAME = "zt_type" VALUE = 1 checked> Zone tampon par rayon autour du foyer <BR/>
+           Rayon autour du foyer <BR/>
                 Rayon de protection : <INPUT TYPE = "text" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?"> km <BR/>
                 Rayon de surveillance : <input TYPE = "text" NAME = "zt_rayon2" PATTERN = "\d+(,\d{2})?"> km
         
             <BR/><BR/>
                 
-            <INPUT TYPE = "radio" ID="zt_type" NAME = "zt_type" VALUE = 2> Zone tampon par département <BR/><BR/>
-                <?php
-                  echo "<div id='checkboxes'>";
-                while ($line = pg_fetch_array($result2)){
-                    echo "<INPUT TYPE ='checkbox' NAME = 'departement[]' VALUE = ".$line[0]."> ".$line[1]."<BR/>";
-                }
-                  echo "</div>";
-                ?>
+    
                 <BR/>
                 
                   
