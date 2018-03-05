@@ -1,4 +1,8 @@
-<?php session_start();?>
+<?php session_start();
+if (isset($_SESSION["id_compte"])==false){
+    header("Location: http://194.199.251.139/projetAgrotic2018/page%20d'accueil/Connexion.php");
+    exit;
+}?>
 <html>
 <head>
     <META charset="UTF-8" />
@@ -109,7 +113,7 @@
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='diagnostic.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p> Saisir un nouveau diagnostic </p></center>";
-                echo "<center><br><a class='btn bouton-sonnaille' href='../diagnostic/diagnostic_v1.php' role='button'>Diagnostics</a></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../diagnostic/diagnostic.php' role='button'>Diagnostics</a></center>";
             echo "</div><br>";
             $compteur_row=$compteur_row+1;
         }
