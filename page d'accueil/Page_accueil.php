@@ -1,6 +1,6 @@
 <?php session_start();
 if (isset($_SESSION["id_compte"])==false){
-    header('Location: Connexion.php');
+    header('Location: http://194.199.251.139/projetAgrotic2018/page%20d'accueil/Connexion.php');
     exit;
 }?>
 <html>
