@@ -99,7 +99,6 @@
 	<div class="padding">(*) : champs obligatoires <br/></div>
 	
 	<!--Caractéristiques-->
-	<h2>Caractéristiques générales :</h2>
     <div class="fond_gris">
         <div class="padding">
            <h2>Caractéristiques générales :</h2>
