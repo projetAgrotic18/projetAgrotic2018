@@ -70,6 +70,7 @@
 		}
 		
 		//maladies : $SESSION["insertion_maladies"]
+		// A MODIFIER : confirme_maladie ! de base à 0
 		$insertion_maladies=$_SESSION["choix_maladies"];
 		for ($i=0; $i<count($insertion_maladies); $i++){
 			$result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$insertion_maladies[$i]."','".$id_diagnostic."')");
