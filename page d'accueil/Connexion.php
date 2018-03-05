@@ -1,6 +1,6 @@
 <?php session_start();
 //session_destroy(); //Fermeture d'une session ouverte
-if (isset($_POST['nom']) and isset($_SESSION["id_compte"])){
+if (isset($_POST['nom']) and $_POST['nom']!="" and isset($_SESSION["id_compte"])){
     header('Location: Page_accueil.php');
     exit;
 }
