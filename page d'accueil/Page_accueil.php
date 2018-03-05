@@ -1,4 +1,8 @@
-<?php session_start();?>
+<?php session_start();
+if (isset($_SESSION["id_compte"])==false){
+    header('Location: Connexion.php');
+    exit;
+}?>
 <html>
 <head>
     <META charset="UTF-8" />
