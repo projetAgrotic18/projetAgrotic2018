@@ -103,7 +103,7 @@
 									echo "<td>".$row[0]."</td>";
 									echo "<td>".$row[1]."</td>";
 									echo "<td>".$row[2]."</td>";
-									echo "<td> <label for='check[]'>".$row[3]."</label><input type='checkbox' id='check[]' name='check' value='".$row[3]."'></td>";
+									echo "<td> <input type='checkbox' id='check[]' name='check' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
 								echo "</TR>";
 							}
 							?>
@@ -116,12 +116,10 @@
 			
 			<?php
 			if(isset($_POST['check'])) {
-				foreach($_POST['check'] as $checkoptions){
-					echo $checkoptions;
+				foreach($_POST['check'] AS )
 					}
 					
 				//echo "<a href=mailto:?to=".
-			}
 			
 			?>
 			
