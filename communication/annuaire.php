@@ -89,7 +89,7 @@ if (isset($_SESSION["id_compte"])==false){
 
 				$nbr_col = pg_num_fields($result_all_compte);
 				?>
-				<FORM action='envoi_mail_annuaire.php' method='post'>
+				<FORM action='ecriture_mail.php' method='post'>
 					<TABLE border=1 id="example">
 						<THEAD>
 							<TR>
