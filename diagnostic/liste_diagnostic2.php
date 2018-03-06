@@ -37,16 +37,30 @@
 	
 			//Zones de textes des dates de diagnostic
 			
-			echo "Pour une période allant du : <input type='date' name='zt_date_debut'>";
-			echo "Au : <input type='date' name='zt_date_fin'>";
+            echo "<form action='liste_diagnostic2.php' method='GET'>";
+            if (isset($_GET['date_debut']) and isset($_GET['date_fin'])){
+                echo "Pour une période allant du : <input type='date' name='date_debut' value='".$_GET['date_debut']."'>";
+                echo "Au : <input type='date' name='date_fin' value='".$_GET['date_fin']."'>";
+            }
+            else {
+                echo "Pour une période allant du : <input type='date' name='date_debut'>";
+                echo "Au : <input type='date' name='date_fin'>";
+            }
+            echo "<input type=submit value='Valider'/>";
 		
-			
-				$result_all_compte =  $connex->requete("SELECT ld.id_diagnostic, nom_veterinaire, nom_eleveur, nom_commune, libelle_espece, libelle_maladie, date_diagnostic FROM liste_diag ld join maladie_diag md on ld.id_diagnostic=md.id_diagnostic 
-                join maladie m on md.id_maladie=m.id_maladie");
+			if (isset($_GET['date_debut']) and isset($_GET['date_fin']) and $_GET['date_debut']!='' and $_GET['date_fin']!=''){
+                $result_all_compte =  $connex->requete("SELECT ld.id_diagnostic, nom_veterinaire, nom_eleveur, nom_commune, libelle_espece, libelle_maladie, date_diagnostic FROM liste_diag ld join maladie_diag md on ld.id_diagnostic=md.id_diagnostic join maladie m on md.id_maladie=m.id_maladie
+                where date_diagnostic between '".$_GET['date_debut']."' and '".$_GET['date_fin']."'");
 
+            }
+            else{
+                $result_all_compte =  $connex->requete("SELECT ld.id_diagnostic, nom_veterinaire, nom_eleveur, nom_commune, libelle_espece, libelle_maladie, date_diagnostic FROM liste_diag ld join maladie_diag md on ld.id_diagnostic=md.id_diagnostic 
+                join maladie m on md.id_maladie=m.id_maladie");
+            }
+				
 				$nbr_col = pg_num_fields($result_all_compte);
 				?>
-				
+				<br/><br/>
                 <TABLE border=1 id="example">
                     <THEAD>
                         <TR>
