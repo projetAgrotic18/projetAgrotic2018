@@ -7,7 +7,7 @@ if($_SESSION['id_type_compte']==1){
 }elseif($_SESSION['id_type_compte']==3){
 	include ('../front/navigation_gds.html')
 }elseif($_SESSION['id_type_compte']==4){
-	include ('../front/navigation_gds.html')
+	include ('../front/navigation_ddpp.html')
 }elseif($_SESSION['id_type_compte']==5){
 	include ('../front/navigation_labo.html')
 }elseif($_SESSION['id_type_compte']==6){
