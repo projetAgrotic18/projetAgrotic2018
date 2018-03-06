@@ -5,7 +5,7 @@ if (isset($_SESSION["id_compte"])==false){
 }*/?>
 <html>
     <head>
-        <title>Annuaire</title>
+        <title>Ecriture mail</title>
 		<META charset="UTF-8"/>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
          		
@@ -26,29 +26,29 @@ if (isset($_SESSION["id_compte"])==false){
 			<?php
 			$b="";
 			foreach($_POST['check'] as $a){
-				$b.=$a."; ";
+				$b.=$a.", ";
 			}
 			?>
-			<FORM action='mail_envoye.php' method='post'>
+			
+			<FORM action="mail_envoye.php" method="POST">
 				<?php
 				echo "<label for='mail'>Mail :</label>";
 				echo "<br/>";
-				echo "<input id='mail' type='text' value='".$b."' size='50'/>"; ?>
+				echo "<input id='mail' name='mail' type='text' value='".$b."' size='50'/>"; ?>
 				<br/><br/>
 				<label for='objet'>Objet :</label>
 				<br/>
-				<input id='objet' type='text' size='50'/>
+				<input id='objet' name="objet" type='text' size='50'/>
 				<br/><br/>
 				<label for='expediteur'>Votre mail :</label>
 				<br/>
-				<input id='expediteur' type='email' size='50'/>
+				<input id='expediteur' name="expediteur" type='email' size='50'/>
 				<br/><br/>
 				<label for='message'>Message :</label>
 				<br/>
-				<textarea id='message' type='text' cols='50' rows="4"></textarea>
+				<textarea id='message' name="message" type='text' cols='50' rows="4"></textarea>
 				<br/><br/>
 				<input type="submit" value="Envoyer">
-				
 			</FORM>
 			
 			<input type="button" value="Retour à l'annuaire" onclick="self.history.back()">
