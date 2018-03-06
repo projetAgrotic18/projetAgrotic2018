@@ -5,13 +5,14 @@
 	</head>
 	
 	<body>
+	<form method="GET" action="modif_diagnostic_validation.php" name="formsaisie">
 	<h1>Modification d'un diagnostic </h1>
 	<?php
 	require "../general/connexionPostgreSQL.class.php";
 	$connex = new connexionPostgreSQL();
 	
 	//A partir de l'id_diagnostic de la liste des diagnostics, on peut réussir à visualiser la totalité du diagnostic
-	$id_diagnostic=38;
+	$id_diagnostic=$_GET["id_diagnostic"];
 	
 	//SEULE PARTIE MODIFIABLE : 
 	//Récupération des maladies à partir de l'id_diagnostic : 
@@ -21,20 +22,24 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo $row[0]."<br/>";
 	}
+	
 	//A sélectionner de nouveau :
-	echo "<br/>Vous pouvez changer votre sélection : <br/>";
+	echo "<br/>Vous pouvez confirmer la maladie associée au diagnostic, ainsi réitérer votre sélection, ou la modifier : <br/>";
+	echo "<br/>(Ce choix sera considéré comme définitifs)<br/>";
 	$result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
+		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
 	}
 	echo "<br/>";
+	
 	?>
-	<form method="GET" action="consultation_diagnostic.php" name="formsaisie">
+	
 	<input type="submit" value="Modifier">
 	</form>
 	
-	<form method="GET" action="consultation_diagnostic.php" name="formsaisie">
-	<input type="submit" value="Annuler la modification">
-	</form>
+	<a href = "consultation_diagnostic.php">
+	<button type="button">Annuler la modification</button>
+	</a>
+	
 	</body>
 </html>

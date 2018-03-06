@@ -1,5 +1,7 @@
 <?php 
     session_start(); // ouverture d'une nouvelle session
+    session_destroy();
+    session_start();
      
     $nom = $_POST['login'];
     $mdp = $_POST['mdp'];

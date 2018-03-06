@@ -36,31 +36,6 @@
     max-height: 60px;
 }
 
-.right_button{
-    padding: 300%;
-}
-
-.right_button_veto{
-    padding: 210%;
-}
-
-.right_button_gds{
-    padding:50%;
-}
-
-.right_button_admin{
-    padding:500%;
-}
-
-.deconnexion{
-    color: white;
-    text-decoration: none;
-}
-
-.deconnexion:hover{
-    color:white;
-    text-decoration: none;
-}
 /********************************************** Footer ********************************************/
 
 .sonnaille_footer{
@@ -69,7 +44,6 @@
     color:white;
     text-align: center;
     line-height: 80px;
-
 }
 
 /********************************************* Boutons *************************************************/
@@ -201,4 +175,8 @@ fieldset[disabled] .bouton-sonnaille.focus {
   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.padding_accueil{
+    padding-top: 10px;
 }

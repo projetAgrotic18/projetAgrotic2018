@@ -4,13 +4,22 @@
        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-    
+        <title> Ajout de zone tampon </title>
+    <link rel="icon" href="sonnaille.ico">
+        
+    <!-- Load CSS--->
+    <!--- Style Sonnaille-->
+    <LINK rel="stylesheet" type="text/css" href="style.css">
+    <!--- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
+        <?php include ("../general/Front/navigation_gds.html"); ?>
         
         
-       
-        <h1>Ajouter des zones tampons</h1>
+       <br>
+        <h1 class="sonnaille_titre">Ajouter des zones tampons</h1>
+        <br><br>
         <?php
 
             require "../general/connexionPostgreSQL.class.php";
@@ -122,48 +131,82 @@
          
          
                <FORM METHOD = "POST" ACTION = "confirmation_zone_tampon.php" >
-                   <label>Id zone Tampon</label>:
-                    <?php echo "<td><input type='text' name='id_zt' value = '$id' readonly ></td>" ?>  <br><br>
-                    
-                    <label>Maladie concernée</label>:
-                    <select name="liste_maladie"><?php 
+                <div class="fond_gris">
+                   <div class="padding">
+                        <div class="form-group col-md-6">
+                           <label for="id_zt">Id zone Tampon</label>:
+                            <?php echo "<input type='text' class='form-control' name='id_zt' value = '$id' readonly >" ?>
+                       </div>
+                       
+                    <label>Maladie concernÃ©e</label>:
+                    <select class="form-control form-control-lg" name="liste_maladie">
+                        <?php 
                         
                 while ($line = pg_fetch_array($result1) ){
         
                     echo "<option id = ".$line[0]." value =".$line[1].">".$line[0]."</option>";
     
-                }
-                
-            ?>
+                    }?>    
                     </select>
+                       
                     <br>
                     <BR/>
-                    Nom de l'exploitation: <input type='text' id="exploi" name="exploi" value="">
-                    <input type="hidden" id="id_compte">
-            <BR/>Commune : <input type='text' id="commune" name='commune' value ='' >
-                   <input type='hidden' id='commune_id' name="commu" value =''>
+                    <div class= "form-row">
+                       <div class="form-group col-lg-6">
+                            <label for="exploi">Nom de l'exploitation</label>
+                            <input type='text' class="form-control" id="exploi" name="exploi" value="">
+                            <input type="hidden" id="id_compte">
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label for="commune">Commune</label>
+                            <input type='text' class="form-control" id="commune" name='commune' value ='' >
+                            <input type='hidden' id='commune_id' name="commu" value =''>
+                        </div>
+                    </div>                  
             
-       
+                   </div>
+                    </div>
 
-        <BR/><BR/>
+        <BR/>
+            <div class="padding">
 
-
-           Rayon autour du foyer <BR/>
-                Rayon de protection : <INPUT TYPE = "text" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?"> km <BR/>
-                Rayon de surveillance : <input TYPE = "text" NAME = "zt_rayon2" PATTERN = "\d+(,\d{2})?"> km
+           <i>Rayon autour du foyer</i> <br><br>
+                <div class="form-row">
+                    <div class="form-group col-lg-6">
+                        <label for="zt_rayon">Rayon de protection</label>
+                        <div class="input-group mb-2">
+                            <INPUT TYPE = "text" class="form-control" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?" id="zt_rayon">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">km</div>
+                            </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="zt_rayon2">Rayon de surveillance</label>
+                        <div class="input-group mb-2">
+                             <INPUT TYPE = "text" class="form-control" NAME = "zt_rayon2" PATTERN = "\d+(,\d{2})?" id="zt_rayon2">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">km</div>
+                            </div>
+                      </div>
+                    </div>
+                </div>
         
-            <BR/><BR/>
                 
-    
-                <BR/>
+                <div class="form-row col-lg-6">
+                    <label for="datefin">Date de fin de quarantaine </label>
+                    <INPUT  TYPE = 'date' class="form-control" NAME='datefin' ID="datefin">
+                </div>
+            </div>
                 
-                  
-                 Date de fin de quarantaine :<BR/><INPUT  TYPE = 'date' NAME='datefin'>
-           
-            <INPUT TYPE = "SUBMIT" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
+            <br>
+           <div class="center">
+                <INPUT TYPE = "SUBMIT"  class="btn bouton-sonnaille bouton-m" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
+            </div>
+            <br>       
                     
-      
           
         </FORM>
+        <?php include ("../general/Front/footer.html"); ?> 
     </body>
 </html>

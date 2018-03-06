@@ -1,4 +1,4 @@
-<html
+<html>
     <head>
         <META charset='UTF-8'>
     </head>
@@ -32,8 +32,8 @@
               {
                            $id_dpt = $row[0];
               }
-        $query3 = $connex->requete("INSERT INTO zone_tampon(id_maladie,id_compte,id_zone_tampon,rayon_prot,rayon_surv,date_fin,active,id_dpt) VALUES('".$maladie."','".$id_compte."','". $idzt ."','" .$rayonztprot. "','" .$rayonztsurv. "','" . $date_fin . "','".$active."','".$id_dpt."')");
-        echo "La zone tampon à bien été crée";
+        $query3 = $connex->requete("UPDATE zone_tampon SET rayon_prot='".$rayonztprot."',rayon_surv='".$rayonztsurv."', date_fin='".$date_fin."', id_dpt='".$id_dpt."', id_compte='".$id_compte."' WHERE id_zone_tampon=".$idzt);
+        echo "La zone tampon a bien Ã©tÃ© modifiÃ©e";
             
         ?>
         <form type="POST" action="liste_zone_tampon.php" >

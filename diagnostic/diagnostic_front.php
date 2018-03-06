@@ -5,6 +5,16 @@
         <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js">
 	</script>
+    
+    <title> Déclaration de Diagnostic </title>
+    <link rel="icon" href="sonnaille.ico">
+        
+    <!-- Load CSS--->
+    <!--- Style Sonnaille-->
+    <LINK rel="stylesheet" type="text/css" href="style.css">
+    <!--- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
 
 	<!-- Section Javascript: vérification de l'entrée des champs obligatoires, définition des fonctions -->
 	<script type="text/javascript">
@@ -81,32 +91,67 @@
 	</script>
   
 	</head>
-	<body>         
+	<body> 
+    <?php include ("../general/Front/navigation_veto.html"); ?>
 	<form method="GET" action="diagnostic_2.php" onsubmit="return valider()" name="formsaisie">
 	
-	<h1>Diagnostic vétérinaire</h1>
-	(*) : champs obligatoires <br/>	
+	<h1 class="sonnaille_titre">Diagnostic vétérinaire</h1>
+	<div class="padding">(*) : champs obligatoires <br/></div>
 	
 	<!--Caractéristiques-->
-	<h2>Caractéristiques générales :</h2>
-	(*) Nom de l'exploitant : <br/>
-	<input type="text" id='nom' name="nom" size="20"><br/>
-	 
-	(*) Commune du diagnostic : <br/>
-	<input type="text" id='commune' name="commune" size="20" value =''><br/>
+    <div class="fond_gris">
+        <div class="padding">
+           <h2>Caractéristiques générales :</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">(*) Nom de l'exploitant</label>
+                        <input type='text' name='nom_exploitant' class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">(*) Nom de l'exploitation</label>
+                        <input type='text' name='nom_exploitation' class="form-control">
+                    </div>
+                </div>
    
         
 	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
-	(*) Date du diagnostic : <br/>
-	<input type="date" name="date" size="10"><br/><br/>
-	<!-- La date du jour est récupérée sur l'ordi -->
+            <!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
+            <div class="form-group col-md-6">
+                <div class="form-row">
+                    <label for="inputcommune">(*) Commune</label>
+                    <input type="text" name="commune" class="form-control"><br/>
+                </div>
+            </div>
+
+            <!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
+            <div class="form-group col-md-6">
+                <div class="form-row">
+                    <label for="inputDate">(*) Date du diagnostic</label>
+                    <input type="date" name="date" class="form-control">
+                </div>
+            </div>
+
+        <!-- La date du jour est récupérée sur l'ordi -->
+        </div>
+        </div>
 	
-	<h2>Caractéristiques du diagnostic :</h2>
-	(*) Espèce : <br/>	
-	<input type=radio name="espece" value="1">Bovin
-	<input type=radio name="espece" value="2">Ovin
-	<input type=radio name="espece" value="3">Caprin
-	<br/><br/>
+	<div class="padding">
+        
+        <h2>Caractéristiques du diagnostic :</h2>
+        * Espèce : <br/>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline1" name="espece" class="custom-control-input" value="1">
+          <label class="custom-control-label" for="customRadioInline1">Bovin</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline2" name="espece" class="custom-control-input" value="2">
+          <label class="custom-control-label" for="customRadioInline2">Ovin</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline3" name="espece" class="custom-control-input" value="3">
+          <label class="custom-control-label" for="customRadioInline3">Caprin</label>
+        </div>
+        <br>
 	<!--<span id="symptome"></id>-->
 
 	<?php
@@ -129,6 +174,7 @@
 	echo "<br/>";
 	echo "<span id='actuFormulaire_maladie'></id>";
 
+
 	//Maladies :
 	echo "<br/>Maladies possibles : <br/>";
 	$result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
@@ -140,7 +186,7 @@
 	echo "<span id='actuFormulaire_prelevement'></id>";
 	
 	//Prélèvements :
-	echo "<br/>Prélèvements à réaliser : <br/>";
+	echo "<br/>Prélèvements : <br/>";
 	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev ORDER BY libelle_prelevement");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
@@ -178,11 +224,13 @@
     $connex->fermer();
 	?>
 	
-        
-	Préconisations : <br/>
-	<input type="text" name="preconisation" size="150"><br/><br/>
-		
-	<input type="submit" value="Ajouter ce diagnostic">
+    <div class="form-group">
+        <label for="preconisation">Préconisations :</label>
+        <textarea class="form-control" rows="5" id="preconisations"></textarea>
+    </div>
+	<div class="center">	
+	<input type="submit" class="btn bouton-sonnaille bouton-m" value="Ajouter ce diagnostic">
+        </div>
 	</form>
                 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
