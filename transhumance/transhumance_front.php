@@ -1,3 +1,6 @@
+<?php session_start();
+
+?>
 <html>
     
         <META charset="UTF-8">  
@@ -24,7 +27,13 @@
             // Connexion, sélection de la base de données du projet
 
             $connex = new connexionPostgreSQL();
-
+            
+            $result =  $connex->requete("SELECT nom,portable,mail FROM compte_utilisateur WHERE id_compte = ".$_SESSION['id_compte']." ") ;
+            while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+                $nom = $row[0];
+                $num = $row[1];
+                $mail = $row[2];
+            }
 	
             // Exécution de la requête SQL
 
@@ -150,7 +159,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                             <label for="inputNom">(*) Nom</label>
-                            <input type='text' name='nom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
+                            <?php echo "<input type='text' name='nom_responsable' value =  $nom  pattern='^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$' class='form-control'>";?>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputNom">(*) Prenom</label>
@@ -161,11 +170,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="inputEmail4">Email</label>
-                      <input type="email" class="form-control" id="inputEmail4">
+                      <?php echo "<input type='email' class='form-control' id='inputEmail4' value = $mail>";?>
                     </div>
                     <div class="form-group col-md-6">
                                 <label for="inputNom">(*) Numero</label>
-                                <input type='text' name='num_responsable' value ='' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control">
+                                <?php echo "<input type='text' name='num_responsable' value =$num pattern='^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$' class='form-control'>";?>
                         </div>
                 </div>   
 

@@ -7,13 +7,17 @@
         <!--Deux lignes de code pour le tableau-->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        
+
+		
         <script type="text/javascript">
             //Code pour la mise en forme du tableau (voir datatable)
             $(document).ready(function () {
                 
-                $('#proph').DataTable();
+                $('#proph').DataTable( {
+            "aaSorting": [ [3,'asc']]
+            } );
             });
+		
         </script>
 
     </head>
