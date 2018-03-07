@@ -15,24 +15,31 @@ and open the template in the editor.
         <?php
 	require "../general/connexionPostgreSQL.class.php";
 	$connex = new connexionPostgreSQL();
-	$result = $connex->requete("SELECT * FROM zone_tampon");
-	
+	$result = $connex->requete("SELECT libelle_maladie,rayon_prot,rayon_surv,id_zone_tampon,active FROM zone_tampon zt JOIN maladie m on m.id_maladie=zt.id_maladie where active='t'");
+	      
 	echo "<table border = 1 bordercolor = black>";
 	echo "<tr>";
-	for ($i=0 ; $i < pg_num_fields($result) ; $i++){
-		echo "<td>";
-		echo pg_field_name($result, $i);
-		echo "</td>";
-	}
-	echo "</tr>";
 	
+		echo "<th>";
+		echo "Maladie";
+		echo "</th>";
+                echo "<th>";
+		echo "Rayon de protection";
+		echo "</th>";
+                echo "<th>";
+		echo "Rayon de Surveillance";
+		echo "</th>";
+	echo "</tr>";
+            
+       
+        
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<tr>";
-		for ($j=0 ; $j < pg_num_fields($result) ; $j++){
-			echo "<td>";
-			echo $row[$j];
-			echo "</td>";
-		}
+		 echo "<tr>";
+		echo "<td>".$row[0]."</td>";
+                 echo "<td>".$row[1]."</td>";
+                 echo "<td>".$row[2]."</td>";
+                 echo "<td><a href='modif_zone_tampon.php?id_zone_tampon=".$row[3]."'>Modifier</a></td>";
+                   echo "<td><a href='desac_zone_tampon.php?id_zone_tampon=".$row[3]."'>Désactiver la zone</a></td>";
 		echo "</tr>";
 	}
         ?>
