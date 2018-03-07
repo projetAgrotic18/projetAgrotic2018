@@ -113,14 +113,14 @@
                                         $result_diag=$connex->requete("select libelle_maladie from maladie_diag md join maladie m on md.id_maladie=m.id_maladie where md.id_diagnostic=$id_diagnostic and confirme=false");
                                         echo "<p>Diagnostiquées :</p>";
                                         while ($row = pg_fetch_array($result_diag)){
-                                            echo "<p>".$row[0]."</p><br/>";
+                                            echo "<p>".$row[0]."</p>";
                                         }
                                     }
                                     //Confirmées
                                     else{
                                         echo "<b>Confirmées :</b>";
                                         while ($row = pg_fetch_array($result_conf)){
-                                            echo "<p>".$row[0]."</p><br/>";
+                                            echo "<p>".$row[0]."</p>";
                                         }
                                     }
                             
