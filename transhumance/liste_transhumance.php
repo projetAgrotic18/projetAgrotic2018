@@ -111,7 +111,7 @@ session_start();
                                 echo "<TD>".$row[$i]."</TD>";
                             }
                             // Affichage bouton modifier
-                            echo "<TD><a href='modif_transhumance.php?id_lot_mvt=".$row[4]."'>Modifier</a></TD>";
+                            echo "<TD><form action='modif_transhumance.php?id_lot_mvt=".$row[4]."' method='post'><input type='submit' name='bt_submit' value='Modifier'/></form></TD>";
                             //Affichage du bouton détail
                             echo "<TD>
                                     <form action='consultation_transhumance.php?id_lot_mvt=".$row[4]."&type_utilisateur=".$id_type_utilisateur."' method='post'>
