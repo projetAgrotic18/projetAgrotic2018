@@ -22,38 +22,10 @@ if (isset($_SESSION["id_compte"])==false){
         //Récupération des infos page précédente
         $id_compte=$_SESSION["id_compte"];
         $type=$_SESSION["id_type_utilisateur"];
+        
+        include('../general/switchbar.php');
     
-        if ($type==1){
-            include('../general/front/navigation_veto.html');
-        }
-        else {
-            if ($type==2){
-            include('../general/front/navigation_eleveur.html');
-            }
-            else{
-                if ($type==3){
-                include('../general/front/navigation_gds.html');
-                }
-                else{
-                    if ($type==4){
-                    include('../general/front/navigation.html');
-                    }
-                    else{
-                        if ($type==5){
-                        include('../general/front/navigation_admin.html');
-                        }
-                        else{
-                            if ($type==6){
-                            include('../general/front/navigation_labo.html');
-                            }
-                            else{
-                               include('../general/front/navigation.html'); 
-                            }
-                        }
-                    }
-                }
-            }
-        }
+       
 
 
         // tableau de vérification de la requête
