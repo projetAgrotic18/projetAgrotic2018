@@ -157,7 +157,24 @@ if (isset($_SESSION["id_compte"])==false){
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='zone_tampon.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p>Saisir une nouvelle zone tampon</p></center>";
-                echo "<center><br><a class='btn bouton-sonnaille' href='../zone_tampon/zone_tampon.php' role='button'>Zone tampon</a></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../zone_tampon/zone_tampon_front.php' role='button'>Zone tampon</a></center>";
+            
+            $compteur_row=$compteur_row+1;
+            echo "</div><br>";
+        } 
+    if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
+    
+    //Module Liste exploitations (GDS)
+        $tab_saisi_ZT=array(3,6);
+        if (in_array($type,$tab_saisi_ZT)){
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='zone_tampon.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p>Consulter la liste des exploitations</p></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../prophylaxie/liste_exploitation.php' role='button'>Liste des exploitations</a></center>";
             
             $compteur_row=$compteur_row+1;
             echo "</div><br>";
