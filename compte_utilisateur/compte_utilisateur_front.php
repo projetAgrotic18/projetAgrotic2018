@@ -169,7 +169,9 @@
                     <input type="email" class="form-control" placeholder="Adresse Mail" name='mail'>
                 </div>
             </div>
-			<span id="txtNomExploit"></span>
+			<div class="form-group">
+			    <span id="txtNomExploit" class="form-control"></span>
+			</div>
         <br>
         <div class="center">
             <input type="submit" name="bt_submit" value="M'enregistrer" class="btn bouton-sonnaille bouton-m">
