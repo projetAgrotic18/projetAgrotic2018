@@ -14,7 +14,6 @@ and open the template in the editor.
         
         require "../general/connexionPostgreSQL.class.php";
         $idzt=$_GET["id_zone_tampon"];
-        echo $idzt;
 	$connex = new connexionPostgreSQL();
         $result= $connex->requete("UPDATE zone_tampon SET active='FALSE' WHERE id_zone_tampon=".$idzt); 
        
