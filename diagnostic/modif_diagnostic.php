@@ -12,7 +12,7 @@
 	$connex = new connexionPostgreSQL();
 	
 	//A partir de l'id_diagnostic de la liste des diagnostics, on peut réussir à visualiser la totalité du diagnostic
-	$id_diagnostic=38;
+	$id_diagnostic=$_GET["id_diagnostic"];
 	
 	//SEULE PARTIE MODIFIABLE : 
 	//Récupération des maladies à partir de l'id_diagnostic : 

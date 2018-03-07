@@ -1,3 +1,8 @@
+<?php session_start();
+if (isset($_SESSION["id_compte"])==false){
+    header("Location: http://194.199.251.139/projetAgrotic2018/page d'accueil/Connexion.php");
+    exit;
+}?>
 <html>
     <head>
         <title>Annuaire</title>
@@ -84,7 +89,7 @@
 
 				$nbr_col = pg_num_fields($result_all_compte);
 				?>
-				<FORM action='annuaire.php' method='post'>
+				<FORM action='ecriture_mail.php' method='post'>
 					<TABLE border=1 id="example">
 						<THEAD>
 							<TR>
@@ -103,7 +108,7 @@
 									echo "<td>".$row[0]."</td>";
 									echo "<td>".$row[1]."</td>";
 									echo "<td>".$row[2]."</td>";
-									echo "<td> <input type='checkbox' id='check[]' name='check' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
+									echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
 								echo "</TR>";
 							}
 							?>
@@ -113,16 +118,7 @@
 				</FORM>
 			</span>
 			<BR/>
-			
-			<?php
-			if(isset($_POST['check'])) {
-				foreach($_POST['check'] AS )
-					}
-					
-				//echo "<a href=mailto:?to=".
-			
-			?>
-			
+			<input type="button" value="Retour" onclick="self.history.back()">
 		</div>
     
 		 <!-- Pied de page -->		
