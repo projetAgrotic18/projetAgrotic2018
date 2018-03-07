@@ -1,193 +1,287 @@
-<?php session_start();?>
+<?php session_start();
+if (isset($_SESSION["id_compte"])==false){
+    header("Location: http://194.199.251.139/projetAgrotic2018/page%20d'accueil/Connexion.php");
+    exit;
+}?>
 <html>
 <head>
-    <META charset="UTF-8">
-    <title>Connexion</title>
+    <META charset="UTF-8" />
+    <title>Accueil</title>
+    <link rel="icon" href="sonnaille.ico">
     <script type="text/javascript" src="javascript.js" language="javascript"></script>
-    <style>
-        .box {
-            float: left;
-            width: 200px;
-            height: 100px;
-            margin: 1em; 
-            background-color: aquamarine;
-        }
-    </style>
     <link rel="stylesheet" href='../general/front/style.css'>
 </head>
-<body>   
-    <div class='container'>
-        <?php //Ajout mise en page
-        include('../general/front/navigation.html');?>
-    </div>
     
-    <div class='container'>
-        <?php
-            //Vérification de l'existance du compte
-            $nom = $_POST["identifiant"];
-            $mdp = $_POST["mdp"];
-            require "../general/connexionPostgreSQL.class.php";
-            $connex = new connexionPostgreSQL();
-            $result = $connex->requete("SELECT * FROM compte_utilisateur where identifiant='".$nom."' and mdp='".$mdp."'");
-
-
-            // tableau de vérification de la requête
-           /* echo "<table border=1 bordorcolor=black>";
-            while ($row=pg_fetch_array($result,null,PGSQL_NUM)) {
-                echo "<th>";
-                for($i=1; $i<pg_num_fields($result); $i++){
-                    echo "<td>";
-                    echo pg_field_name($result, $i)."</td>";  
-                }
-                echo "</th>";
-                echo "<tr>";
-                for($i=0; $i<pg_num_fields($result); $i++){
-                    echo "<td>".$row[$i]."</td>";
-                }
-                echo "</tr>";
-            }
-            echo "</table>";*/
-
-
-
-            //Si compte existe pas --> message d'erreur
-            if (pg_num_rows($result)==0){
-                echo "<center><h1>Nom du site</h1></center><br><br><br>";
-                echo "<h2>Erreur</h2>";
-                echo "<p>Votre login ou votre mot de passe est incorrect</p><br/>";
-
-            }
-
-            //Si compte existe  --> page d'accueil + ouverture d'une session 
-            else {
-                echo "<center><h1>Bienvenue sur le site</h1></center><br><br><br>";
-                echo "<h2>Page d'acceuil</h2>";
-                while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
-                    $_SESSION["id_compte"]=$row[0];
-                    $_SESSION["id_type_utilisateur"]=$row[1];
-                    $type=$row[1];
-                };
-
-                //Gestion des modules par type d'utilisateur
-                //Pour chaqsue module, on crée un tableau qui stocke les id des types d'utilisateur ayant accès à un module
-                //Si l'id du type de compte connecté a l'accès à la rubrique, alors le module d'accès est visible
-
-                //Module saisie transhumance (éleveur seulement)
-                $tab_saisi_trans=array(2,6);
-                if (in_array($type,$tab_saisi_trans)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../transhumance/transhumance.php'>Déclarer une tranhumance</a>";
-                    echo "</div>";
-                }
-
-                //Module Liste transhumance (eleveur, GDS)
-                $tab_liste_trans=array(2,3,6);
-                if (in_array($type,$tab_liste_trans)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../transhumance/liste_transhumance.php'>Liste des transhumances</a>";
-                    echo "</div>";
-                }
-
-                //Module saisie diagnostic (véto seulement)
-                $tab_saisi_diag=array(1,6);
-                if (in_array($type,$tab_saisi_diag)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../diagnostic/diagnostic_v1.php'>Saisir un diagnostic</a>";
-                    echo "</div>";
-                }
+<body> 
+    
+    <?php
+        //Barre de navigation en fonction de l'utilisateur
                 
-                //Module saisie prophylaxie (véto seulement)
-                $tab_saisi_pro=array(1,6);
-                if (in_array($type,$tab_saisi_pro)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../prophylaxie/prophylaxie.php'>Saisir une prophylaxie</a>";
-                    echo "</div>";
+
+
+        //Récupération des infos page précédente
+        $id_compte=$_SESSION["id_compte"];
+        $type=$_SESSION["id_type_utilisateur"];
+    
+        if ($type==1){
+            include('../general/front/navigation_veto.html');
+        }
+        else {
+            if ($type==2){
+            include('../general/front/navigation_eleveur.html');
+            }
+            else{
+                if ($type==3){
+                include('../general/front/navigation_gds.html');
                 }
-
-                //Module Liste diagnostics (Véto, GDS)
-                $tab_liste_diag=array(1,3,6);
-                if (in_array($type,$tab_liste_diag)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../diagnostic/liste_diagnostic.php'>Liste des diagnostics</a>";
-                    echo "</div>";
+                else{
+                    if ($type==4){
+                    include('../general/front/navigation.html');
+                    }
+                    else{
+                        if ($type==5){
+                        include('../general/front/navigation_admin.html');
+                        }
+                        else{
+                            if ($type==6){
+                            include('../general/front/navigation_labo.html');
+                            }
+                            else{
+                               include('../general/front/navigation.html'); 
+                            }
+                        }
+                    }
                 }
-
-                //Module saisie zone tampon (GDS)
-                $tab_saisi_ZT=array(3,6);
-                if (in_array($type,$tab_saisi_ZT)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../zone_tampon/zone_tampon.php'>Ajouter une zone tampon</a>";
-                    echo "</div>";
-                } 
-
-                //Module ajout doc
-                $tab_ajout_doc=array(6);
-                if (in_array($type,$tab_ajout_doc)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../documents/document.php'>Ajouter un document</a>";
-                    echo "</div>";
-                } 
-
-                //Module saisie compte utilisateur
-                $tab_saisi_compte=array(6);
-                if (in_array($type,$tab_saisi_compte)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../compte_utilisateur/compte_utilisateur.php'>Ajouter un compte utilisateur</a>";
-                    echo "</div>";
-                } 
-
-                //Module liste comptes utilisateur
-                $tab_liste_compte=array(6);
-                if (in_array($type,$tab_liste_compte)){    
-                    echo "<div class='box'>";
-                        echo "<p>image</p>";
-                        echo "<a href='../compte_utilisateur/liste_comptes.php'>Liste des comptes utilisateurs</a>";
-                    echo "</div>";
-                } 
-
-                //Module Carte (visible par tous)              
-                ?>
-                <div class='box'>
-                    <p>image</p>
-                    <a href='../carte/test1.php'>Carte des zones tampons</a>
-                </div>
-
-                <div class='box'>
-                    <p>image</p>
-                    <a href='../communication/annuaire.php'>Annuaire</a>
-                </div>
-
-                <div class='box'>
-                    <p>image</p>
-                    <p href='../zone_tampon/liste_zone_tampon.php'>Liste des zones tampons</p>
-                </div>
-
-                <div class='box'>
-                    <p>image</p>
-                    <p href='../documents/liste_documents.php'>Documents</p>
-                </div>
+            }
+        }
 
 
+        // tableau de vérification de la requête
+        /*echo "<table border=1 bordorcolor=black>";
+        while ($row=pg_fetch_array($result,null,PGSQL_NUM)) {
+            echo "<th>";
+            for($i=1; $i<pg_num_fields($result); $i++){
+                echo "<td>";
+                echo pg_field_name($result, $i)."</td>";  
+            }
+            echo "</th>";
+            echo "<tr>";
+            for($i=0; $i<pg_num_fields($result); $i++){
+                echo "<td>".$row[$i]."</td>";
+            }
+            echo "</tr>";
+        }
+        echo "</table>";*/
+    
+        echo "<br><br>";
+        echo "<div class='row'><div class='col-lg-4'> </div><div class='col-lg-'><br><br><br><br><h1>Bienvenue sur</h1></div><div class='col-lg-4'> <img src='../general/front/logo_complet_petit.png'></div></div><br><br>";
 
-                <? php  
-            ;}
+    //Gestion des modules par type d'utilisateur
+    //Pour chaqsue module, on crée un tableau qui stocke les id des types d'utilisateur ayant accès à un module
+    //Si l'id du type de compte connecté a l'accès à la rubrique, alors le module d'accès est visible
+
+    //Module saisie transhumance (éleveur seulement)
+    $compteur_row=0;
+    echo "<div class='container'>";
+    echo "<div class='row padding_accueil'>";
+        $tab_saisi_trans=array(2,6);
+        if (in_array($type,$tab_saisi_trans)){    
+            echo "<br><div class='col-lg-3'><br>";
+            //<img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                echo "<center><img class='rounded-circle' src='transhumance.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p> Déclarer un déplacement d'animaux vers un alpage </p></center>";
+                echo "<center><a class='btn bouton-sonnaille' href='../transhumance/transhumance_front.php' role='button'>Déclarer une transhumance</a></center>";
+                //echo "<a href='../transhumance/transhumance_front.php'>Déclarer une tranhumance</a>";
+            echo "</div><br>";
+            $compteur_row=$compteur_row+1;
+        }
+
+    //Module Liste transhumance (eleveur, GDS)
+        $tab_liste_trans=array(2,3,6);
+        if (in_array($type,$tab_liste_trans)){    
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='liste_transhumances.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p> Consulter la liste des transhumances existantes </p></center>";
+                echo "<center><a class='btn bouton-sonnaille' href='../transhumance/liste_transhumance.php' role='button'>Liste des transhumances</a></center>";
+            echo "</div><br>";
+            $compteur_row=$compteur_row+1;
+        }
+
+    //Module saisie diagnostic (véto seulement)
+        $tab_saisi_diag=array(1,6);
+        if (in_array($type,$tab_saisi_diag)){    
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='diagnostic.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p> Saisir un nouveau diagnostic </p></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../diagnostic/diagnostic.php' role='button'>Diagnostics</a></center>";
+            echo "</div><br>";
+            $compteur_row=$compteur_row+1;
+        }
+
+    //Module saisie prophylaxie (véto seulement)
+        $tab_saisi_pro=array(1,6);
+        if (in_array($type,$tab_saisi_pro)){    
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='virus.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p> Saisir une nouvelle prophylaxie </p></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../prophylaxie/prophylaxie.php' role='button'>Prophylaxie</a></center>";
+            echo "</div><br>";
+            $compteur_row=$compteur_row+1;
+        }
+    if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
+     
+    //Module Liste diagnostics (Véto, GDS)
+        $tab_liste_diag=array(1,3,6);
+        if (in_array($type,$tab_liste_diag)){    
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='liste_diagnostics.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p>Consulter la liste des diagnostics saisis </p></center>";
+                echo "<center><a class='btn bouton-sonnaille' href='../diagnostic/liste_diagnostic.php' role='button'>Liste des diagnostics</a></center>";
+            echo "</div><br>";
+            $compteur_row=$compteur_row+1;
+        }
+    
+    if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
+    
+    //Module saisie zone tampon (GDS)
+        $tab_saisi_ZT=array(3,6);
+        if (in_array($type,$tab_saisi_ZT)){
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='zone_tampon.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p>Saisir une nouvelle zone tampon</p></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../zone_tampon/zone_tampon.php' role='button'>Zone tampon</a></center>";
+            
+            $compteur_row=$compteur_row+1;
+            echo "</div><br>";
+        } 
+    if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
+    
+    //Module ajout doc
+        $tab_ajout_doc=array(6);
+        if (in_array($type,$tab_ajout_doc)){    
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='ajout_document.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p>Ajouter un nouveau document</p></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../documents/document.php' role='button'>Documents</a></center>";
+            
+            $compteur_row=$compteur_row+1;
+            echo "</div><br>";
+        } 
+    
+        if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+            echo "<br><br>";
+    }
+
+    //Module saisie compte utilisateur
+        $tab_saisi_compte=array(6);
+        if (in_array($type,$tab_saisi_compte)){    
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='users.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p>Saisir un nouveau compte utilisateur</p></center>";
+                echo "<center><a class='btn bouton-sonnaille' href='../compte_utilisateur/compte_utilisateur.php' role='button'>Comptes utilisateurs</a></center>";
+            
+            $compteur_row=$compteur_row+1;
+            echo "</div><br>";
+        } 
+    
+    if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
+
+    //Module liste comptes utilisateur
+        $tab_liste_compte=array(6);
+        if (in_array($type,$tab_liste_compte)){    
+            echo "<br><div class='col-lg-3'><br>";
+                echo "<center><img class='rounded-circle' src='list_users.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><p>Consulter la liste des comptes utilisateurs</p></center>";
+                echo "<center><a class='btn bouton-sonnaille' href='../compte_utilisateur/liste_comptes.php' role='button'>Liste des comptes</a></center>";
+            
+            $compteur_row=$compteur_row+1;
+            echo "</div><br>";
+        }             
+        
+    if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
         ?>
 
-        <br/>
-        <button onclick="self.location.href='Connexion.php'">Retour</button>
-    </div>
-    <div class='container'>
-        <?php //Ajout mise en page
-        include('../general/front/footer.html');?>
-    </div>
+        <br><div class='col-lg-3'>
+    <br>
+            <center><img class='rounded-circle' src='liste_zones_tampon.png' alt='Generic placeholder image' width='140' height='140'></center><br>
+            <center><p>Consulter la carte des zones tampon</p></center>
+            <center><a class='btn bouton-sonnaille' href='../carte/test1.php' role='button'>Carte des zones tampons</a></center>
+        </div>
+    <?php
+            if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
+        ?>
+        <br><div class='col-lg-3'>
+    <br>
+            <center><img class='rounded-circle' src='annuaire.png' alt='Generic placeholder image' width='140' height='140'></center><br>
+            <center><p>Consulter l'annuaire Sonnaille</p></center>
+            <center><br><a class='btn bouton-sonnaille' href='../communication/annuaire.php' role='button'>Annuaire</a></center>
+        </div>
+        <br>
 
+    <?php
+            if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
+        ?>
+    
+        <br><div class='col-lg-3'>
+            <br>
+            <center> <img class='rounded-circle' src='liste_zones.png' alt='Generic placeholder image' width='140' height='140'></center><br>
+            <center><p>Consulter la liste des zones tampon</p></center>
+            <center><br><a class='btn bouton-sonnaille' href='../zone_tampon/liste_zone_tampon.php' role='button'>Liste des zones tampon</a></center>
+        </div>
+    <br>
+    <?php
+            if ($compteur_row == 4){
+        echo "</div><div class='row padding_accueil'>";
+        $compteur_row = 0;
+        echo "<br><br>";
+    }
+        ?>
+        <br><div class='col-lg-3'>
+            <br>
+            <center><img class='rounded-circle' src='documents.png' alt='Generic placeholder image' width='140' height='140'></center><br>
+            <center><p>Consulter la liste des documents</p></center>
+            <center><br><a class='btn bouton-sonnaille' href="../documents/liste_documents.php" role='button'>Liste des documents</a></center>
+        </div>
+<br>
+    </div>
+    </div>
+    <br>
+    <br>
+    <div class="center">
+    <button onclick="self.location.href='Connexion.php'" class="btn btn-secondary bouton-m">Retour</button>
+    </div>
+    <br>
+    <?php //Ajout mise en page
+    include('../general/front/footer.html');?>
 </body>
 </html>

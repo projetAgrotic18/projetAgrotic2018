@@ -9,11 +9,11 @@
 	
 	<?php
 	//Vérification PHP
-	if (isset($_GET["nom_exploitant"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
+	if (isset($_GET["nom"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
 		
 		echo "Votre diagnostic a bien été ajouté à notre base de données";
 		
-		$nom_exploitant = $_GET["nom_exploitant"];
+		$nom = $_GET["nom"];
 		$commune = $_GET["commune"];
 		$date = $_GET["date"];
 		$espece = $_GET["espece"];
@@ -37,12 +37,12 @@
 		
 		$id_diagnostic = $id_diagnostic +1;
 		
-		//id_compte : id du véto : $id_veto
+		//ATTENTION : DANS diagnostic, id_compte EST TOUJOURS CELUI DE L ELEVEUR
 	
-		//com_id_compte : id de l'éleveur
-		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$nom_exploitant."'");
+		//id_compte : id de l'éleveur
+		$result= $connex->requete("SELECT compte_utilisateur.id_compte FROM compte_utilisateur WHERE compte_utilisateur.nom='".$nom."'");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-			$com_id_compte=$row[0];
+			$id_eleveur=$row[0];
 		}
 		
 		//id_espece : simplement le $espece
@@ -59,8 +59,8 @@
 		
 		//INSERTION DANS LA TABLE DIAGNOSTIC : 
 		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
-			VALUES ('".$id_diagnostic."', '".$id_veto."', '".$com_id_compte."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
-		
+			VALUES ('".$id_diagnostic."', '".$id_eleveur."', '".$id_veto."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
+	
 		//INSERTION DANS LES AUTRES TABLES : 
 		//symptomes : $SESSION["insertion_symptomes"]
 		
@@ -70,6 +70,7 @@
 		}
 		
 		//maladies : $SESSION["insertion_maladies"]
+		// A MODIFIER : confirme_maladie ! de base à 0
 		$insertion_maladies=$_SESSION["choix_maladies"];
 		for ($i=0; $i<count($insertion_maladies); $i++){
 			$result= $connex->requete("INSERT INTO maladie_diag (id_maladie, id_diagnostic) VALUES ('".$insertion_maladies[$i]."','".$id_diagnostic."')");

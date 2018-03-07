@@ -4,13 +4,16 @@
 	<META charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js">
 	</script>
+      
+    <title> Déclaration de Diagnostic </title>
+    <link rel="icon" href="sonnaille.ico">
         
     <!-- Load CSS--->
     <!--- Style Sonnaille-->
     <LINK rel="stylesheet" type="text/css" href="style.css">
     <!--- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+        
 	<!-- Section Javascript: définition de la fonction gérant la récupération des données -->
 	<script type="text/javascript">
 		
@@ -62,7 +65,7 @@
 	</head>
         
 	<body>
-    <?php include ("../general/Front/navigation.html"); ?>
+    <?php include ("../general/Front/navigation_veto.html"); ?>
         
 	<form method="GET" action="diagnostic_v3_2.php" onsubmit="return valider()" name="formsaisie">
 	

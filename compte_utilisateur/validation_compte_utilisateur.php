@@ -1,5 +1,14 @@
 <html>
 	<head>
+    <title> Validation de compte </title>
+    <link rel="icon" href="sonnaille.ico">
+        
+    <!-- Load CSS--->
+    <!--- Style Sonnaille-->
+    <LINK rel="stylesheet" type="text/css" href="style.css">
+    <!--- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
 	</head>
 	<body>
 		<?php
@@ -25,16 +34,23 @@
         
         $result = $connex->requete("INSERT INTO compte_utilisateur (id_type_utilisateur, id_commune, identifiant, mdp, nom, portable, mail, adresse, adresse2) VALUES ( (SELECT id_type_utilisateur FROM type_utilisateur WHERE libelle_type_utilisateur='$type'), (SELECT id_commune FROM commune WHERE nom_commune='$commune'),'$login', '$mdp', '$nom', '$tel', '$mail', '$adresse','$adresse2')");
 
-			//$query = "INSERT INTO compte_utilisateur (id_compte, (SELECT id_compte_utilisateur FROM compte_utilisateur WHERE libelle_type_utilisateur='$type'), (SELECT id_commune FROM commune WHERE code_postal='$cp'), identifiant, mdp, nom, portable, mail, adresse, adresse2) VALUES ('', '', '','$login', '$mdp', '$nom', '$tel', '$mail', '$adresse','$adresse2')";
-        //$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 
-		    echo "Votre compte a bien été créé";
+		    echo "<br><br><div align='center'><h1>Votre compte a bien été créé</div><br>";
 
 			pg_free_result($result);
 
 		// Ferme la connexion
 
-			pg_close($dbconn);
+			$connex->fermer();
 		?>
+		<div class="center">
+<<<<<<< Updated upstream
+		<form action='compte_utilisateur.php' method='GET' name='form_retour_liste'>
+=======
+		<form action='compte_utilisateur_front.php' method='GET' name='form_retour_liste'>
+>>>>>>> Stashed changes
+			<input type='submit' name='bt_retour' value='Retour' class="btn bouton-sonnaille bouton-m">
+		</form> 
+        </div>
 	</body>
 </html>

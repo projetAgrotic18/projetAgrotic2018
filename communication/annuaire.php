@@ -1,3 +1,8 @@
+<?php session_start();
+if (isset($_SESSION["id_compte"])==false){
+    header("Location: http://194.199.251.139/projetAgrotic2018/page d'accueil/Connexion.php");
+    exit;
+}?>
 <html>
     <head>
         <title>Annuaire</title>
@@ -43,11 +48,10 @@
     
     	<!-- Appelle de la page regroupant les fonctions -->
         <?php require_once('../general/procedures.php'); ?>
-    
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-sm-4">
-    				<?php
+		
+		<div class="padding">
+			<h2>Annuaire</h2>
+			<?php
     					//Appel du fichier contenant la fonction de connexion
 						require ("../general/connexionPostgreSQL.class.php");
             		
@@ -76,10 +80,6 @@
 						echo "</FORM>";
 		
 					?>
-    			</div>
-    		</div>
-        	
-			<p>Annuaire :</p>
 			
 			<span id="listeAnnuaire">
 				<?php
@@ -89,34 +89,38 @@
 
 				$nbr_col = pg_num_fields($result_all_compte);
 				?>
-				<TABLE border=1 id="example">
-					<THEAD>
-						<TR>
+				<FORM action='ecriture_mail.php' method='post'>
+					<TABLE border=1 id="example">
+						<THEAD>
+							<TR>
+								<?php
+								for($i = 0; $i < $nbr_col; $i++) {
+									$nom_champ = pg_field_name($result_all_compte, $i);
+									echo ("<TH>" . $nom_champ. "</TH>");
+								}
+								?>
+							</TR>
+						</THEAD>
+						<TBODY>
 							<?php
-							for($i = 0; $i < $nbr_col; $i++) {
-								$nom_champ = pg_field_name($result_all_compte, $i);
-								echo ("<TH>" . $nom_champ. "</TH>");
+							while ($row = pg_fetch_array($result_all_compte)){
+								echo "<TR>";
+									echo "<td>".$row[0]."</td>";
+									echo "<td>".$row[1]."</td>";
+									echo "<td>".$row[2]."</td>";
+									echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
+								echo "</TR>";
 							}
 							?>
-						</TR>
-					</THEAD>
-					<TBODY>
-						<?php
-						while ($row = pg_fetch_array($result_all_compte)){
-							echo "<TR>";
-							for ($j=0; $j < $nbr_col; $j++) {
-								echo "<td>".$row[$j]."</td>";
-							}
-							echo "</TR>";
-						}
-						?>
-					</TBODY>
-				</TABLE>
+						</TBODY>
+					</TABLE>
+					<INPUT type='submit' value="Envoyer un mail aux destinataires sélectionnés"/>
+				</FORM>
 			</span>
 			<BR/>
-			
+			<input type="button" value="Retour" onclick="self.history.back()">
 		</div>
-		
+    
 		 <!-- Pied de page -->		
         <?php include("../general/front/footer.html"); ?>	
 		

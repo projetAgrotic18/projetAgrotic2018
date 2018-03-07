@@ -89,23 +89,20 @@
 	
 	<!--Caractéristiques-->
 	<h2>Caractéristiques générales :</h2>
-	* Nom de l'exploitant : <br/>
-	<input type="text" name="nom_exploitant" size="20"><br/>
-	  Nom de l'exploitation : <br/>
-	<input type="text" name="nom_exploitation" size="20"><br/>
-	<!-- A mettre en autocomplétion en fonction du nom de l'exploitant -->
-	<!-- Si homonymes, une liste de suggestion des noms d'exploitation des homonymes sera fournie -->
-	* Commune du diagnostic : <br/>
+	(*) Nom de l'exploitant : <br/>
+	<input type="text" id='nom' name="nom" size="20"><br/>
+	 
+	(*) Commune du diagnostic : <br/>
 	<input type="text" id='commune' name="commune" size="20" value =''><br/>
    
         
 	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
-	* Date du diagnostic : <br/>
+	(*) Date du diagnostic : <br/>
 	<input type="date" name="date" size="10"><br/><br/>
 	<!-- La date du jour est récupérée sur l'ordi -->
 	
 	<h2>Caractéristiques du diagnostic :</h2>
-	* Espèce : <br/>	
+	(*) Espèce : <br/>	
 	<input type=radio name="espece" value="1">Bovin
 	<input type=radio name="espece" value="2">Ovin
 	<input type=radio name="espece" value="3">Caprin
@@ -133,7 +130,7 @@
 	echo "<span id='actuFormulaire_maladie'></id>";
 
 	//Maladies :
-	echo "<br/>Maladies : <br/>";
+	echo "<br/>Maladies possibles : <br/>";
 	$result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
@@ -143,7 +140,7 @@
 	echo "<span id='actuFormulaire_prelevement'></id>";
 	
 	//Prélèvements :
-	echo "<br/>Prélèvements : <br/>";
+	echo "<br/>Prélèvements à réaliser : <br/>";
 	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev ORDER BY libelle_prelevement");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
@@ -167,6 +164,15 @@
 
     while ($row = pg_fetch_array($result2)){   // boucle pour obtenir toutes les données
 		array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+    }  
+
+	//Nom exploitant(gestion de l'autocomplétion) : 
+    $rqt3="SELECT nom, nom_exploitation FROM compte_utilisateur WHERE id_type_utilisateur='2'";
+    $result3 = $connex->requete($rqt3);// requête SQL grâce au mot-clé
+    $array3 = array(); // création du tableau
+
+    while ($row = pg_fetch_array($result3)){   // boucle pour obtenir toutes les données
+		array_push($array3,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
     }  
 
     $connex->fermer();
@@ -194,6 +200,29 @@
     select : function(event, ui){ // lors de la sélection d'une proposition
 			$( '#commune' ).val( ui.item.label);     
 			$('#commune_id').val(ui.item.value);
+			$('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
+			return false;
+            }
+          })
+          .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+              .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
+              .appendTo( ul );
+          };
+        } );    
+		
+	var liste2= <?php echo json_encode($array3);?>;
+			$(function () {      
+			$('#nom').autocomplete({ //apres le #
+					source : liste2,  //a definir( c'est un fichier php)  
+					focus: function( event, ui ) {
+					$( "#nom" ).val( ui.item.label );
+					return false;
+			},
+                //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
+    select : function(event, ui){ // lors de la sélection d'une proposition
+			$( '#nom' ).val( ui.item.label);     
+			$('#id_compte').val(ui.item.value);
 			$('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
 			return false;
             }

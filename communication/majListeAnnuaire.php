@@ -35,6 +35,7 @@
 							$nom_champ = pg_field_name($result_all_compte, $i);
 							echo ("<TH>" . $nom_champ. "</TH>");
 						}
+						echo "<TH> Sélectionner </TH>";
 						?>
 					</TR>
 				</THEAD>
@@ -45,6 +46,7 @@
 						for ($j=0; $j < $nbr_col; $j++) {
 							echo "<td>".$row[$j]."</td>";
 						}
+						echo "<td> <input type='checkbox'></td>";
 						echo "</TR>";
 					}
 					?>
@@ -71,6 +73,7 @@
 							$nom_champ = pg_field_name($result_compte, $i);
 							echo ("<TH>" . $nom_champ. "</TH>");
 						}
+						echo "<TH> Sélectionner </TH>";
 						?>
 					</TR>
 				</THEAD>
@@ -81,6 +84,7 @@
 						for ($j=0; $j < $nbr_col; $j++) {
 							echo "<td>".$row[$j]."</td>";
 						}
+						echo "<td> <input type='checkbox'></td>";
 						echo "</TR>";
 					}
 					?>

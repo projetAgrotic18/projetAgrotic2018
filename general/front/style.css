@@ -14,9 +14,8 @@
 .navigation-item{
     line-height: 2.5;
     color: white;
-    margin: 20px;
-    font-weight: bold;
-    font-size: 20px;
+    margin: 15px;
+    font-size: 16px;
     
 }
 
@@ -37,6 +36,31 @@
     max-height: 60px;
 }
 
+.right_button{
+    padding: 300%;
+}
+
+.right_button_veto{
+    padding: 210%;
+}
+
+.right_button_gds{
+    padding:50%;
+}
+
+.right_button_admin{
+    padding:500%;
+}
+
+.deconnexion{
+    color: white;
+    text-decoration: none;
+}
+
+.deconnexion:hover{
+    color:white;
+    text-decoration: none;
+}
 /********************************************** Footer ********************************************/
 
 .sonnaille_footer{
@@ -45,6 +69,7 @@
     color:white;
     text-align: center;
     line-height: 80px;
+
 }
 
 /********************************************* Boutons *************************************************/
