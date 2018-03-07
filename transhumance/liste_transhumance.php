@@ -22,8 +22,6 @@ session_start();
         </script>
     </head>
     <body>
-        <!-- Entête -->
-    
     	<!-- Barre de navigation en fonction de l'utilisateur -->
         <?php include('../general/switchbar.php'); ?>
          
