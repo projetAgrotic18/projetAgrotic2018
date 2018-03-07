@@ -21,7 +21,7 @@
 // Exécution de la requête SQL
 
 		$id_transhumance = $_GET["id_lot_mvt"];
-
+                
 // R&cupération des champs correspondant à la transhumance que l'on veut modifier
 
 		$result = $connex->requete("SELECT * FROM lot_mvt lm JOIN commune c ON lm.id_commune = c.id_commune WHERE lm.id_lot_mvt=".$id_transhumance);

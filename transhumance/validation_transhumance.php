@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 
 require "../general/connexionPostgreSQL.class.php";
@@ -16,7 +18,6 @@ $nom_respo = $_POST['nom_responsable'];
 $prenom_respo = $_POST['prenom_responsable'];
 $commune = $_POST['commune'];
 $tel_respo = $_POST['num_responsable'];
-$nom_transport = "non specifie";
 $tel_transport = 9999999999;
 
 if ($_POST['nom_transp']!="") {
@@ -83,8 +84,17 @@ while ($line2 = pg_fetch_array($result2, null, PGSQL_ASSOC)) {
 // Exécution de la requête SQL
 
 $query3 = $connex->requete("INSERT INTO lot_mvt VALUES ('".$id_transhumance."','" . $id_commune . "','" . $id_compte . "','" . $date_arrivee . "','" . $date_sortie . "','" . $marque . "','" . $nom_respo . "','" . $tel_respo . "','" . $nom_transport . "','" . $tel_transport . "'," . $alpage . ",'" . $nbr_cap_m . "','" . $nbr_cap_p . "','" . $nbr_ov_m . "','" . $nbr_ov_p . "','". $prenom_respo ."','". $adresse_transpo ."','". $entreprise_transpo ."')");
-echo "La transhumance a bien été enregistrée.";
-
+echo "La transhumance a bien été enregistrée.<br/><br/>";
 // Ferme la connexion
 $connex->fermer();
 ?>
+<form action='liste_transhumance.php' method='POST' name='form_liste'>
+    <input type='submit' name='bt_retour' value='Retour'>
+</form> 
+<form action='consultation_transhumance.php' method='POST' name='form_consult'>
+    <input type='submit' name='bt_consult' value='Visualiser'>
+</form>
+ 
+</body>
+</html>
+

@@ -142,18 +142,18 @@
 
                     <div class="form-row">
                     <div class="form-group col-md-6">
-                            <label for="inputIdtranshumance">Id Transhumance</label>
-                            <?php echo "<input type='text' class='form-control' placeholder='idtranshumance' name='id_lot_mvt' value = '$id' readonly ></td>" ?>
+                            
+                            <?php echo "<input type='hidden' name='id_lot_mvt'  value=$id />"; ?>
                     </div>
                     </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                            <label for="inputNom">Nom</label>
+                            <label for="inputNom">(*) Nom</label>
                             <input type='text' name='nom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputNom">Prenom</label>
+                        <label for="inputNom">(*) Prenom</label>
                         <input type='text' name='prenom_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
                     </div>
                 </div>
@@ -164,8 +164,8 @@
                       <input type="email" class="form-control" id="inputEmail4">
                     </div>
                     <div class="form-group col-md-6">
-                                <label for="inputNom">Numero</label>
-                                <input type='text' name='numero_responsable' value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
+                                <label for="inputNom">(*) Numero</label>
+                                <input type='text' name='num_responsable' value ='' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control">
                         </div>
                 </div>   
 
@@ -179,7 +179,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputDateDepart">(*)Date départ :</label>
-                    <input type="date" class="form-control" id="inputDateDepart" placeholder="Date_depart" name="date_depart">
+                    <input type="date" class="form-control" id="inputDateDepart" placeholder="Date_depart" name="date_arrivee">
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -254,14 +254,14 @@
 
                     </div>
                     <div class="col-lg-6">
-                        Description du marquage :<br>
+                        (*) Description du marquage :<br>
                         <br>
-                        <TEXTAREA class="textarea" name="marquage" rows=10 cols=40></TEXTAREA>
+                        <TEXTAREA class="textarea" name="marquage" rows=10 cols=40 placeholder='Description (forme,couleur,emplacement)'></TEXTAREA>
                     </div>
             </div>
                 
             <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" id="customRadioInline1" name="type_paturage" class="custom-control-input" value=1>
+              <input type="radio" id="customRadioInline1" name="type_paturage" class="custom-control-input" value=1 checked>
               <label class="custom-control-label" for="customRadioInline1">Alpage/Pâturage collectif</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
