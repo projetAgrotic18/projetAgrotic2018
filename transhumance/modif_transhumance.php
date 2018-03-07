@@ -1,19 +1,26 @@
 <html>
     <head>
-        <title>Déclaration de transhumance</title>
-<<<<<<< HEAD
-
-=======
+        <title>Modifier une transhumance</title>
+<!-- Load CSS--->
+    <!--- Style Sonnaille-->
+    <LINK rel="stylesheet" type="text/css" href="style.css">
+    <!--- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ <!-- inclusion du style CSS de base -->
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
+        
+         <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel="icon" href="sonnaille.ico">
            <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
        
->>>>>>> test
     </head>
     <body>
         <?php
+        include('../general/switchbar.php0')?>
 // Connexion, sélection de la base de données
-
+<?php
         require "../general/connexionPostgreSQL.class.php";
 
         $connex = new connexionPostgreSQL();
@@ -43,9 +50,8 @@
 			$entreprise_transporteur = $row[17];
 			$commune = $row[20];
 		}
-<<<<<<< HEAD
+
 		
-=======
 	
                 
                        $rqt="SELECT nom_commune,code_postal FROM commune";
@@ -64,17 +70,14 @@
                //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
                    array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
            }  
->>>>>>> test
+
 // Affichage des résultats en HTML
 // Libère le résultat
 
         
 // Ferme la connexion
-<<<<<<< HEAD
 
-=======
       
->>>>>>> test
         $connex->fermer();
         ?>
         <script type='text/javascript'>
@@ -106,9 +109,6 @@
 
         </script>
 
-<<<<<<< HEAD
-
-=======
            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -145,140 +145,179 @@
         
            
         </script> 
->>>>>>> test
-
-        <h1 align="center"><b>Déclarer une transhumance intrarégionale</b></h1>
-        <h2>Renseignements responsable alpage</h2>
-        <form method="post" action="valid_modif_transhumance.php" name='form' onsubmit='return valider()' >
-            <table>
-                <tr>
-                    <td><label>Id Transhumance</label> :</td>
-                    <?php echo "<td><input type='text' name='id_lot_mvt' value = '$id_transhumance' readonly ></td>" ?> 
-                </tr>
-                <tr>
-                    <td><label>(*)Nom</label> :</td>
-                    <td><input type='text' name='nom_responsable' value ='<?php echo "$nom_responsable"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
-                </tr>
-                <tr>
-                    <td><label>(*)Prénom</label> :</td>
-                    <td><input type='text' name='prenom_responsable' value ='<?php echo "$prenom_responsable"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
-                </tr>
-                <tr>
-                    <td> <label>(*)Numéro de téléphone :</label></td>
-                    <td><input type='tel' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" name='num_responsable' value ='<?php echo "$tel_responsable" ?>'></td>
-                </tr>
-            </table>
-            <h2>Renseignements généraux</h2>
-            (*)Date départ : 
-            <input name="date_arrivee" type="date" value="<?php echo "$date_arrivee"; ?>">
-            (*)Date fin :
-            <input name="date_sortie" type="date" value="<?php echo "$date_depart"; ?>"><br><br>
-            <label>(*)Commune de destination :</label>
-<<<<<<< HEAD
-            <input type='text' name='commune' value ='<?php echo "$commune"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
-=======
-            <input type='text' id="commune" name='commune' value ='<?php echo "$commune"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
-              <input type='hidden' id='commune_id' name="commu" value ='<?php echo "$commune"; ?>'>
->>>>>>> test
-            <h2>Vos animaux déplacés</h2>
-            <table>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        Agés de moins de 6 mois
-                    </td>
-                    <td>
-                        Agés de plus de 6 mois
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        Caprins
-                    </td>
-                    <td>
-                        <input type='text' name='nbr_cap_-' value ='<?php echo "$capr_msm"; ?>' pattern = "[0-9]+">
-                    </td>
-                    <td>
-                        <input type='text' name='nbr_cap_+' value ='<?php echo "$capr_psm"; ?>' pattern = "[0-9]+">
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        Ovins
-                    </td>
-                    <td>
-                        <input type='text' name='nbr_ov_-' value ='<?php echo "$ov_msm"; ?>' pattern = "[0-9]+">
-                    </td>
-                    <td>
-                        <input type='text' name='nbr_ov_+' value ='<?php echo "$ov_psm"; ?>' pattern = "[0-9]+">
-                    </td>
 
 
-                </tr>
-            </table>
-            Description du marquage :<br>
-<<<<<<< HEAD
-            <TEXTAREA name="marquage" rows=10 cols=40 value='<?php echo "$description_marque"; ?>'></TEXTAREA><Br><br>
+        <h1 class="sonnaille_titre">Modifier une transhumance intrarégionale</h1>
+        
+        <div class="fond_gris">
+            <div class="padding">
+                <h2>Renseignements responsable alpage</h2>
+                <form method="post" action="valid_modif_transhumance.php" name='form' onsubmit='return valider()' >
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <?php echo "<input type='text' name='id_lot_mvt' value = '$id_transhumance' readonly >" ?> 
+                        </div>
+                    </div>
+                                   <div class="form-row">
+                    <div class="form-group col-md-6">
+                            <label for="inputNom">(*) Nom</label>
+                            <input type='text' name='nom_responsable' value ='<?php echo "$nom_responsable"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">(*) Prenom</label>
+                        <input type='text' name='prenom_responsable' value ='<?php echo "$prenom_responsable"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                                <label for="inputNom">(*) Numero</label>
+                                <input type='text' name='num_responsable' value ='<?php echo "$tel_responsable" ?>' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control">
+                    </div>
+                </div>   
+
+            </div>
+        </div>
             
-            <input type="radio" name="type_paturage" value="collectif" checked /> Alpage/Pâturage collectif
-            <input type="radio" name="type_paturage" value="individuel" /> Alpage/Pâturage individuel
-=======
-            <TEXTAREA name="marquage" rows=10 cols=40><?php echo "$description_marque"; ?></TEXTAREA><Br><br>
+        <div class="padding">
+            
+        <h2>Renseignements généraux</h2>
+                
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDateDepart">(*)Date départ :</label>
+                <input type="date" class="form-control" id="inputDateDepart" placeholder="Date_depart" name="date_arrivee" value="<?php echo "$date_arrivee"; ?>">
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="inputDateSortie">(*)Date Arrivée :</label>
+                    <input type="date" class="form-control" id="inputDateSortie" placeholder="Date_sortie" name="date_sortie" value="<?php echo "$date_depart"; ?>">
+                </div>
+            </div>
+        </div>
+            
+
+            <div class="form-group">
+                <label for="inputDateDepart">(*)Commune de destination :</label>
+                <input type="text" class="form-control" id="commune_id" placeholder="Entrez la commune" name="commune" value ='<?php echo "$commune"; ?>'>
+                <input type='hidden' id='commune_id' name="commu" value ='<?php echo "$commune"; ?>'>
+            </div> 
+        </div>
+
+        <div class="fond_gris">
+            <div class="padding">
+                
+            <h2>Vos animaux déplacés</h2>
+                <br>
+            
+            <div class="form-row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                                           
+                            </div>
+                            <div class="form-group col-md-4">
+                                <i>Agés de moins de 6 mois</i>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <i>Agés de plus de 6 mois</i>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-1">
+                                Caprins                            
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type='text' name='nbr_cap_-' value ='<?php echo "$capr_msm"; ?>' pattern = "[0-9]+" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type='text' name='nbr_cap_-' value ='<?php echo "$capr_psm"; ?>' pattern = "[0-9]+" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-1">
+                                Ovins                           
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type='text' name='nbr_ov_-' value ='<?php echo "$ov_msm"; ?>' pattern = "[0-9]+" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type='text' name='nbr_ov_-' value ='<?php echo "$ov_psm"; ?>' pattern = "[0-9]+" class="form-control">
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    <div class="col-lg-6">
+                        (*) Description du marquage :<br>
+                        <br>
+                        <TEXTAREA class="textarea" name="marquage" rows=10 cols=40 placeholder='Description (forme,couleur,emplacement)' value='<?php echo "$description_marque"; ?>'></TEXTAREA>
+                    </div>
+            </div>
+
+            
            <?php 
            if($alp_collectif=='t'){
-               echo "<input type='radio' name='type_paturage' value='1' checked/> Alpage/Pâturage collectif";
-               echo "<input type='radio' name='type_paturage' value='0' /> Alpage/Pâturage individuel";
-           } else {
-            echo "<input type='radio' name='type_paturage' value='1' /> Alpage/Pâturage collectif";
-             echo "<input type='radio' name='type_paturage' value='0' checked /> Alpage/Pâturage individuel";
-           }
-           ?>     
->>>>>>> test
-            <h2>Transporteur</h2>
-            <table>
-                <tr>
-                    <td>
-                        <label>Nom :</label>
-                    </td>
-                    <td>
-                        <input type='text' name='nom_transp' value ='<?php echo "$nom_transporteur"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
-                    </td>
-                    <td>
-                        <label>Adresse</label>
-                    </td>
-                    <td>
-                        <input type='text' name='adresse_transp' value ='<?php echo "$adresse_transporteur"; ?>'>
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <td>
-                        <label>Nom de l'entreprise</label>
-                    </td>
-                    <td>
-                        <input type='text' name='entreprise_transp' value ='<?php echo "$entreprise_transporteur"; ?>'>
-                    </td>
-                    <td>
-                        <label>Téléphone</label>
-                    </td>
-                    <td>
-                        <input type='text' name='tel_transp' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" value ='<?php echo "$contact_transporteur" ?>'>
-                    </td>                  
-                </tr>
-                
-            </table>
-            <input type='submit'   name='bouton' value='valider'>
-        </form>
-    </body>
-<<<<<<< HEAD
+               echo "<div class='custom-control custom-radio custom-control-inline'>
+               <input type='radio' id='customRadioInline1' name='type_paturage' value='1' class='custom-control-input' checked/>
+               <label class='custom-control-label' for='customRadioInline1'>Alpage/Pâturage collectif</label>
+            </div>";
+                echo "<div class='custom-control custom-radio custom-control-inline'>
+                <input type='radio' id='customRadioInline2' name='type_paturage' class='custom-control-input' value='0' />
+                <label class='custom-control-label' for='customRadioInline2'>Alpage/Pâturage individuel</label>
+            </div>";
 
-=======
+           } else {
+            echo "<div class='custom-control custom-radio custom-control-inline'>
+            <input type='radio' id='customRadioInline1' name='type_paturage' class='custom-control-input' value='1'/> 
+            <label class='custom-control-label' for='customRadioInline1'>Alpage/Pâturage collectif</label>
+            </div>";
+            echo "<div class='custom-control custom-radio custom-control-inline'>
+            <input type='radio' id='customRadioInline2' name='type_paturage' class='custom-control-input' value='0' checked/>
+            <label class='custom-control-label' for='customRadioInline2'>Alpage/Pâturage individuel</label>
+            </div>";
+           }
+           ?>
+             </div>
+            </div>
+            <div class="padding">
+                <h2>Transporteur</h2>
+                <br>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputNom">Nom</label>
+                      <input type="text" class="form-control" id="NomTransporteur" name='nom_transp' value ='<?php echo "$nom_transporteur"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">Adresse</label>
+                        <input type='text' name='adresse_transp' value ='<?php echo "$adresse_transporteur"; ?>' class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputNom">Nom de l'entreprise</label>
+                      <input type="text" class="form-control" id="entreprise" name='entreprise_transp' value ='<?php echo "$entreprise_transporteur"; ?>'>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNom">Téléphone</label>
+                        <input type='text'  name='tel_transp' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" value ='<?php echo "$contact_transporteur" ?>' class="form-control">
+                    </div>
+                </div>
+                </div>
+            
+            <div class="center">
+                <input type='submit' class="btn bouton-sonnaille bouton-m"  name='bouton' value='Valider la Déclaration'>
+            </div>
+            <br>
+            <br>
+        </form>
+    <?php include ("../general/Front/footer.html"); ?>
+
+    </body>
+
 </html>
->>>>>>> test
+
 
 
 
