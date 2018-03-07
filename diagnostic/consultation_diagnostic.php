@@ -76,15 +76,19 @@
 		
 	//Récupération des maladies à partir de l'id_diagnostic : 
 	echo "<U>Maladies possibles</U> :<br/>";
-	$result= $connex->requete("SELECT m.libelle_maladie FROM maladie m JOIN maladie_diag md ON m.id_maladie=md.id_maladie WHERE md.id_diagnostic='".$id_diagnostic."'");
+	$result= $connex->requete("SELECT m.libelle_maladie, md.confirme FROM maladie m JOIN maladie_diag md ON m.id_maladie=md.id_maladie WHERE md.id_diagnostic='".$id_diagnostic."'");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo $row[0]."<br/>";
+		echo $row[0];
+		if ($row[1]=='t'){
+			echo "    (état : vous l'avez confirmée)";
+		}else{
+			echo "    (état : vous ne l'avez pas confirmée)";
+		}
+		echo "</br>";
 	}
-	echo "<br/>";
+	echo "</br>";
 	?>
-	<form method="GET" action="modif_diagnostic.php" name="formsaisie">
-	<input type="submit" value="Modifier/Ajouter">
-	</form>
+	<a href = 'modif_diagnostic.php?id_diagnostic=<?php echo $id_diagnostic;?>'><button type='button'>Confirmer une maladie</button></a></br></br>
 	<?php
 	
 	//Récupération des prélèvements à partir de l'id_diagnostic : 
@@ -111,5 +115,8 @@
 	}
 	echo "<br/>";	
 	?>
+	<a href = "liste_diagnostic.php">
+	<button type="button">Retourner à la liste de mes diagnostics</button>
+	</a>
 	</body>
 </html>

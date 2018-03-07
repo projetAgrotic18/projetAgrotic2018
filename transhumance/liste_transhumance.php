@@ -39,7 +39,6 @@ session_start();
 		//Récupération de l'id lors de la connexion (page d'accueil)
 		$id_compte_utilisateur = $_SESSION["id_compte"];
 		$id_type_utilisateur = $_SESSION["id_type_utilisateur"];
-		
 		//Requête pour afficher la liste des transhumances pour les éleveurs
 		$transhumance_eleveur = $connex->requete("SELECT id_compte, date_arrivee, date_depart, nom_responsable, id_lot_mvt FROM lot_mvt WHERE id_compte = '$id_compte_utilisateur'");
 			
