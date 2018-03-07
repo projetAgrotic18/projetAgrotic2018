@@ -24,8 +24,9 @@ session_start();
     <body>
         <!-- Entête -->
     
-    	<!-- DIV Navigation (Menus) -->
-        <?php include("../general/front/navigation.html"); ?>
+    	<!-- Barre de navigation en fonction de l'utilisateur -->
+        <?php include('../general/switchbar.php'); ?>
+         
         
         <!-- Appelle de la page regroupant les fonctions -->
         <?php require_once('../general/procedures.php'); ?>
@@ -111,7 +112,7 @@ session_start();
                                 echo "<TD>".$row[$i]."</TD>";
                             }
                             // Affichage bouton modifier
-                            echo "<TD><a href='modif_transhumance.php?id_lot_mvt=".$row[4]."'>Modifier</a></TD>";
+                            echo "<TD><form action='modif_transhumance.php?id_lot_mvt=".$row[4]."' method='post'><input type='submit' name='bt_submit' value='Modifier'/></form></TD>";
                             //Affichage du bouton détail
                             echo "<TD>
                                     <form action='consultation_transhumance.php?id_lot_mvt=".$row[4]."&type_utilisateur=".$id_type_utilisateur."' method='post'>

@@ -1,8 +1,4 @@
-<?php session_start();
-if (isset($_SESSION["id_compte"])==false){
-    header("Location: http://194.199.251.139/projetAgrotic2018/page%20d'accueil/Connexion.php");
-    exit;
-}?>
+<?php session_start();?>
 <html>
 <head>
     <META charset="UTF-8" />
@@ -16,46 +12,12 @@ if (isset($_SESSION["id_compte"])==false){
     
     <?php
         //Barre de navigation en fonction de l'utilisateur
-                
-
+        include('../general/switchbar.php');        
 
         //Récupération des infos page précédente
         $id_compte=$_SESSION["id_compte"];
         $type=$_SESSION["id_type_utilisateur"];
-    
-        if ($type==1){
-            include('../general/front/navigation_veto.html');
-        }
-        else {
-            if ($type==2){
-            include('../general/front/navigation_eleveur.html');
-            }
-            else{
-                if ($type==3){
-                include('../general/front/navigation_gds.html');
-                }
-                else{
-                    if ($type==4){
-                    include('../general/front/navigation.html');
-                    }
-                    else{
-                        if ($type==5){
-                        include('../general/front/navigation_admin.html');
-                        }
-                        else{
-                            if ($type==6){
-                            include('../general/front/navigation_labo.html');
-                            }
-                            else{
-                               include('../general/front/navigation.html'); 
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
+        
         // tableau de vérification de la requête
         /*echo "<table border=1 bordorcolor=black>";
         while ($row=pg_fetch_array($result,null,PGSQL_NUM)) {
@@ -113,7 +75,7 @@ if (isset($_SESSION["id_compte"])==false){
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='diagnostic.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p> Saisir un nouveau diagnostic </p></center>";
-                echo "<center><br><a class='btn bouton-sonnaille' href='../diagnostic/diagnostic.php' role='button'>Diagnostics</a></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../diagnostic/diagnostic_front.php' role='button'>Diagnostics</a></center>";
             echo "</div><br>";
             $compteur_row=$compteur_row+1;
         }
