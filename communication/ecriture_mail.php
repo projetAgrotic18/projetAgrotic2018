@@ -1,8 +1,4 @@
-<?php session_start();
-if (isset($_SESSION["id_compte"])==false){
-    header("Location: http://194.199.251.68/projetAgrotic2018/page d'accueil/Connexion.php");
-    exit;
-}?>
+<?php session_start();?>
 <html>
     <head>
         <title>Ecriture mail</title>
@@ -16,7 +12,7 @@ if (isset($_SESSION["id_compte"])==false){
     	<!-- Entête -->
     
     	<!-- DIV Navigation (Menus) -->
-        <?php include("../general/front/navigation.html"); ?>
+        <?php include("../general/switchbar.php"); ?>
     
     	<!-- Appelle de la page regroupant les fonctions -->
         <?php require_once('../general/procedures.php'); ?>
