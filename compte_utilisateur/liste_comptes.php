@@ -37,8 +37,8 @@
     <!-- Barre de navigation en fonction de l'utilisateur -->
     <?php include('../general/switchbar.php'); 
     
-    echo "<center><h1>Comptes utilisateurs</h1></center><br><br>";
-    echo "<h2>Liste des comptes</h2><br><br>";
+    echo "<center><h1>Comptes utilisateurs</h1></center><br>";
+    echo "<h2>Liste des comptes</h2><br>";
         
     // Connexion, sélection de la base de données
         
@@ -52,22 +52,24 @@
         
     // Affichage des résultats en HTML?>
         <div class='padding'>
-            <table border=1 id="example">
-                <tr>
-                    <th>ID</th>
-                    <th>Utilisateur</th>
-                    <th>Type d'utilisateur</th>
-                    <th></th>
-                </tr>
-                <?php while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-
-                    $id = $row[0];
-                    echo "<tr><td>".$row[0]."</td>";
-                    echo "<td>".$row[1]."</td>";
-                    echo "<td>".$row[2]."</td>";
-                    echo "<td><img src='suppr.png' alt='supprimer' onclick='confirm_s($id)'/></td></tr>";
-                }?>
-            </table>
+            <div class='container'>
+                <table border=1 id="example">
+                    <tr>
+                        <th>ID</th>
+                        <th>Utilisateur</th>
+                        <th>Type d'utilisateur</th>
+                        <th></th>
+                    </tr>
+                    <?php 
+                        while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+                            echo "<tr><td>".$row[0]."</td>";
+                            echo "<td>".$row[1]."</td>";
+                            echo "<td>".$row[2]."</td>";
+                            echo "<td><img src='suppr.png' alt='supprimer' onclick='confirm_s(".$row[0].")'/></td></tr>";
+                        }
+                    ?>
+                </table>
+            </div>
         </div>
 
     <?php
