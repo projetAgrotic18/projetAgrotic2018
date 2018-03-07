@@ -37,13 +37,11 @@
 						<?php
 						while ($row = pg_fetch_array($result)){
 							echo "<TR>";
-							echo "<form method='GET' action='consultation_diagnostic.php' name='formsaisie'>";
 							for ($j=1; $j < $nbr_col; $j++) {
 								echo "<TD>".$row[$j]."</TD>";
 							}
 							$id_diagnostic=$row[0];
-							echo "<TD><input type='hidden' value=$id_diagnostic><input type='submit' value='Détails'></TD>";
-							echo "</form>";
+							echo "<TD><a href = 'consultation_diagnostic.php?id_diagnostic=$row[0]'><button type='button'>Détails</button></a></TD>";
 							echo "</TR>";
 						}
 						

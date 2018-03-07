@@ -18,7 +18,7 @@
 	
             // Exécution de la requête SQL
 
-            $result1 =  $connex->requete("SELECT id_lot_mvt FROM lot_mvt ORDER BY id_lot_mvt"); //sélectionne le premier id  de transhumance disponible
+            $result1 =  $connex->requete("SELECT id_lot_mvt FROM lot_mvt"); //sélectionne le premier id  de transhumance disponible
             $nbre_col = pg_num_fields($result1);
             $id = 1;
 
@@ -29,29 +29,11 @@
                 }
                 $id++;
             }
-            
-                        $rqt="SELECT nom_commune,code_postal FROM commune";
-                   $result2 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
-
-             // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
-
-            //$result->execute(array('commune' => '%'.$term.'%'));
+        // Affichage des résultats en HTML
+        // Libère le résultat
 
 
-
-           $array = array(); // on cr�� le tableau 
-
-           while ($row = pg_fetch_array($result2))   // on effectue une boucle pour obtenir les donn�es 
-           { 
-               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
-                   array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
-           }  
-
-                   // Affichage des résultats en HTML
-                   // Libère le résultat
-
-
-                   // Ferme la connexion
+        // Ferme la connexion
             $connex->fermer();
         ?>
         <script type='text/javascript'>
@@ -103,7 +85,7 @@
               return false;
               },
                 //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
-                select : function(event, ui){ // lors de la s�lection d'une proposition
+                select : function(event, ui){ // lors de la s�lection d'une proposition
                $( '#commune' ).val( ui.item.label);     
                $('#commune_id').val(ui.item.value);
               $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
@@ -194,8 +176,8 @@
             Description du marquage :<br>
             <TEXTAREA name="marquage" rows=10 cols=40></TEXTAREA><Br><br>
             
-            <input type="radio" name="type_paturage" value=1 checked /> Alpage/Pâturage collectif
-            <input type="radio" name="type_paturage" value=0 /> Alpage/Pâturage individuel
+            <input type="radio" name="type_paturage1" value="Alpage/Pâturage collectif" checked /> Alpage/Pâturage collectif
+            <input type="radio" name="type_paturage2" value="Alpage/Pâturage individuel" /> Alpage/Pâturage individuel
             <h2>Transporteur</h2>
             <table>
                 <tr>

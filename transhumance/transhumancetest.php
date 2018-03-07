@@ -5,44 +5,8 @@
         <title>D√©claration de transhumance</title>
  <!-- inclusion du style CSS de base -->
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
-        
-         <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-       
     </head>
     <body>
-        <?php 
- 
-//Pour appeler la fonction d'ouverture de la BDD,
-//Mettre juste aprËs la balise ouvrante de php (<?php) :
-
-	require "../general/connexionPostgreSQL.class.php";
-
-//Puis la ligne suivante pour Ètablir une connexion avec la BDD du projet :
-
-	$connex = new connexionPostgreSQL();
-
-//Pour faire une requÍte sur la BDD du projet, Ècrire ENSUITE la ligne suivante :
-
-         $rqt="SELECT nom_commune,code_postal FROM commune";
-	$result = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
-     
-  // $result = pg_query("SELECT libelle FROM communes WHERE libelle LIKE '$term'"); 
-    
- //$result->execute(array('commune' => '%'.$term.'%'));
- 
- 
-     
-$array = array(); // on crÈÈ le tableau 
- 
-while ($row = pg_fetch_array($result))   // on effectue une boucle pour obtenir les donnÈes 
-{ 
-    //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci ‡ notre tableau 
-        array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
-}  
-
-$connex->fermer; 
-
-?>
         <script type='text/javascript'> 
 
             function valider() {
@@ -69,57 +33,28 @@ $connex->fermer;
                 }
 
             }
-            
-            
-         
         </script>
-        <style>
-       
-            #project-description {
-              margin: 0;
-              padding: 0;
-                       }
-         </style>
-        
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+         
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
             
           
             
           
        <script type="text/javascript"> 
-           
               //   Charge la version 1.4.1. 
           //  google.load('jquery','1.4.1'); 
-          var liste= <?php echo json_encode($array);?>;
-             $(function () {      
-         $('#commune').autocomplete({ //apres le #
-          source : liste,  //a definir(c'est un fichier php)  
-          focus: function( event, ui ) {
-        $( "#commune" ).val( ui.item.label );
-        return false;
-        },
-          //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
-          select : function(event, ui){ // lors de la sÈlection d'une proposition
-         $( '#commune' ).val( ui.item.label);     
-         $('#commune_id').val(ui.item.value);
-        $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
-          return false;
-      }
-    })
-    .autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
-        .appendTo( ul );
-    };
-  } );
-        
-           
+             $(function() {      
+         $('#commune').autocomplete({  //apres le # 
+          source : 'fonction.php',  //a definir(c'est un fichier php)  
+          minLength : 2 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
+        }); 
+        })(jQuery); 
+            
         </script> 
         
             
-     
+        </script>  
            
   
 
@@ -150,12 +85,9 @@ $connex->fermer;
             (*)Date fin :
             <input id="date_fin" type="date"><br><br>
             <label>(*)Commune de destination :</label>
-            <input type='text' id='commune' name="commu"  value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
-            <p id='description'></p>
-            <input type='hidden' id='commune_id' name="commune" value =''>
-            
+            <input type='text' id="commune" name="commune" value ='' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
             <h2>Vos animaux d√©plac√©s</h2>
-            <table> 
+            <table>
                 <tr>
                     <td>
 

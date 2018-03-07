@@ -114,7 +114,7 @@
 	$connex = new connexionPostgreSQL();
 	
 	// Récupération de l'id du compte_utilisateur vétérinaire connecté à l'outil
-	$_SESSION["id_veto"]=7;
+	$_SESSION["id_veto"]=35;
 	
 	$_SESSION["choix_symptomes"]=array();
 	$_SESSION["choix_maladies"]=array();
