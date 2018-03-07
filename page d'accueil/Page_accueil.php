@@ -206,7 +206,7 @@
     <br>
             <center><img class='rounded-circle' src='liste_zones_tampon.png' alt='Generic placeholder image' width='140' height='140'></center><br>
             <center><p>Consulter la carte des zones tampon</p></center>
-            <center><a class='btn bouton-sonnaille' href='../carte/test1.php' role='button'>Carte des zones tampons</a></center>
+            <center><a class='btn bouton-sonnaille' href='../carte/cartepaca.php' role='button'>Carte des zones tampons</a></center>
         </div>
     <?php
             if ($compteur_row == 4){
