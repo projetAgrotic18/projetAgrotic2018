@@ -32,7 +32,8 @@
 	//La fonction appellée si plus de 1 symptome. Elle imbrique la première requete autant de fois qu'il y a de symptomes choisis (au-dela de 1)
 	function query_maladie_n($liste, $query_mala) {
 		for ($i= 1; $i < count($liste) ; $i++) {
-			$query_mala = "SELECT selec".$i.".id_maladie, selec".$i.".libelle_maladie FROM (".$query_mala.") AS selec".$i." 
+			$query_mala = "SELECT selec".$i.".id_maladie, selec".$i.".libelle_maladie 
+			FROM (".$query_mala.") AS selec".$i." 
 			JOIN symptmala sy".$i." ON selec".$i.".id_maladie = sy".$i.".id_maladie 
 			WHERE sy".$i.".id_sympt = ".$liste[$i];
 		}
@@ -43,8 +44,8 @@
 	//Appelle aucune fonction, lance une requête qui appelle toutes les maladies
 	if (count($liste)==0){
 			//Maladies :
-		echo "Maladies : <br/>";
-		$result = $connex->requete("SELECT maladie.id_maladie, libelle_maladie FROM maladie");
+		echo "<br/>Maladies : <br/>";
+		$result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
@@ -54,7 +55,7 @@
 	//Appelle seulement la fonction de base pour 1 symptome
 	elseif (count($liste) == 1) {
 		$query_mala = query_maladie_1($liste);
-		echo "Maladies : <br/>";
+		echo "<br/>Maladies : <br/>";
 		$result_mala = $connex->requete($query_mala);
 		while ($row = pg_fetch_array($result_mala, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
@@ -66,11 +67,10 @@
 	elseif (count($liste) > 1) {
 		$query_mala = query_maladie_1($liste);
 		$query_mala = query_maladie_n($liste, $query_mala);
-		echo "Maladies : <br/>";
+		echo "<br/>Maladies : <br/>";
 		$result_mala = $connex->requete($query_mala);
 		while ($row = pg_fetch_array($result_mala, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
-	
 ?>

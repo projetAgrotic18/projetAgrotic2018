@@ -14,7 +14,11 @@
 		echo "Votre diagnostic a bien été ajouté à notre base de données";
 		
 		$nom = $_GET["nom"];
+		//Gestion des apostrophes éventuelles avec la fonction pg_escape_string 
+		$nom = pg_escape_string( $nom ); 
 		$commune = $_GET["commune"];
+		//Gestion des apostrophes éventuelles avec la fonction pg_escape_string 
+		$commune = pg_escape_string( $commune ); 
 		$date = $_GET["date"];
 		$espece = $_GET["espece"];
 		$preconisation = $_GET["preconisation"];
