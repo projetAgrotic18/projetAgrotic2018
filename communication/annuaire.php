@@ -83,8 +83,8 @@ if (isset($_SESSION["id_compte"])==false){
 			
 			<span id="listeAnnuaire">
 				<?php
-				$result_all_compte =  $connex->requete("SELECT libelle_type_utilisateur AS Type, nom AS Nom, 
-									portable AS Telephone, mail AS Email FROM compte_utilisateur cu 
+				$result_all_compte =  $connex->requete("SELECT libelle_type_utilisateur, nom, 
+									portable, mail FROM compte_utilisateur cu 
 									JOIN type_utilisateur tu ON cu.id_type_utilisateur=tu.id_type_utilisateur");
 
 				$nbr_col = pg_num_fields($result_all_compte);
@@ -93,12 +93,10 @@ if (isset($_SESSION["id_compte"])==false){
 					<TABLE border=1 id="example">
 						<THEAD>
 							<TR>
-								<?php
-								for($i = 0; $i < $nbr_col; $i++) {
-									$nom_champ = pg_field_name($result_all_compte, $i);
-									echo ("<TH>" . $nom_champ. "</TH>");
-								}
-								?>
+								<TH>Type d'utilisateur</TH>
+								<TH>Nom</TH>
+								<TH>Téléphone</TH>
+								<TH>Mail</TH>
 							</TR>
 						</THEAD>
 						<TBODY>

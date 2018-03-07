@@ -21,75 +21,75 @@
         $connex = new connexionPostgreSQL();
 
 		if($result_liste=="all"){
-			$result_all_compte =  $connex->requete("SELECT libelle_type_utilisateur AS Type, nom AS Nom, 
-									portable AS Telephone, mail AS Email FROM compte_utilisateur cu 
+			$result_all_compte =  $connex->requete("SELECT libelle_type_utilisateur, nom, 
+									portable, mail FROM compte_utilisateur cu 
 									JOIN type_utilisateur tu ON cu.id_type_utilisateur=tu.id_type_utilisateur");
 
 			$nbr_col = pg_num_fields($result_all_compte);
 			?>
-			<TABLE border=1 id="example">
-				<THEAD>
-					<TR>
+			<FORM action='ecriture_mail.php' method='post'>
+				<TABLE border=1 id="example">
+					<THEAD>
+						<TR>
+							<TH>Type d'utilisateur</TH>
+							<TH>Nom</TH>
+							<TH>Téléphone</TH>
+							<TH>Mail</TH>
+						</TR>
+					</THEAD>
+					<TBODY>
 						<?php
-						for($i = 0; $i < $nbr_col; $i++) {
-							$nom_champ = pg_field_name($result_all_compte, $i);
-							echo ("<TH>" . $nom_champ. "</TH>");
+						while ($row = pg_fetch_array($result_compte)){
+							echo "<TR>";
+								echo "<td>".$row[0]."</td>";
+								echo "<td>".$row[1]."</td>";
+								echo "<td>".$row[2]."</td>";
+								echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
+							echo "</TR>";
 						}
-						echo "<TH> Sélectionner </TH>";
 						?>
-					</TR>
-				</THEAD>
-				<TBODY>
-					<?php
-					while ($row = pg_fetch_array($result_all_compte)){
-						echo "<TR>";
-						for ($j=0; $j < $nbr_col; $j++) {
-							echo "<td>".$row[$j]."</td>";
-						}
-						echo "<td> <input type='checkbox'></td>";
-						echo "</TR>";
-					}
-					?>
-				</TBODY>
-			</TABLE>
+					</TBODY>
+				</TABLE>
+				<INPUT type='submit' value="Envoyer un mail aux destinataires sélectionnés"/>
+			</FORM>
 		<?php
 		} 
 		else {
 			// Exécution de la requête SQL
 
-			$result_compte =  $connex->requete("SELECT libelle_type_utilisateur AS Type, nom AS Nom, 
-									portable AS Telephone, mail AS Email FROM compte_utilisateur cu 
+			$result_compte =  $connex->requete("SELECT libelle_type_utilisateur, nom, 
+									portable, mail FROM compte_utilisateur cu 
 									JOIN type_utilisateur tu ON cu.id_type_utilisateur=tu.id_type_utilisateur
 									WHERE cu.id_type_utilisateur=$result_liste");
 
 			$nbr_col = pg_num_fields($result_compte);
 
 			?>
-			<TABLE border=1 id="example">
-				<THEAD>
-					<TR>
+			<FORM action='ecriture_mail.php' method='post'>
+				<TABLE border=1 id="example">
+					<THEAD>
+						<TR>
+							<TH>Type d'utilisateur</TH>
+							<TH>Nom</TH>
+							<TH>Téléphone</TH>
+							<TH>Mail</TH>
+						</TR>
+					</THEAD>
+					<TBODY>
 						<?php
-						for($i = 0; $i < $nbr_col; $i++) {
-							$nom_champ = pg_field_name($result_compte, $i);
-							echo ("<TH>" . $nom_champ. "</TH>");
+						while ($row = pg_fetch_array($result_compte)){
+							echo "<TR>";
+								echo "<td>".$row[0]."</td>";
+								echo "<td>".$row[1]."</td>";
+								echo "<td>".$row[2]."</td>";
+								echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
+							echo "</TR>";
 						}
-						echo "<TH> Sélectionner </TH>";
 						?>
-					</TR>
-				</THEAD>
-				<TBODY>
-					<?php
-					while ($row = pg_fetch_array($result_compte)){
-						echo "<TR>";
-						for ($j=0; $j < $nbr_col; $j++) {
-							echo "<td>".$row[$j]."</td>";
-						}
-						echo "<td> <input type='checkbox'></td>";
-						echo "</TR>";
-					}
-					?>
-				</TBODY>
-			</TABLE>
+					</TBODY>
+				</TABLE>
+				<INPUT type='submit' value="Envoyer un mail aux destinataires sélectionnés"/>
+			</FORM>
 		<?php
 		}
        ?>
