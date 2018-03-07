@@ -6,7 +6,7 @@
 	
 	<body>
 	<form method="GET" action="modif_diagnostic_validation.php" name="formsaisie">
-	<h1>Modification d'un diagnostic </h1>
+	<h1>Modification et validation de(s) maladie(s)</h1>
 	<?php
 	require "../general/connexionPostgreSQL.class.php";
 	$connex = new connexionPostgreSQL();
@@ -24,17 +24,17 @@
 	}
 	
 	//A sélectionner de nouveau :
-	echo "<br/>Vous pouvez confirmer la maladie associée au diagnostic, ainsi réitérer votre sélection, ou la modifier : <br/>";
-	echo "<br/>(Ce choix sera considéré comme définitifs)<br/>";
+	echo "<br/>Vous pouvez confirmer la(les) maladie(s) associée(s) au diagnostic ; réitérez votre sélection : <br/>";
+	echo "<br/>(Ces choix seront considérés comme définitifs)<br/>";
 	$result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='maladie[]' value=".$row[0].">".$row[1]."<br/>";
+		echo "<input type=checkbox name='maladies[]' value=".$row[0].">".$row[1]."<br/>";
 	}
 	echo "<br/>";
-	
+	echo "<input type='hidden' name='id_diagnostic' value='$id_diagnostic'/>";
 	?>
 	
-	<input type="submit" value="Modifier">
+	<input type="submit" value="Confirmer">
 	</form>
 	
 	<a href = "consultation_diagnostic.php">
