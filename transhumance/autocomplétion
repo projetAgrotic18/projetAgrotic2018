@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
  
 // Connexion, s?lection de la base de donn?
  
@@ -15,13 +15,13 @@
  
  
      
-$array = array(); // on cr�� le tableau 
-  while ($donnee = $requete->fetch()) // on effectue une boucle pour obtenir les donn�es 
+$array = array(); // on crꩠle tableau 
+  while ($donnee = $requete->fetch()) // on effectue une boucle pour obtenir les donn꦳ 
 { 
-    array_push($array, $line['libelle']); // et on ajoute celles-ci � notre tableau 
+    array_push($array, $line['libelle']); // et on ajoute celles-ci ࡮otre tableau 
 } 
  
-echo json_encode($array); // il n'y a plus qu'� convertir en JSON 
+echo json_encode($array); // il n'y a plus qu'ࡣonvertir en JSON 
  
  
 // Lib?re le r?sul
