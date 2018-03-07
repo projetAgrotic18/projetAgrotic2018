@@ -48,6 +48,10 @@
     padding:50%;
 }
 
+.right_button_admin{
+    padding:500%;
+}
+
 .deconnexion{
     color: white;
     text-decoration: none;

@@ -14,6 +14,25 @@
         
     <title> Création de Compte </title>
     <link rel="icon" href="sonnaille.ico">
+	
+	<!-- Partie ajax -->
+	<script type="text/javascript">
+
+	function afficheNomExploit(str){
+		$.ajax({
+			type: 'get',
+			url: 'majNomExploit.php',
+			data: {
+				rb:str
+				},
+			success: function (response) {
+				document.getElementById("txtNomExploit").innerHTML=response; 
+			}
+		});
+	
+	}
+	
+</script>
         
 </head>
 	<body>
@@ -50,10 +69,7 @@
             
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<<<<<<< Updated upstream
-=======
 		<script type="text/javascript" src="confirm_valid.js"></script>
->>>>>>> Stashed changes
 
        <script type="text/javascript"> 
             //   Charge la version 1.4.1. 
@@ -85,37 +101,28 @@
 <!-- !!!!!!!!!!!!!  DEBUT DE LA MISE EN FORME DE LA PAGE !!!!!!!!!!!!!!!!!!!-->
         
 		<!-- Radio-boutonpour selectionner le type de formulaire à remplir-->
-<<<<<<< Updated upstream
-		<form method = 'POST' name = 'form_eleveur' action = 'validation_compte_utilisateur.php'>
-=======
 		<form method = 'POST' name = 'form_eleveur' action = 'validation_compte_utilisateur.php' onsubmit="return valid_compte_utilisateur()">
->>>>>>> Stashed changes
             
             <h4>Type de compte:</h4>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline1" name = rb class="custom-control-input"value = 'DDPP'>
+                  <input type="radio" id="customRadioInline1" name = rb class="custom-control-input"value = 'DDPP' onclick='afficheNomExploit(this.value)'>
                   <label class="custom-control-label" for="customRadioInline1">DDPP</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline2" name = rb class="custom-control-input" value = 'GDS'>
+                  <input type="radio" id="customRadioInline2" name = rb class="custom-control-input" value = 'GDS' onclick='afficheNomExploit(this.value)'>
                   <label class="custom-control-label" for="customRadioInline2">GDS</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline3" name = rb class="custom-control-input" value = 'veterinaire'>
+                  <input type="radio" id="customRadioInline3" name = rb class="custom-control-input" value = 'veterinaire' onclick='afficheNomExploit(this.value)'>
                   <label class="custom-control-label" for="customRadioInline3">Vétérinaire / GTV</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline4" name = rb class="custom-control-input" value = 'laboratoire'>
+                  <input type="radio" id="customRadioInline4" name = rb class="custom-control-input" value = 'laboratoire' onclick='afficheNomExploit(this.value)'>
                   <label class="custom-control-label" for="customRadioInline4">Laboratoire </label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-<<<<<<< Updated upstream
-                  <input type="radio" id="customRadioInline4" name = rb class="custom-control-input" value = 'eleveur'>
-                  <label class="custom-control-label" for="customRadioInline4">Eleveur</label>
-=======
-                  <input type="radio" id="customRadioInline5" name = rb class="custom-control-input" value = 'eleveur'>
+                  <input type="radio" id="customRadioInline5" name = rb class="custom-control-input" value = 'eleveur' onclick='afficheNomExploit(this.value)'>
                   <label class="custom-control-label" for="customRadioInline5">Eleveur</label>
->>>>>>> Stashed changes
                 </div>
 
             <br/><br/>
@@ -162,6 +169,7 @@
                     <input type="email" class="form-control" placeholder="Adresse Mail" name='mail'>
                 </div>
             </div>
+			<span id="txtNomExploit"></span>
         <br>
         <div class="center">
             <input type="submit" name="bt_submit" value="M'enregistrer" class="btn bouton-sonnaille bouton-m">

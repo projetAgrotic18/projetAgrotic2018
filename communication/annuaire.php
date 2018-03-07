@@ -1,8 +1,8 @@
-<?php /*session_start();
+<?php session_start();
 if (isset($_SESSION["id_compte"])==false){
     header("Location: http://194.199.251.139/projetAgrotic2018/page d'accueil/Connexion.php");
     exit;
-}*/?>
+}?>
 <html>
     <head>
         <title>Annuaire</title>
@@ -103,7 +103,6 @@ if (isset($_SESSION["id_compte"])==false){
 						</THEAD>
 						<TBODY>
 							<?php
-							$count=0;
 							while ($row = pg_fetch_array($result_all_compte)){
 								echo "<TR>";
 									echo "<td>".$row[0]."</td>";
@@ -111,7 +110,6 @@ if (isset($_SESSION["id_compte"])==false){
 									echo "<td>".$row[2]."</td>";
 									echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
 								echo "</TR>";
-								$count=$count+1;
 							}
 							?>
 						</TBODY>
@@ -119,7 +117,8 @@ if (isset($_SESSION["id_compte"])==false){
 					<INPUT type='submit' value="Envoyer un mail aux destinataires sélectionnés"/>
 				</FORM>
 			</span>
-			<BR/>		
+			<BR/>
+			<input type="button" value="Retour" onclick="self.history.back()">
 		</div>
     
 		 <!-- Pied de page -->		

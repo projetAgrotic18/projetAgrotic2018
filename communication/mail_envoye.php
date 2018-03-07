@@ -30,14 +30,22 @@ if (isset($_SESSION["id_compte"])==false){
 			$message=$_POST['message'];
 			$headers = 'From:'.$from. "\r\n" .
      			'X-Mailer: PHP/' . phpversion();
-			echo "toto";
+			
 			ini_set('SMTP','sauternes.agro-bordeaux.fr');
 			ini_set('smtp_port', '587');
 			ini_set('sendmail_from','meryl.boquillon@agro-bordeaux.fr');
 			
-			mail($mailto, $obj, $message, $headers);
+			if(mail($mailto, $obj, $message, $headers)){
+				echo "Votre mail à bien été envoyé";
+			}else {
+				echo "Un problème est survenu, votre mail n'a pas pu être envoyé";
+			}
 				
-			?>	
+			?>
+			<center><br><a class='btn bouton-sonnaille' href="../page d'accueil/Page_accueil.php" role='button'>Retour page d'accueil</a></center>
+				
+			
+			
 		</div>
 		
 		<!-- Pied de page -->		
