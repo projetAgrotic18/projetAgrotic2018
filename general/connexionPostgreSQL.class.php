@@ -4,7 +4,7 @@ class connexionPostgreSQL {
     private $connex;
     
     function __construct() {
-        $this->connex = pg_connect("host=194.199.251.139 port=5433 dbname=te user=postgres password=postgres")
+        $this->connex = pg_connect("host=194.199.251.68 port=5432 dbname=te user=postgres password=postgre")
                 or die('Connexion impossible : ' . pg_last_error());
     }
     
