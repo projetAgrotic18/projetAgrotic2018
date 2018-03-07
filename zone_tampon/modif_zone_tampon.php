@@ -1,4 +1,4 @@
-<html>
+﻿<html>
     <head>
         <META charset="UTF-8">
        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
@@ -46,14 +46,15 @@
             $result2 = $connex->requete("SELECT id_dpt, libelle_dep FROM departement");
             $result3 =  $connex->requete("SELECT id_zone_tampon FROM zone_tampon ORDER BY id_zone_tampon"); //sÃ©lectionne le premier id  de transhumance disponible
             $nbre_col = pg_num_fields($result1);
+			//$id = 1;
 
-            while ($row = pg_fetch_array($result3, null, PGSQL_NUM)) {
+            /*while ($row = pg_fetch_array($result3, null, PGSQL_NUM)) {
 
                 if ($id < $row[0]) {
                     break;
                 }
                 $id++;
-            }
+            }*/
             
                      $rqt="SELECT id_commune,nom_commune,code_postal FROM commune";
                    $result4 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
@@ -152,10 +153,10 @@
                    <div class="padding">
                         <div class="form-group col-md-6">
                            <label for="id_zt">Id zone Tampon</label>:
-                            <?php echo "<input type='text' class='form-control' name='id_zt' value = '$id' readonly >" ?>
+                            <?php echo "<input type='text' class='form-control' name='id_zt' value = '$id_zt' readonly >" ?>
                        </div>
                        
-                    <label>Maladie concernÃ©e</label>:
+                    <label>Maladie concernée</label>:
                     <select class="form-control form-control-lg" name="liste_maladie">
 						<option selected><?php echo "$libelle_maladie"; ?>
                         <?php 
@@ -220,7 +221,7 @@
                 
             <br>
            <div class="center">
-                <INPUT TYPE = "SUBMIT"  class="btn bouton-sonnaille bouton-m" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
+                <INPUT TYPE = "SUBMIT"  class="btn bouton-sonnaille bouton-m" NAME = "zt_ajout" value = "Modifier la zone tampon">
             </div>
             <br>       
                     
