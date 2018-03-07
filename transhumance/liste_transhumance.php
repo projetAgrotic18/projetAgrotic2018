@@ -24,8 +24,9 @@ session_start();
     <body>
         <!-- Entête -->
     
-    	<!-- DIV Navigation (Menus) -->
-        <?php include("../general/front/navigation.html"); ?>
+    	<!-- Barre de navigation en fonction de l'utilisateur -->
+        <?php include('../general/switchbar.php'); ?>
+         
         
         <!-- Appelle de la page regroupant les fonctions -->
         <?php require_once('../general/procedures.php'); ?>

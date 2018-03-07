@@ -16,18 +16,12 @@ if (isset($_SESSION["id_compte"])==false){
     
     <?php
         //Barre de navigation en fonction de l'utilisateur
-                
-
+        include('../general/switchbar.php');        
 
         //Récupération des infos page précédente
         $id_compte=$_SESSION["id_compte"];
         $type=$_SESSION["id_type_utilisateur"];
         
-        include('../general/switchbar.php');
-    
-       
-
-
         // tableau de vérification de la requête
         /*echo "<table border=1 bordorcolor=black>";
         while ($row=pg_fetch_array($result,null,PGSQL_NUM)) {
@@ -85,7 +79,7 @@ if (isset($_SESSION["id_compte"])==false){
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='diagnostic.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p> Saisir un nouveau diagnostic </p></center>";
-                echo "<center><br><a class='btn bouton-sonnaille' href='../diagnostic/diagnostic.php' role='button'>Diagnostics</a></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../diagnostic/diagnostic_front.php' role='button'>Diagnostics</a></center>";
             echo "</div><br>";
             $compteur_row=$compteur_row+1;
         }
