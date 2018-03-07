@@ -1,8 +1,8 @@
-<?php /*session_start();
+<?php session_start();
 if (isset($_SESSION["id_compte"])==false){
-    header("Location: http://194.199.251.139/projetAgrotic2018/page d'accueil/Connexion.php");
+    header("Location: http://194.199.251.68/projetAgrotic2018/page d'accueil/Connexion.php");
     exit;
-}*/?>
+}?>
 <html>
     <head>
         <title>Envoie du mail</title>
