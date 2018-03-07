@@ -1,11 +1,16 @@
+<?php session_start();?>
 <html>
 <head>
+    <title>Liste Compte</title>
     <META charset="UTF-8"/>
-    <link rel="stylesheet" href='../general/front/style.css'> 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     
+    <!--- Style Sonnaille -->
+    <link href="../general/front/style.css" rel="stylesheet">
+        
     <!--Deux lignes de code pour le tableau-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     
     <script>
         function confirm_s(id){
@@ -47,7 +52,13 @@
         
     // Affichage des résultats en HTML?>
         <div class='padding'>
-            <table border=1 id="example"><tr><th>ID</th><th>Utilisateur</th><th>Type d'utilisateur</th><th></th></tr>
+            <table border=1 id="example">
+                <tr>
+                    <th>ID</th>
+                    <th>Utilisateur</th>
+                    <th>Type d'utilisateur</th>
+                    <th></th>
+                </tr>
                 <?php while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 
                     $id = $row[0];
