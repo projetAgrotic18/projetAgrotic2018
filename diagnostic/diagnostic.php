@@ -8,11 +8,10 @@
 
 	<!-- Section Javascript: vérification de l'entrée des champs obligatoires, définition des fonctions -->
 	<script type="text/javascript">
-		
 	var ok =1;
 	var msg = "Veuillez saisir les informations suivantes :";
 	function valider(){
-		if (document.formsaisie.nom_exploitant.value == "") 	
+		if (document.formsaisie.nom.value == "") 	
 		{
 			ok = 0;
 			msg = msg + "\n[Nom de l'exploitant] \n";
@@ -184,6 +183,19 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>     
     <script type="text/javascript"> 
+	
+	function actu_maladie(sympt_check){
+		$.ajax({
+			type: 'get', 
+			url: 'diagnostic_liste_mala.php',
+			data: {
+				sympt_check:sympt_check
+			},
+			success: function (response){
+					document.getElementById("actuFormulaire_maladie").innerHTML=response;
+			}
+		});
+	}
 	var liste= <?php echo json_encode($array);?>;
 			$(function () {      
 			$('#commune').autocomplete({ //apres le #
@@ -229,6 +241,9 @@
               .appendTo( ul );
           };
         } );    
-    </script>       
+    </script>  
+	<a href = "liste_diagnostic.php">
+		<button type="button">Visualiser la liste de mes diagnostics</button>
+	</a>	
 	</body>
 </html>

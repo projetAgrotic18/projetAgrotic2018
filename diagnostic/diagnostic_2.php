@@ -9,7 +9,7 @@
 	
 	<?php
 	//Vérification PHP
-	if (isset($_GET["nom"]) && isset($_GET["commune"]) && isset($_GET["date"]) && isset($_GET["espece"])){
+	if (!empty($_GET["nom"]) && !empty($_GET["commune"]) && !empty($_GET["date"]) && !empty($_GET["espece"])){
 		
 		echo "Votre diagnostic a bien été ajouté à notre base de données";
 		
