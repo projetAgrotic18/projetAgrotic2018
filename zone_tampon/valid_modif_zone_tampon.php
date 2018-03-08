@@ -9,9 +9,8 @@
         require "../general/connexionPostgreSQL.class.php";
        $connex = new connexionPostgreSQL();
        
-        $exploit=$_POST['exploit'];
+        $exploit=$_POST['exploi'];
        
-        echo "SELECT id_compte FROM compte_utilisateur WHERE nom='".$exploit."'";
         $query4 = $connex->requete("SELECT id_compte FROM compte_utilisateur WHERE nom='".$exploit."'");
       while ($row = pg_fetch_array($query4)) 
               {

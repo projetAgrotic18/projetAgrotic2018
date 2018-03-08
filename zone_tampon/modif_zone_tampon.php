@@ -82,7 +82,7 @@
             $array3 = array(); // crÃ©ation du tableau
 
             while ($row = pg_fetch_array($result3)){   // boucle pour obtenir toutes les donnÃ©es
-                        array_push($array3,array('value'=>$row[1],'label'=>$row[0],'desc'=>$row[1]));
+                        array_push($array3,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
             }  
 
         ?>
@@ -131,8 +131,8 @@
 			},
                 //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
     select : function(event, ui){ // lors de la sÃ©lection d'une proposition
-			$( '#exploi' ).val( ui.item.label);     
-			$('#id_compte').val(ui.item.value);
+			$( '#id_compte' ).val( ui.item.label);     
+			$('#exploi').val(ui.item.value);
 			$('#description2').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
 			return false;
             }
@@ -179,8 +179,8 @@
                     <div class= "form-row">
                        <div class="form-group col-lg-6">
                             <label for="exploi">Nom de l'exploitation</label>
-                            <input type='text' class="form-control" id="exploi" name="exploi" value="<?php echo "$nom_exploitation"; ?>">
-                            <input type="hidden" id="id_compte" name="exploit" value='<?php echo $nom_exploitant;?>'>
+                            <input type='text' class="form-control" id="exploi" name="exploi" value="<?php echo $nom_exploitation; ?>">
+                            <input type="hidden" id="id_compte" name="exploi" value='<?php echo $nom_exploitant;?>'>
                         </div>
                         <div class="form-group col-lg-6">
                             <label for="commune">Commune</label>
