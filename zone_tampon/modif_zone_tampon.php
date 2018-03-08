@@ -1,10 +1,10 @@
-<html>
+﻿<html>
     <head>
         <META charset="UTF-8">
        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <title> Ajout de zone tampon </title>
+        <title> Modification de zone tampon </title>
     <link rel="icon" href="sonnaille.ico">
         
     <!-- Load CSS--->
@@ -18,7 +18,7 @@
 
         
        <br>
-        <h1 class="sonnaille_titre">Ajouter des zones tampons</h1>
+        <h1 class="sonnaille_titre">Modifier une zone tampon</h1>
         <br><br>
         <?php
 		
@@ -28,7 +28,7 @@
             $connex = new connexionPostgreSQL();
 			
 			//Récupère les champs correspondant à l'identifiant de la zone tampon que l'on veut récupérer
-			$result = $connex->requete("SELECT m.libelle_maladie, cu.nom_exploitation, c.nom_commune, zt.rayon_prot, zt.rayon_surv, zt.date_fin
+			$result = $connex->requete("SELECT m.libelle_maladie, cu.nom_exploitation, c.nom_commune, zt.rayon_prot, zt.rayon_surv, zt.date_fin,cu.nom
 										FROM ((commune c JOIN compte_utilisateur cu ON c.id_commune=cu.id_commune) JOIN zone_tampon zt ON cu.id_compte=zt.id_compte)JOIN maladie m ON zt.id_maladie=m.id_maladie
 										WHERE id_zone_tampon=$id_zt");
 										
@@ -39,6 +39,7 @@
 				$rayon_prot = $row[3];
 				$rayon_surv = $row[4];
 				$date_fin = $row[5];
+                                $nom_exploitant=$row[6];
 			}
 
             
@@ -46,14 +47,15 @@
             $result2 = $connex->requete("SELECT id_dpt, libelle_dep FROM departement");
             $result3 =  $connex->requete("SELECT id_zone_tampon FROM zone_tampon ORDER BY id_zone_tampon"); //sÃ©lectionne le premier id  de transhumance disponible
             $nbre_col = pg_num_fields($result1);
+			//$id = 1;
 
-            while ($row = pg_fetch_array($result3, null, PGSQL_NUM)) {
+            /*while ($row = pg_fetch_array($result3, null, PGSQL_NUM)) {
 
                 if ($id < $row[0]) {
                     break;
                 }
                 $id++;
-            }
+            }*/
             
                      $rqt="SELECT id_commune,nom_commune,code_postal FROM commune";
                    $result4 = $connex->requete($rqt);// j'effectue ma requ?te SQL gr?ce au mot-cl?
@@ -129,8 +131,8 @@
 			},
                 //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
     select : function(event, ui){ // lors de la sÃ©lection d'une proposition
-			$( '#exploi' ).val( ui.item.label);     
-			$('#id_compte').val(ui.item.value);
+			$( '#id_compte' ).val( ui.item.label);     
+			$('#exploi').val(ui.item.value);
 			$('#description2').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
 			return false;
             }
@@ -152,18 +154,22 @@
                    <div class="padding">
                         <div class="form-group col-md-6">
                            <label for="id_zt">Id zone Tampon</label>:
-                            <?php echo "<input type='text' class='form-control' name='id_zt' value = '$id' readonly >" ?>
+                            <?php echo "<input type='text' class='form-control' name='id_zt' value = '$id_zt' readonly >" ?>
                        </div>
                        
-                    <label>Maladie concernÃ©e</label>:
+                    <label>Maladie concernée</label>:
                     <select class="form-control form-control-lg" name="liste_maladie">
-						<option selected><?php echo "$libelle_maladie"; ?>
-                        <?php 
+                       <?php
                         
 							while ($line = pg_fetch_array($result1) ){
-        
-								echo "<option id = ".$line[0]." value =".$line[1].">".$line[0]."</option>";
-							}
+                                                                     if($line[0]==$libelle_maladie){
+                                                                         $sel="selected";
+                                                                     }  
+                                                                     else {
+                                                                         $sel="";
+                                                                     }
+								echo "<option id = ".$line[0]." value =".$line[1]." ".$sel.">".$line[0]."</option>";
+							}   
     
                     ?>    
                     </select>
@@ -173,13 +179,13 @@
                     <div class= "form-row">
                        <div class="form-group col-lg-6">
                             <label for="exploi">Nom de l'exploitation</label>
-                            <input type='text' class="form-control" id="exploi" name="exploi" value="<?php echo "$nom_exploitation"; ?>">
-                            <input type="hidden" id="id_compte">
+                            <input type='text' class="form-control" id="exploi" name="exploi" value="<?php echo $nom_exploitation; ?>">
+                            <input type="hidden" id="id_compte" name="exploi" value='<?php echo $nom_exploitant;?>'>
                         </div>
                         <div class="form-group col-lg-6">
                             <label for="commune">Commune</label>
-                            <input type='text' class="form-control" id="commune" name='commune' value ='<?php echo "$nom_commune"; ?>' >
-                            <input type='hidden' id='commune_id' name="commu" value =''>
+                            <input type='text' class="form-control" id="commune" name='commune' value ='<?php echo $nom_commune; ?>' >
+                            <input type='hidden' id='commune_id' name="commu">
                         </div>
                     </div>                  
             
@@ -220,7 +226,7 @@
                 
             <br>
            <div class="center">
-                <INPUT TYPE = "SUBMIT"  class="btn bouton-sonnaille bouton-m" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
+                <INPUT TYPE = "SUBMIT"  class="btn bouton-sonnaille bouton-m" NAME = "zt_ajout" value = "Modifier la zone tampon">
             </div>
             <br>       
                     

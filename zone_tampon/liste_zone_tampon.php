@@ -47,6 +47,7 @@
                                 <TH>Maladie</TH>
                                 <TH>Rayon de protection</TH>
                                 <TH>Rayon de Surveillance</TH>
+                                 <TH>ID Zone Tampon</TH>
                                 <?php
                                     if($id_type_utilisateur == 3 or $id_type_utilisateur ==6){
                                         echo "<TH></TH>";
@@ -61,7 +62,7 @@
                             while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
                                 echo "<TR>";
                                     // affichage pour chaque diagnostic de ses informations principales
-                                    for($i = 0; $i < 3; $i++) {
+                                    for($i = 0; $i < 4; $i++) {
                                         echo "<TD>".$row[$i]."</TD>";
                                     }
 
