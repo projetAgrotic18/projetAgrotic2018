@@ -136,6 +136,7 @@
 	//Symptomes : 
 	echo "<br/>Symptomes : <br/>";	
 	$result = $connex->requete("SELECT id_sympt, libelle_symptome FROM symp ORDER BY libelle_symptome");
+	
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
