@@ -18,36 +18,6 @@
 
 	<!-- Section Javascript: vérification de l'entrée des champs obligatoires, définition des fonctions -->
 	<script type="text/javascript">
-		
-	var ok =1;
-	var msg = "Veuillez saisir les informations suivantes :";
-	function valider(){
-		if (document.formsaisie.nom_exploitant.value == "") 	
-		{
-			ok = 0;
-			msg = msg + "\n[Nom de l'exploitant] \n";
-		}	
-		if (document.formsaisie.date.value == "")
-		{
-			ok = 0;
-			msg = msg + "[Date]";
-		}
-		// if (document.formsaisie.commune.value == "")
-		// {
-			// ok = 0;
-			// msg = msg + "[Lieu du diagnostic]";
-		// }
-		if (document.formsaisie.espece.value == "")
-		{
-			ok = 0;
-			msg = msg + "[Espèce]";
-		}
-		if (ok !=1)
-		{
-			alert(msg);
-			return false;
-		}
-	}
 	
 	function actu_maladie(sympt_check){
 		$.ajax({
@@ -102,14 +72,11 @@
     <div class="fond_gris">
         <div class="padding">
            <h2>Caractéristiques générales :</h2>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div class="form-group col-md-6">
+					<div class="form-row">
                         <label for="inputNom">(*) Nom de l'exploitant</label>
-                        <input type='text' name='nom_exploitant' class="form-control">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputNom">(*) Nom de l'exploitation</label>
-                        <input type='text' name='nom_exploitation' class="form-control">
+                        <input type='text' id='nom' name='nom' class="form-control">
+						<input type='hidden' id='id_compte'>
                     </div>
                 </div>
    
@@ -119,7 +86,8 @@
             <div class="form-group col-md-6">
                 <div class="form-row">
                     <label for="inputcommune">(*) Commune</label>
-                    <input type="text" name="commune" class="form-control"><br/>
+                    <input type="text" id='commune' name="commune" class="form-control"><br/>
+					<input type='hidden' id='commune_id'>
                 </div>
             </div>
 
@@ -127,7 +95,7 @@
             <div class="form-group col-md-6">
                 <div class="form-row">
                     <label for="inputDate">(*) Date du diagnostic</label>
-                    <input type="date" name="date" class="form-control">
+                    <input type="date" id='date' name="date" class="form-control">
                 </div>
             </div>
 
@@ -138,17 +106,17 @@
 	<div class="padding">
         
         <h2>Caractéristiques du diagnostic :</h2>
-        * Espèce : <br/>
+        (*) Espèce : <br/>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline1" name="espece" class="custom-control-input" value="1">
+          <input type="radio" id="customRadioInline1" id='espece' name="espece" class="custom-control-input" value="1">
           <label class="custom-control-label" for="customRadioInline1">Bovin</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline2" name="espece" class="custom-control-input" value="2">
+          <input type="radio" id="customRadioInline2" id='espece' name="espece" class="custom-control-input" value="2">
           <label class="custom-control-label" for="customRadioInline2">Ovin</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline3" name="espece" class="custom-control-input" value="3">
+          <input type="radio" id="customRadioInline3" id='espece' name="espece" class="custom-control-input" value="3">
           <label class="custom-control-label" for="customRadioInline3">Caprin</label>
         </div>
         <br>
@@ -171,9 +139,7 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
-	echo "<br/>";
 	echo "<span id='actuFormulaire_maladie'></id>";
-
 
 	//Maladies :
 	echo "<br/>Maladies possibles : <br/>";
@@ -181,7 +147,6 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
-	
 	echo "</span>";
 	echo "<span id='actuFormulaire_prelevement'></id>";
 	
@@ -225,7 +190,7 @@
 	?>
 	
     <div class="form-group">
-        <label for="preconisation">Préconisations :</label>
+        <label for="preconisation"><br/>Préconisations :</label>
         <textarea class="form-control" rows="5" id="preconisations"></textarea>
     </div>
 	<div class="center">	
@@ -281,6 +246,7 @@
               .appendTo( ul );
           };
         } );    
-    </script>       
+    </script> 
+	<script src="validation_formdiagnostic.js"></script>
 	</body>
 </html>

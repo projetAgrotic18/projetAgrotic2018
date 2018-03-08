@@ -28,7 +28,7 @@
 									FROM "ANALYSE" a
 									ORDER BY a.libelle_analyse');
 									
-		echo "Analyses : <br/>";							
+		echo "<br/>Analyses : <br/>";							
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='analyse[]' value=".$row[0].">".$row[1]."<br/>";
 		}
@@ -53,10 +53,9 @@
 		
 		$result = $connex->requete($query_ana);
 		
-		echo "Analyses : <br/>";
+		echo "<br/>Analyses : <br/>";
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='analyse[]' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
-
 ?>

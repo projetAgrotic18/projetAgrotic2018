@@ -8,29 +8,28 @@
 
 	<!-- Section Javascript: vérification de l'entrée des champs obligatoires, définition des fonctions -->
 	<script type="text/javascript">
-		
 	var ok =1;
 	var msg = "Veuillez saisir les informations suivantes :";
 	function valider(){
-		if (document.formsaisie.nom_exploitant.value == "") 	
+		if (document.formsaisie.nom.value == "") 	
 		{
 			ok = 0;
 			msg = msg + "\n[Nom de l'exploitant] \n";
 		}	
+		if (document.formsaisie.commune.value == "")
+		{
+			ok = 0;
+			msg = msg + "\n [Lieu du diagnostic] \n";
+		}
 		if (document.formsaisie.date.value == "")
 		{
 			ok = 0;
-			msg = msg + "[Date]";
+			msg = msg + "\n [Date du diagnostic] \n";
 		}
-		// if (document.formsaisie.commune.value == "")
-		// {
-			// ok = 0;
-			// msg = msg + "[Lieu du diagnostic]";
-		// }
 		if (document.formsaisie.espece.value == "")
 		{
 			ok = 0;
-			msg = msg + "[Espèce]";
+			msg = msg + "\n [Espèce] \n";
 		}
 		if (ok !=1)
 		{
@@ -88,6 +87,8 @@
 	(*) : champs obligatoires <br/>	
 	
 	<!--Caractéristiques-->
+	<!--Nom de l'exploitant en autocomplétion (avec renseignement entre parenthèses de l'exploitation associée, au cas où il y aurait des homonymes-->
+	<!--Commune en autocomplétion-->
 	<h2>Caractéristiques générales :</h2>
 	(*) Nom de l'exploitant : <br/>
 	<input type="text" id='nom' name="nom" size="20"><br/>
@@ -95,11 +96,8 @@
 	(*) Commune du diagnostic : <br/>
 	<input type="text" id='commune' name="commune" size="20" value =''><br/>
    
-        
-	<!-- Champ autocomplété quand les 2 champs "nom exploitant" et "nom exploitation" sont remplis -->
 	(*) Date du diagnostic : <br/>
 	<input type="date" name="date" size="10"><br/><br/>
-	<!-- La date du jour est récupérée sur l'ordi -->
 	
 	<h2>Caractéristiques du diagnostic :</h2>
 	(*) Espèce : <br/>	
@@ -107,7 +105,6 @@
 	<input type=radio name="espece" value="2">Ovin
 	<input type=radio name="espece" value="3">Caprin
 	<br/><br/>
-	<!--<span id="symptome"></id>-->
 
 	<?php
 	require "../general/connexionPostgreSQL.class.php";
@@ -126,7 +123,6 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
-	echo "<br/>";
 	echo "<span id='actuFormulaire_maladie'></id>";
 
 	//Maladies :
@@ -135,7 +131,6 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
-	
 	echo "</span>";
 	echo "<span id='actuFormulaire_prelevement'></id>";
 	
@@ -179,7 +174,7 @@
 	?>
 	
         
-	Préconisations : <br/>
+	 <br/>Préconisations : <br/>
 	<input type="text" name="preconisation" size="150"><br/><br/>
 		
 	<input type="submit" value="Ajouter ce diagnostic">
@@ -188,6 +183,19 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>     
     <script type="text/javascript"> 
+	
+	function actu_maladie(sympt_check){
+		$.ajax({
+			type: 'get', 
+			url: 'diagnostic_liste_mala.php',
+			data: {
+				sympt_check:sympt_check
+			},
+			success: function (response){
+					document.getElementById("actuFormulaire_maladie").innerHTML=response;
+			}
+		});
+	}
 	var liste= <?php echo json_encode($array);?>;
 			$(function () {      
 			$('#commune').autocomplete({ //apres le #
@@ -233,6 +241,9 @@
               .appendTo( ul );
           };
         } );    
-    </script>       
+    </script>  
+	<a href = "liste_diagnostic.php">
+		<button type="button">Visualiser la liste de mes diagnostics</button>
+	</a>	
 	</body>
 </html>

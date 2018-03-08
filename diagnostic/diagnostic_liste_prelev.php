@@ -28,7 +28,7 @@
 									FROM prelev p
 									ORDER BY p.libelle_prelevement");
 									
-		echo "Prelevement : <br/>";							
+		echo "<br/>Prélèvements à réaliser : <br/>";							
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
@@ -54,10 +54,9 @@
 		
 		$result = $connex->requete($query_prelev);
 		
-		echo "Prelevement : <br/>";
+		echo "<br/>Prélèvements à réaliser : <br/>";
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
 		}
 	}
-
 ?>
