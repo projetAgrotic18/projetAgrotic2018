@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -19,7 +19,10 @@ and open the template in the editor.
        
         ?>
         
-       La zone tampon à bien été désactivée!
-       <input type="button" action="liste_zone_tampon.php" name="retour" Value="Retour sur les listes des zones tampons">
+       La zone tampon a bien Ã©tÃ© dÃ©sactivÃ©e !
+       
+       <form method="post" action="liste_zone_tampon.php" >
+           <input type="submit" name="retour" Value="Retour">
+       </form>
     </body>
 </html>
