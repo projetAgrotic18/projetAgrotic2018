@@ -48,7 +48,24 @@
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			$id_eleveur=$row[0];
 		}
-		
+                $result2= $connex->requete("SELECT nom FROM compte_utilisateur WHERE id_compte='".$id_veto."'");
+                while ($row = pg_fetch_array($result2, null, PGSQL_NUM)) {
+			$nom_véto=$row[0];
+		}
+                
+                 $result3 =  $connex->requete("SELECT MAX (id_notification) FROM notification"); //sÃ©lectionne le premier id  de notification disponible
+                    $row= pg_fetch_array($result3);
+                    $id=$row[0]+1;
+                
+                
+                $resultlabo= $connex->requete("SELECT id_compte FROM compte_utilisateur WHERE nom='".$nom_labo."'");
+                  while ($row = pg_fetch_array($resultlabo, null, PGSQL_NUM)) {
+			$id_labo=$row[0];
+		}
+                $titre=pg_escape_string("Demande d'analyse");
+                 //Ajout d'une notification à la base de donnée 
+                $query=$connex->requete("INSERT INTO notification (id_notification, date_notification, titre_notification, message)  VALUES (".$id.",'".$date."','".$titre."','Votre laboratoire a ete choisit par :".$nom_véto." pour effectuer une Analyse')");
+		$query2=$connex->requete("INSERT INTO notification_compte(id_notification,id_compte,lu) VALUES (".$id.",".$id_labo.",'FALSE')");
 		//id_espece : simplement le $espece
 		
 		//date_diagnostic : simplement le $date
