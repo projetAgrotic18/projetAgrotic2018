@@ -29,61 +29,53 @@
     </script>
 </head>
 <body>
-    <!-- Entête -->
-    
     <!-- Appelle de la page regroupant les fonctions -->
-        <?php require_once('../general/procedures.php'); ?>
+    <?php require_once('../general/procedures.php'); ?>
 
     <!-- Barre de navigation en fonction de l'utilisateur -->
-    <?php include('../general/switchbar.php'); 
+    <?php include('../general/switchbar.php');?>
     
-    echo "<center><h1>Comptes utilisateurs</h1></center><br>";
-    echo "<h2>Liste des comptes</h2><br>";
-        
-    // Connexion, sélection de la base de données
-        
+    <div class="padding">
+        <h1>Comptes utilisateurs</h1><br>
+        <h2>Liste des comptes</h2><br>
+        <?php   
+        // Connexion, sélection de la base de données
         require "../general/connexionPostgreSQL.class.php";
-
         $connex = new connexionPostgreSQL();
 
-    // Exécution de la requête SQL
-        
+        // Exécution de la requête SQL
         $result = $connex->requete("SELECT cu.id_compte, cu.identifiant, tu.libelle_type_utilisateur FROM type_utilisateur tu JOIN compte_utilisateur cu ON tu.id_type_utilisateur=cu.id_type_utilisateur GROUP BY tu.libelle_type_utilisateur, cu.id_compte ORDER BY tu.libelle_type_utilisateur, cu.identifiant");
-        
-    // Affichage des résultats en HTML?>
-        <div class='padding'>
-            <div class='container'>
-                <table border=1 id="example">
-                    <tr>
-                        <th>ID</th>
-                        <th>Utilisateur</th>
-                        <th>Type d'utilisateur</th>
-                        <th></th>
-                    </tr>
-                    <?php 
-                        while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-                            echo "<tr><td>".$row[0]."</td>";
-                            echo "<td>".$row[1]."</td>";
-                            echo "<td>".$row[2]."</td>";
-                            echo "<td><img src='suppr.png' alt='supprimer' onclick='confirm_s(".$row[0].")'/></td></tr>";
-                        }
-                    ?>
-                </table>
-            </div>
-        </div>
 
+        // Affichage des résultats en HTML?>
+        <div class='container'>
+            <table border=1 id="example">
+                <tr>
+                    <th>ID</th>
+                    <th>Utilisateur</th>
+                    <th>Type d'utilisateur</th>
+                    <th>Supprimer</th>
+                </tr>
+                <?php 
+                    while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
+                        echo "<tr><td>".$row[0]."</td>";
+                        echo "<td>".$row[1]."</td>";
+                        echo "<td>".$row[2]."</td>";
+                        echo "<td><center><img src='suppr.png' alt='supprimer' onclick='confirm_s(".$row[0].")'/></center></td></tr>";
+                    }
+                ?>
+            </table>
+        </div>
+    </div>
     <?php
     // Libère le résultat
-
-        pg_free_result($result);
+    pg_free_result($result);
 
     // Ferme la connexion
+    $connex->fermer();
 
-        $connex->fermer();
-		
-		//<a href='valid_suppr.php?id_compte=".$id."'>
-        echo "<br><br><br>";
-        include('../general/front/footer.html');?>
+    //<a href='valid_suppr.php?id_compte=".$id."'>
+    echo "<br><br><br>";
+    include('../general/front/footer.html');?>
 
     </body>
 </html>

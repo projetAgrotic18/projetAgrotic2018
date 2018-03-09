@@ -27,14 +27,14 @@
         //Récupération des maladies à partir de l'id_diagnostic : 
         //echo "<h5>Maladies possibles :</h5>";
         $result= $connex->requete("SELECT m.libelle_maladie FROM maladie m JOIN maladie_diag md ON m.id_maladie=md.id_maladie WHERE md.id_diagnostic='".$id_diagnostic."'");
-        echo "<h5>Vous aviez sélectionné cette (ces) maladie(s) :   </h5><br/>";
+        echo "<h5>Vous aviez sélectionné cette (ces) maladie(s) :</h5>";
         while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
             echo $row[0]."<br/>";
         }
 
         //A sélectionner de nouveau :
-        echo "<h5>Vous pouvez confirmer ou modifier la ou les maladie(s) associée(s) au diagnostic : </h5><br/>";
-        echo "<br/>Attention : ces choix seront considérés comme définitifs.<br/>";
+        echo "<br/><br/><h5>Vous pouvez confirmer ou modifier la ou les maladie(s) associée(s) au diagnostic : </h5>";
+        echo "Attention : ces choix seront considérés comme définitifs.<br/><br/>";
         $result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
         while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
             echo "<input type=checkbox name='maladies[]' value=".$row[0].">".$row[1]."<br/>";
