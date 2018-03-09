@@ -13,7 +13,7 @@
     <?php include('../general/switchbar.php'); ?>
     
     <div class="padding">   
-        <h1>Modification et validation de(s) maladie(s)</h1><br>
+        <h1>Modification et validation de maladie(s)</h1><br>
     
         <form method="GET" action="modif_diagnostic_validation.php" name="formsaisie">
         <?php
@@ -25,16 +25,16 @@
 
         //SEULE PARTIE MODIFIABLE : 
         //Récupération des maladies à partir de l'id_diagnostic : 
-        echo "<h6><U>Maladies possibles :</U></h6><br/>";
+        //echo "<h5>Maladies possibles :</h5>";
         $result= $connex->requete("SELECT m.libelle_maladie FROM maladie m JOIN maladie_diag md ON m.id_maladie=md.id_maladie WHERE md.id_diagnostic='".$id_diagnostic."'");
-        echo "Vous aviez sélectionné cette (ces) maladie(s) : <br/>";
+        echo "<h5>Vous aviez sélectionné cette (ces) maladie(s) :   </h5><br/>";
         while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
             echo $row[0]."<br/>";
         }
 
         //A sélectionner de nouveau :
-        echo "<br/>Vous pouvez confirmer la(les) maladie(s) associée(s) au diagnostic ; réitérez votre sélection : <br/>";
-        echo "<br/>(Ces choix seront considérés comme définitifs)<br/>";
+        echo "<h5>Vous pouvez confirmer ou modifier la ou les maladie(s) associée(s) au diagnostic : </h5><br/>";
+        echo "<br/>Attention : ces choix seront considérés comme définitifs.<br/>";
         $result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
         while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
             echo "<input type=checkbox name='maladies[]' value=".$row[0].">".$row[1]."<br/>";
