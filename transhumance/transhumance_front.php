@@ -201,7 +201,8 @@
 
             <div class="form-group">
                 <label for="inputDateDepart">(*)Commune de destination :</label>
-                <input type="text" class="form-control" id="commune_id" placeholder="Entrez la commune" name="commune">
+                <input type="text" class="form-control" id="commune" placeholder="Entrez la commune" name="commune">
+                <input type="hidden" id="commune_id" name="commu">
             </div> 
         </div>
             
