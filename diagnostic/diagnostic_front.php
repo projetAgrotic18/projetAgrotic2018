@@ -191,7 +191,7 @@
             echo "<select class='form-control form-control-lg' name='labo_ch'>";
       while ($row2=pg_fetch_array($result4)){
         echo "<option id='".$row2[0]."' value='".$row2[1]."'>".$row2[1]."</option>";
-      }
+      } 
            echo  "</select>";
            
     $connex->fermer();
