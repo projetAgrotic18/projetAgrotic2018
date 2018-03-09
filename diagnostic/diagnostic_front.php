@@ -136,7 +136,6 @@
 	//Symptomes : 
 	echo "<br/>Symptomes : <br/>";	
 	$result = $connex->requete("SELECT id_sympt, libelle_symptome FROM symp ORDER BY libelle_symptome");
-	
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
 	}
@@ -186,7 +185,15 @@
     while ($row = pg_fetch_array($result3)){   // boucle pour obtenir toutes les données
 		array_push($array3,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
     }  
-
+       $rqt4="SELECT id_compte,nom FROM compte_utilisateur WHERE id_type_utilisateur='5'";
+      $result4=$connex->requete($rqt4);
+      echo "<br/>Laboratoire d'envoi pour analyses :<br/> ";
+            echo "<select class='form-control form-control-lg' name='labo_ch'>";
+      while ($row2=pg_fetch_array($result4)){
+        echo "<option id='".$row2[0]."' value='".$row2[1]."'>".$row2[1]."</option>";
+      } 
+           echo  "</select>";
+           
     $connex->fermer();
 	?>
 	
