@@ -27,7 +27,7 @@
 		$maladie=$_GET["maladie"];
 		$prelevement=$_GET["prelevement"];
 		$analyse=$_GET["analyse"];
-		
+		$nom_labo=$_GET["labo_ch"];
 		//Connexion
 		require "../general/connexionPostgreSQL.class.php";
 		$connex = new connexionPostgreSQL();	
@@ -60,10 +60,12 @@
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			$id_commune=$row[0];
 		}
+                
+               
 		
 		//INSERTION DANS LA TABLE DIAGNOSTIC : 
-		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune)
-			VALUES ('".$id_diagnostic."', '".$id_eleveur."', '".$id_veto."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."')");
+		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune,nom_labo)
+			VALUES ('".$id_diagnostic."','".$id_eleveur."', '".$id_veto."', '".$espece."', '".$date."', '".$preconisation."', '0', '', '".$id_commune."','".$nom_labo."')");
 	
 		//INSERTION DANS LES AUTRES TABLES : 
 		//symptomes : $SESSION["insertion_symptomes"]
@@ -96,5 +98,9 @@
 	}
 		
 	?>
+        <form action="liste_diagnostic.php" name="btn_liste">
+            <input type="submit" name="goliste" value="Consulter la liste des Diagnostics effectue"/>
+        </form>
+        
 	</body>
 </html>

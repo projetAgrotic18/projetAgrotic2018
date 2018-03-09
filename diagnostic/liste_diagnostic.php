@@ -61,7 +61,7 @@
 
                 //si dates pas saisies
                 else{
-                    $result_all_compte =  $connex->requete("SELECT ld.id_diagnostic, nom_veterinaire, nom_eleveur, nom_commune, libelle_espece, libelle_maladie, date_diagnostic FROM liste_diag ld join maladie_diag md on ld.id_diagnostic=md.id_diagnostic join maladie m on md.id_maladie=m.id_maladie
+                    $result_all_compte =  $connex->requete("SELECT ld.id_diagnostic, nom_veterinaire, nom_eleveur, nom_commune, libelle_espece, date_diagnostic FROM liste_diag ld join maladie_diag md on ld.id_diagnostic=md.id_diagnostic join maladie m on md.id_maladie=m.id_maladie
                     where id_veto='".$_SESSION['id_compte']."'");
                 }
             }
@@ -76,7 +76,7 @@
 
                 //si dates pas saisies
                 else{
-                    $result_all_compte =  $connex->requete("SELECT ld.id_diagnostic, nom_veterinaire, nom_eleveur, nom_commune, libelle_espece, libelle_maladie, date_diagnostic FROM liste_diag ld join maladie_diag md on ld.id_diagnostic=md.id_diagnostic join maladie m on md.id_maladie=m.id_maladie");
+                    $result_all_compte =  $connex->requete("SELECT ld.id_diagnostic, nom_veterinaire, nom_eleveur, nom_commune, libelle_espece, date_diagnostic FROM liste_diag ld join maladie_diag md on ld.id_diagnostic=md.id_diagnostic join maladie m on md.id_maladie=m.id_maladie");
                 }
             }
 				
@@ -86,12 +86,14 @@
                 <TABLE border=1 id="example">
                     <THEAD>
                         <TR>
-                            <?php
-                            for($i = 1; $i < $nbr_col; $i++) {
-                                $nom_champ = pg_field_name($result_all_compte, $i);
-                                echo ("<TH>" . $nom_champ. "</TH>");
-                            }
-                            ?>
+                            
+                                <TH> Veterinaire </TH>
+                                 <TH> Eleveur </TH>
+                                  <TH> Commune </TH>
+                                  <TH> Espece </TH>
+                                   <TH> Date du diagnostic </TH>
+                            
+                           
                             <th>Maladies</th>
                             <th></th>
                         </TR>

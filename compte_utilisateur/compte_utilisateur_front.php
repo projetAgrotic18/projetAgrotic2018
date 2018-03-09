@@ -133,21 +133,21 @@
                 </div>
                 <div class="form-group col-lg-6">
                     <label for="Mot de Passe">(*)Mot de Passe :</label>
-                    <input type="text" class="form-control" placeholder="Mot de Passe" name='mot_de_passe'>
+                    <input type="text" class="form-control" placeholder="Mot de Passe" id="Mot de Passe" name='mot_de_passe'>
                 </div>
             </div>
             <div class="form-group">
                 <label for="Nom">(*)Nom :</label>
-                <input type="text" class="form-control" placeholder="Nom" name='nom'>
+                <input type="text" class="form-control" placeholder="Nom" id="Nom" name='nom'>
             </div>
             
             <div class="form-group">
-                <label for="Nom">(*)Adresse:</label>
-                <input type="text" class="form-control" placeholder="Adresse" name='adresse'>
+                <label for="adresse">(*)Adresse:</label>
+                <input type="text" class="form-control" placeholder="Adresse" id="adresse" name='adresse'>
             </div>
             <div class="form-group">
-                <label for="Nom">(*)Adresse (suite):</label>
-                <input type="text" class="form-control" placeholder="Adresse (suite)" name='adresse2'>
+                <label for="adresse2">(*)Adresse (suite):</label>
+                <input type="text" class="form-control" placeholder="Adresse (suite)" id="adresse2" name='adresse2'>
             </div>
             <div class="form-row">
                 <div class="form-group col-lg-6">
@@ -155,21 +155,23 @@
                     <input type="text" class="form-control" placeholder="Commune" name="commu" id='commune'>
                 </div>
                 <div class="form-group col-lg-6">
-                    <label for="Code Postal">(*)Code postal :</label>
+                    <label for="code_postal">(*)Code postal :</label>
                     <input type="text" class="form-control" placeholder="Code Postal" name='code_postal' id='code_postal'>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-lg-6">
-                    <label for="Numéro de Téléphone">(*)Téléphone :</label>
-                    <input type="tel" class="form-control" placeholder="Numéro de Téléphone" name="telephone">
+                    <label for="telephone">(*)Téléphone :</label>
+                    <input type="tel" class="form-control" placeholder="Numéro de Téléphone" id="telephone" name="telephone">
                 </div>
                 <div class="form-group col-lg-6">
-                    <label for="Adresse Mail">(*)Adresse Mail :</label>
-                    <input type="email" class="form-control" placeholder="Adresse Mail" name='mail'>
+                    <label for="mail">(*)Adresse Mail :</label>
+                    <input type="email" class="form-control" placeholder="Adresse Mail" id="mail" name='mail'>
                 </div>
             </div>
-			<span id="txtNomExploit"></span>
+			<div class="form-group">
+			    <span id="txtNomExploit" class="form-group"></span>
+			</div>
         <br>
         <div class="center">
             <input type="submit" name="bt_submit" value="M'enregistrer" class="btn bouton-sonnaille bouton-m">

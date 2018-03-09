@@ -1,4 +1,4 @@
-<html>
+﻿<html>
     <head>
         <META charset='UTF-8'>
     </head>
@@ -9,7 +9,7 @@
         require "../general/connexionPostgreSQL.class.php";
        $connex = new connexionPostgreSQL();
        
-        $exploit=$_POST['exploi'];
+        $exploit=pg_escape_string($_POST['exploi']);
        
         $query4 = $connex->requete("SELECT id_compte FROM compte_utilisateur WHERE nom='".$exploit."'");
       while ($row = pg_fetch_array($query4)) 
