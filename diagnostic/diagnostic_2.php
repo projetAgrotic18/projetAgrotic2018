@@ -12,7 +12,7 @@
 	<!-- Barre de navigation en fonction de l'utilisateur -->
     <?php include('../general/switchbar.php'); ?>
     <div class="padding">   
-        <h1>Confirmation de saisie d'un diagnostic</h1><br/>
+        <h1 class="sonnaille-titre">Confirmation de saisie d'un diagnostic</h1><br/>
 
         <?php
         //Vérification PHP
@@ -120,9 +120,11 @@
         }
 
         ?>
-        <form action="liste_diagnostic.php" name="btn_liste">
-            <input type="submit" name="goliste" value="Consulter la liste des diagnostics effectués"/>
-        </form>
+        <div class="center">
+            <form action="liste_diagnostic.php" name="btn_liste">
+                <input type="submit" name="goliste" class="btn bouton-sonnaille bouton-m" value="Consulter la liste des diagnostics"/>
+            </form>
+        </div>
     </div> 
     
     <?php include('../general/front/footer.html');?>

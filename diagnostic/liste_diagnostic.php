@@ -17,7 +17,9 @@
             $(document).ready(function() {
                  $('#example').DataTable();
             });
+            
         </script>
+        
 	</head>
 		
 	<body>
@@ -131,6 +133,8 @@
                                 
                         }
                         ?>
+                            
+                        
                     </TBODY>
                 </TABLE>
 			

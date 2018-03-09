@@ -10,7 +10,7 @@
 </head>
 <body>
     <!-- Barre de navigation en fonction de l'utilisateur -->
-    <?php //include('../general/switchbar.php'); ?>
+    <?php include("../general/switchbar.php"); ?>
         
     <h1>Confirmation de saisie d'une zone tampon</h1><br/>
     
@@ -21,7 +21,7 @@
         $connex = new connexionPostgreSQL();
 
         $exploit=$_POST['exploi'];
-        echo $exploit;
+        //echo $exploit;
         $query4 = $connex->requete("SELECT id_compte FROM compte_utilisateur WHERE nom='".$exploit."'");
         while ($row = pg_fetch_array($query4)) 
             {
@@ -49,8 +49,7 @@
     <form type="POST" action="liste_zone_tampon.php" >
     <INPUT TYPE = "SUBMIT" VALUE = "Consulter la liste des zones tampon"/>
     </form><BR/>
-    
-    <INPUT TYPE = "BUTTON" ACTION = "cartepaca.php" VALUE = "Consulter la carte"/>
+    <INPUT TYPE = "BUTTON" VALUE = "Consulter la carte" ONCLICK = "self.location.href='../carte/cartepaca.php'"/>
     <?php include('../general/front/footer.html');?>
 </body>
 </html>
