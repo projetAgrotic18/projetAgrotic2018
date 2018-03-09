@@ -86,16 +86,13 @@
                 <TABLE border=1 id="example">
                     <THEAD>
                         <TR>
-                            
-                                <TH> Veterinaire </TH>
-                                 <TH> Eleveur </TH>
-                                  <TH> Commune </TH>
-                                  <TH> Espece </TH>
-                                   <TH> Date du diagnostic </TH>
-                            
-                           
-                            <th>Maladies</th>
-                            <th></th>
+                            <TH> Vétérinaire </TH>
+                            <TH> Eleveur </TH>
+                            <TH> Commune </TH>
+                            <TH> Espèce </TH>
+                            <TH> Date du diagnostic </TH>
+                            <TH> Maladies </TH>
+                            <TH></TH>
                         </TR>
                     </THEAD>
                     <TBODY>
