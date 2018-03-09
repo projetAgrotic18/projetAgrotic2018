@@ -36,7 +36,7 @@
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		$id_dpt_diagnostic=$row[0];
 	}
-	// On a bien l'id département du diagnostic. on va sélectionner les comptes GDS qui ont une commune dans le même département que le diagnostic.
+	// On a bien l'id du département du diagnostic. on va sélectionner les comptes GDS qui ont une commune dans le même département que le diagnostic.
 	//RECUPERATION DES ID COMPTE GDS DU MEME DEPARTEMENT 
 	$result= $connex->requete("SELECT co.id_compte 
 					FROM  commune c
@@ -50,8 +50,6 @@
 	//ENVOI AU GDS CORRESPONDANT D'UNE NOTIF
 	
 	//ENVOI A LA FRGDS
-	
-	
 	
 	echo "</br></br>";
 	echo "<a href = 'consultation_diagnostic.php?id_diagnostic=$id_diagnostic'><button type='button'>Visualiser le diagnostic à nouveau</button></a></br>";
