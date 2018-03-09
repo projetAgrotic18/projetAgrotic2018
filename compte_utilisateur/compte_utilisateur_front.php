@@ -6,6 +6,8 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href='../general/front/style.css'>
     
+	<script type="text/javascript" src="http://194.199.251.68/ProjetAgrotic2018/compte_utilisateur/confirm_valid.js"></script>
+	
 <!-- Load CSS--->
     <!--- Style Sonnaille-->
     <LINK rel="stylesheet" type="text/css" href="style.css">
@@ -15,8 +17,83 @@
     <title> Création de Compte </title>
     <link rel="icon" href="sonnaille.ico">
 	
+	
+	
 	<!-- Partie ajax -->
 	<script type="text/javascript">
+	
+	/*function validation_compte_utilisateur()
+	{
+		//alert("début");
+		var ok=1;
+		var msg="";
+		if (document.form_eleveur.rb.value=="")
+		{
+			//alert("rb");
+			ok = 0;
+			msg = msg + "Veuillez saisir un type d'utilisateur\n";			
+		}
+		if (document.form_eleveur.login.value=="")
+		{
+			//alert("login");
+			ok = 0;
+			msg = msg + "Veuillez saisir le login du compte\n";
+		}
+		if (document.form_eleveur.mot_de_passe.value=="")
+		{
+			//alert("mdp");
+			ok = 0;
+			msg = msg + "Veuillez saisir le mot de passe\n";
+		}
+		if (document.form_eleveur.nom.value=="")
+		{
+			//alert("nom");
+			ok = 0;
+			msg = msg + "Veuillez saisir le nom du compte\n";
+		}
+		if (document.form_eleveur.adresse.value=="")
+		{
+			//alert("adresse");
+			ok = 0;
+			msg = msg + "Veuillez saisir l'adresse du compte\n";
+		}
+		if (document.form_eleveur.commu.value=="")
+		{
+			//alert("commu");
+			ok = 0;
+			msg = msg + "Veuillez saisir la commune du compte\n";
+		}
+		if (document.form_eleveur.code_postal.value=="")
+		{
+			//alert("cp");
+			ok = 0;
+			msg = msg + "Veuillez saisir le code postal\n";
+		}
+		if (document.form_eleveur.telephone.value=="")
+		{
+			//alert("telephone");
+			ok = 0;
+			msg = msg + "Veuillez saisir le numéro de téléphone associé au compte\n";
+		}
+		if (document.form_eleveur.mail.value=="")
+		{
+			//alert("mail");
+			ok = 0;
+			msg = msg + "Veuillez saisir l'adresse mail du compte\n";
+		}					
+		if(ok == 1)
+		{
+			//alert("ok");
+			return true;
+		}
+				
+		else
+		{
+			//alert("pas ok");
+			alert(msg);
+			return false;
+		}
+	}*/
 
 	function afficheNomExploit(str){
 		$.ajax({
@@ -69,7 +146,9 @@
             
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="confirm_valid.js"></script>
+		<!-- <script type="text/javascript">
+		va();
+		</script> -->
 
        <script type="text/javascript"> 
             //   Charge la version 1.4.1. 
@@ -101,8 +180,7 @@
 <!-- !!!!!!!!!!!!!  DEBUT DE LA MISE EN FORME DE LA PAGE !!!!!!!!!!!!!!!!!!!-->
         
 		<!-- Radio-boutonpour selectionner le type de formulaire à remplir-->
-		<form method = 'POST' name = 'form_eleveur' action = 'validation_compte_utilisateur.php' onsubmit="return valid_compte_utilisateur()">
-            
+		<form method = 'POST' name = 'form_eleveur' action = 'validation_compte_utilisateur.php' onsubmit="return validation_compte_utilisateur()">
             <h4>Type de compte:</h4>
                 <div class="custom-control custom-radio custom-control-inline">
                   <input type="radio" id="customRadioInline1" name = rb class="custom-control-input"value = 'DDPP' onclick='afficheNomExploit(this.value)'>
@@ -162,7 +240,7 @@
             <div class="form-row">
                 <div class="form-group col-lg-6">
                     <label for="telephone">(*)Téléphone :</label>
-                    <input type="tel" class="form-control" placeholder="Numéro de Téléphone" id="telephone" name="telephone">
+                    <input type="tel" class="form-control" placeholder="Numéro de Téléphone" id="telephone" name="telephone" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
                 </div>
                 <div class="form-group col-lg-6">
                     <label for="mail">(*)Adresse Mail :</label>

@@ -116,7 +116,7 @@
 		
 	?>
         <form action="liste_diagnostic.php" name="btn_liste">
-            <input type="submit" name="goliste" value="Consulter la liste des Diagnostics effectue"/>
+            <input type="submit" name="goliste" value="Consulter la liste des diagnostics effectués"/>
         </form>
         
 	</body>
