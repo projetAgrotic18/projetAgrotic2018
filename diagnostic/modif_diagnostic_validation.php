@@ -47,6 +47,10 @@
 		$id_comptes_GDS=$row[0];
 	}
 	
+	//Envoi de messages aux id_comptes du GDS correspondants
+	
+	
+	
 	//ENVOI AU GDS CORRESPONDANT D'UNE NOTIF
 	
 	//ENVOI A LA FRGDS

@@ -3,15 +3,12 @@
 require "../general/connexionPostgreSQL.class.php";
 $connex = new connexionPostgreSQL();
 
-		$id_dpt_diagnostic=1;
 
 	// On a bien l'id département du diagnostic 
 	//RECUPERATION DES ID COMPTE GDS DU MEME DEPARTEMENT 
-	$result= $connex->requete("SELECT co.id_compte 
-					FROM  commune c
-					JOIN compte_utilisateur co ON c.id_commune=co.id_commune 
-					WHERE co.id_type_utilisateur =4 AND c.id_dpt=".$id_dpt_diagnostic);
-		
+	
+	$result= $connex->requete("SELECT * FROM compte_utilisateur WHERE id_type_utilisateur=3");
+			
 	echo "<table border = 1 bordercolor = black>";
 
 	echo "<tr>";
