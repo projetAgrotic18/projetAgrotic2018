@@ -1,28 +1,24 @@
 <html>
     <head>
-        <title>Déclaration de transhumance</title>
-<<<<<<< HEAD
-
-=======
+        <title>DÃ©claration de transhumance</title>
            <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
        
->>>>>>> test
     </head>
     <body>
         <?php
-// Connexion, sélection de la base de données
+// Connexion, sÃ©lection de la base de donnÃ©es
 
         require "../general/connexionPostgreSQL.class.php";
 
         $connex = new connexionPostgreSQL();
 
-// Exécution de la requête SQL
+// ExÃ©cution de la requÃªte SQL
 
 		$id_transhumance = $_GET["id_lot_mvt"];
-                
-// R&cupération des champs correspondant à la transhumance que l'on veut modifier
+
+// R&cupÃ©ration des champs correspondant Ã  la transhumance que l'on veut modifier
 
 		$result = $connex->requete("SELECT * FROM lot_mvt lm JOIN commune c ON lm.id_commune = c.id_commune WHERE lm.id_lot_mvt=".$id_transhumance);
 		while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
@@ -43,9 +39,6 @@
 			$entreprise_transporteur = $row[17];
 			$commune = $row[20];
 		}
-<<<<<<< HEAD
-		
-=======
 	
                 
                        $rqt="SELECT nom_commune,code_postal FROM commune";
@@ -57,24 +50,19 @@
 
                    
 
-           $array = array(); // on cr�� le tableau 
+           $array = array(); // on créé le tableau 
 
-           while ($row = pg_fetch_array($result2))   // on effectue une boucle pour obtenir les donn�es 
+           while ($row = pg_fetch_array($result2))   // on effectue une boucle pour obtenir les données 
            { 
-               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
+               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci à notre tableau 
                    array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
            }  
->>>>>>> test
-// Affichage des résultats en HTML
-// Libère le résultat
+// Affichage des rÃ©sultats en HTML
+// LibÃ¨re le rÃ©sultat
 
         
 // Ferme la connexion
-<<<<<<< HEAD
-
-=======
       
->>>>>>> test
         $connex->fermer();
         ?>
         <script type='text/javascript'>
@@ -88,10 +76,10 @@
                     $msg += "saisissez un nom  \n";
                 }
                 if (document.form.prenom_responsable.value === "" || regexmot.test(document.form.prenom_responsable.value)) {
-                    $msg += "saisissez un prénom  \n";
+                    $msg += "saisissez un prÃ©nom  \n";
                 }
                 if (document.form.num_responsable.value === "") {
-                    $msg += "saisissez un numéro  \n";
+                    $msg += "saisissez un numÃ©ro  \n";
                 }
 
                 if ($msg === "") {
@@ -106,9 +94,6 @@
 
         </script>
 
-<<<<<<< HEAD
-
-=======
            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -129,7 +114,7 @@
               return false;
               },
                 //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
-                select : function(event, ui){ // lors de la s�lection d'une proposition
+                select : function(event, ui){ // lors de la sélection d'une proposition
                $( '#commune' ).val( ui.item.label);     
                $('#commune_id').val(ui.item.value);
               $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
@@ -145,9 +130,8 @@
         
            
         </script> 
->>>>>>> test
 
-        <h1 align="center"><b>Déclarer une transhumance intrarégionale</b></h1>
+        <h1 align="center"><b>DÃ©clarer une transhumance intrarÃ©gionale</b></h1>
         <h2>Renseignements responsable alpage</h2>
         <form method="post" action="valid_modif_transhumance.php" name='form' onsubmit='return valider()' >
             <table>
@@ -160,37 +144,33 @@
                     <td><input type='text' name='nom_responsable' value ='<?php echo "$nom_responsable"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
                 </tr>
                 <tr>
-                    <td><label>(*)Prénom</label> :</td>
+                    <td><label>(*)PrÃ©nom</label> :</td>
                     <td><input type='text' name='prenom_responsable' value ='<?php echo "$prenom_responsable"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$"></td>
                 </tr>
                 <tr>
-                    <td> <label>(*)Numéro de téléphone :</label></td>
+                    <td> <label>(*)NumÃ©ro de tÃ©lÃ©phone :</label></td>
                     <td><input type='tel' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" name='num_responsable' value ='<?php echo "$tel_responsable" ?>'></td>
                 </tr>
             </table>
-            <h2>Renseignements généraux</h2>
-            (*)Date départ : 
+            <h2>Renseignements gÃ©nÃ©raux</h2>
+            (*)Date dÃ©part : 
             <input name="date_arrivee" type="date" value="<?php echo "$date_arrivee"; ?>">
             (*)Date fin :
             <input name="date_sortie" type="date" value="<?php echo "$date_depart"; ?>"><br><br>
             <label>(*)Commune de destination :</label>
-<<<<<<< HEAD
-            <input type='text' name='commune' value ='<?php echo "$commune"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
-=======
             <input type='text' id="commune" name='commune' value ='<?php echo "$commune"; ?>' pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
               <input type='hidden' id='commune_id' name="commu" value ='<?php echo "$commune"; ?>'>
->>>>>>> test
-            <h2>Vos animaux déplacés</h2>
+            <h2>Vos animaux dÃ©placÃ©s</h2>
             <table>
                 <tr>
                     <td>
 
                     </td>
                     <td>
-                        Agés de moins de 6 mois
+                        AgÃ©s de moins de 6 mois
                     </td>
                     <td>
-                        Agés de plus de 6 mois
+                        AgÃ©s de plus de 6 mois
                     </td>
 
                 </tr>
@@ -221,23 +201,16 @@
                 </tr>
             </table>
             Description du marquage :<br>
-<<<<<<< HEAD
-            <TEXTAREA name="marquage" rows=10 cols=40 value='<?php echo "$description_marque"; ?>'></TEXTAREA><Br><br>
-            
-            <input type="radio" name="type_paturage" value="collectif" checked /> Alpage/Pâturage collectif
-            <input type="radio" name="type_paturage" value="individuel" /> Alpage/Pâturage individuel
-=======
             <TEXTAREA name="marquage" rows=10 cols=40><?php echo "$description_marque"; ?></TEXTAREA><Br><br>
            <?php 
            if($alp_collectif=='t'){
-               echo "<input type='radio' name='type_paturage' value='1' checked/> Alpage/Pâturage collectif";
-               echo "<input type='radio' name='type_paturage' value='0' /> Alpage/Pâturage individuel";
+               echo "<input type='radio' name='type_paturage' value='1' checked/> Alpage/PÃ¢turage collectif";
+               echo "<input type='radio' name='type_paturage' value='0' /> Alpage/PÃ¢turage individuel";
            } else {
-            echo "<input type='radio' name='type_paturage' value='1' /> Alpage/Pâturage collectif";
-             echo "<input type='radio' name='type_paturage' value='0' checked /> Alpage/Pâturage individuel";
+            echo "<input type='radio' name='type_paturage' value='1' /> Alpage/PÃ¢turage collectif";
+             echo "<input type='radio' name='type_paturage' value='0' checked /> Alpage/PÃ¢turage individuel";
            }
            ?>     
->>>>>>> test
             <h2>Transporteur</h2>
             <table>
                 <tr>
@@ -263,7 +236,7 @@
                         <input type='text' name='entreprise_transp' value ='<?php echo "$entreprise_transporteur"; ?>'>
                     </td>
                     <td>
-                        <label>Téléphone</label>
+                        <label>TÃ©lÃ©phone</label>
                     </td>
                     <td>
                         <input type='text' name='tel_transp' pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" value ='<?php echo "$contact_transporteur" ?>'>
@@ -271,14 +244,7 @@
                 </tr>
                 
             </table>
-            <input type='submit'   name='bouton' value='valider'>
+            <input type='submit'   name='bouton' value='valider'></Br>
         </form>
     </body>
-<<<<<<< HEAD
-
-=======
 </html>
->>>>>>> test
-
-
-

@@ -10,7 +10,7 @@
        $connex = new connexionPostgreSQL();
        
         $exploit=$_POST['exploi'];
-       
+       echo $exploit    ;
          $query4 = $connex->requete("SELECT id_compte FROM compte_utilisateur WHERE nom='".$exploit."'");
       while ($row = pg_fetch_array($query4)) 
               {

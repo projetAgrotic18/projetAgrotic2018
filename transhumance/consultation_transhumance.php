@@ -15,6 +15,7 @@
 // Exécution de la requête SQL
 
 		$id_transhumance = $_GET["id_lot_mvt"];
+		$id_type_utilisateur = $_GET["type_utilisateur"];
                
 
 // R&cupération des champs correspondant à la transhumance que l'on veut modifier
@@ -156,11 +157,17 @@
             </table>
             <br>
             
-            <input  type="submit" name='bouton2' value='retour'>
+            
         </form>
-	<?php	echo "<form action='modif_transhumance.php?id_lot_mvt=".$id_transhumance."'  method='POST' name='form_consult'>
-			<input type='submit'   name='bouton' value='modifier'>
-		</form>";
+		<form action='liste_transhumance.php' method='POST' name='form_liste'>
+			<input type='submit' name='bt_retour' value='Retour'>
+		</form> 
+		<?php	
+			if($id_type_utilisateur == 2){
+				echo "<form action='modif_transhumance.php?id_lot_mvt=".$id_transhumance."'  method='POST' name='form_consult'>
+				<input type='submit'   name='bouton' value='modifier'>
+				</form>";
+			}
 		?>
     </body>
 </html>
