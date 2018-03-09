@@ -1,11 +1,18 @@
 <?php session_start() ?>
 <html>
-	<head>
-	<META charset="UTF-8">
-	</head>
-	
-	<body>
-	<h1>Validation</h1>
+<head>
+	<title>Confirmation de saisie d'un diagnostic</title>
+    <META charset="UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!--- Style Sonnaille -->
+    <link href="../general/front/style.css" rel="stylesheet">
+</head>
+<body>
+	<!-- Barre de navigation en fonction de l'utilisateur -->
+    <?php include('../general/switchbar.php'); ?>
+        
+    <h1>Confirmation de saisie d'un diagnostic</h1><br/>
 	
 	<?php
 	//VÃ©rification PHP
@@ -50,7 +57,7 @@
 		}
                 $result2= $connex->requete("SELECT nom FROM compte_utilisateur WHERE id_compte='".$id_veto."'");
                 while ($row = pg_fetch_array($result2, null, PGSQL_NUM)) {
-			$nom_véto=$row[0];
+			$nom_vÃ©to=$row[0];
 		}
                 
                  $result3 =  $connex->requete("SELECT MAX (id_notification) FROM notification"); //sÃ©lectionne le premier id  de notification disponible
@@ -63,8 +70,8 @@
 			$id_labo=$row[0];
 		}
                 $titre=pg_escape_string("Demande d'analyse");
-                 //Ajout d'une notification à la base de donnée 
-                $query=$connex->requete("INSERT INTO notification (id_notification, date_notification, titre_notification, message)  VALUES (".$id.",'".$date."','".$titre."','Votre laboratoire a ete choisit par :".$nom_véto." pour effectuer une Analyse')");
+                 //Ajout d'une notification Ã  la base de donnÃ©e 
+                $query=$connex->requete("INSERT INTO notification (id_notification, date_notification, titre_notification, message)  VALUES (".$id.",'".$date."','".$titre."','Votre laboratoire a ete choisit par :".$nom_vÃ©to." pour effectuer une Analyse')");
 		$query2=$connex->requete("INSERT INTO notification_compte(id_notification,id_compte,lu) VALUES (".$id.",".$id_labo.",'FALSE')");
 		//id_espece : simplement le $espece
 		
@@ -76,9 +83,7 @@
 		$result=$connex->requete("SELECT id_commune from commune where nom_commune='".$commune."'");
 		while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 			$id_commune=$row[0];
-		}
-                
-               
+		}       
 		
 		//INSERTION DANS LA TABLE DIAGNOSTIC : 
 		$result= $connex->requete("INSERT INTO diagnostic (id_diagnostic, id_compte, com_id_compte, id_espece, date_diagnostic, preconisation, confirme, comm_labo, id_commune,nom_labo)
@@ -116,8 +121,9 @@
 		
 	?>
         <form action="liste_diagnostic.php" name="btn_liste">
-            <input type="submit" name="goliste" value="Consulter la liste des diagnostics effectuÃ©s"/>
+            <input type="submit" name="goliste" value="Consulter la liste des Diagnostics effectue"/>
         </form>
-        
+    
+    <?php include('../general/front/footer.html');?>
 	</body>
 </html>
