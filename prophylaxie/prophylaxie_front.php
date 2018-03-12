@@ -6,29 +6,24 @@
     <LINK rel="stylesheet" type="text/css" href="style.css">
 
     <!-- inclusion du style CSS de base -->
-	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
+	
         
-         <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
         <link rel="icon" href="sonnaille.ico">
         <title>Visites de prophylaxie</title>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        
 
         <!--Deux lignes de code pour le tableau-->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         
-        <script type="text/javascript">
-            //Code pour la mise en forme du tableau (voir datatable)
-            $(document).ready(function () {
-                
-                $('#proph').DataTable();
-            });
-        </script>
+        
+        
     </head>
         
 
     <body>
         <?php include ("../general/switchbar.php"); ?><br><br>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
         <script>
             function modifier($i) {
@@ -93,7 +88,7 @@
             }
         }
 
-            echo "<h1 class='sonnaille_titre'>Liste des prophylaxies</h1><div class='padding'>";
+            echo "<h1 class='sonnaille_titre'>Liste des prophylaxies</h1>";
 
         // Récuperation de la période de prophylaxie la plus récente
 
@@ -154,7 +149,7 @@
             $result4 = $connex->requete("SELECT nom_exploitation, nom from compte_utilisateur WHERE id_compte=$value");
             while ($row4 = pg_fetch_array($result4)) {
 
-                echo "<form method='post' action='prophylaxie.php'  >";
+                echo "<form method='post' action='prophylaxie_front.php'  >";
                 echo "<input type='hidden' name='id_compte_eleveur'  value=$value />";
                 echo "<input type='hidden' name='id_periode_proph'  value=$periode_max />";
                 echo "<td>" . $row4[1] . "</td><td>" . $row4[0] . "</td><td><input name='date_proph' type='date'></td><td><TEXTAREA name='remarque' placeholder='remarques'></TEXTAREA><Br><br></td><td><input type='submit'   name='bouton' value='enregistrer la visite'></td>";
@@ -168,7 +163,7 @@
         for ($i = 0; $i < count($liste_fait); $i++) {
 
             echo "<tr>";
-            echo "<form method='post' action='prophylaxie.php' id = 'form$i' >";
+            echo "<form method='post' action='prophylaxie_front.php' id = 'form$i' >";
             echo "<input type='hidden' name='id_compte_eleveur'  value=$liste_fait[$i] >";
            
             echo "<td>". $liste_fait_name[$i] ."</td><td>" . $liste_fait_nom[$i] . "</td><td><input id='date_proph$i' name='date_proph2'  type='date' readonly  value=$liste_fait_date[$i]></td><td><TEXTAREA id='remarque$i' name='remarque2'  readonly>$liste_fait_com[$i]</TEXTAREA></td><td><input type='button' id = 'bouton$i'  value='modifier les informations' onclick = modifier($i)></td>";
@@ -179,8 +174,19 @@
 
         echo "</TBODY>";
         echo "</table>";
-        echo "</div><br><br>";
+        echo "<br><br>";
         ?>
-            <?php include ("../general/Front/footer.html"); ?>         
+            <?php include ("../general/Front/footer.html"); ?>       
+        
+       <script type="text/javascript">
+            //Code pour la mise en forme du tableau (voir datatable)
+            $(document).ready(function () {
+
+                $('#proph').DataTable({
+                    "aaSorting": [[3, 'asc']]
+                });
+            });
+
+        </script>
         </body>
 </html>
