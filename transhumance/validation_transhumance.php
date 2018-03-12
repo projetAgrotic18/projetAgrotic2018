@@ -6,15 +6,22 @@
     $id_transhumance = $_POST['id_lot_mvt'];
     $date_arrivee = $_POST['date_arrivee'];
     $date_sortie = $_POST['date_sortie'];
-    $marque = $_POST['marquage'];
-}
+    
+    $marque = pg_escape_string($_POST['marquage']);
+
+  
 
 $nom_respo = $_POST['nom_responsable'];
 $prenom_respo = $_POST['prenom_responsable'];
-$commune = $_POST['commune'];
+$commune =  pg_escape_string($_POST['commune']);
+
 $tel_respo = $_POST['num_responsable'];
 $tel_transport = 9999999999;
 
+
+$nom_transport = "N/A";
+$adresse_transpo ="N/A";
+$entreprise_transpo ="N/A";
 if ($_POST['nom_transp']!="") {
     $nom_transport = $_POST['nom_transp'];
 }
@@ -49,7 +56,7 @@ if ($_POST['nbr_cap_-']!="") {
 if ($_POST['nbr_cap_+']!="") {
     $nbr_cap_p = $_POST['nbr_cap_+'];
     $nbr_ov_m = $_POST['nbr_ov_-'];
-    $nbr_ov_p = $_POST['nbr_ov_+'];
+    $nbr_ov_p = $_POST['nbr_ov_+'];}
     if (isset($_POST['type_paturage1'])==true)
     {
         $alpage='TRUE';
@@ -75,10 +82,7 @@ if ($_POST['nbr_cap_+']!="") {
             $id_compte = $col_value2;
         }
     }
-    // Exécution de la requête SQL
-    $query3=$connex->requete("INSERT INTO lot_mvt VALUES ('" .$id_transhumance."','".$id_commune."','".$id_compte."','" .$date_arrivee."','".$date_sortie."','".$marque."','".$nom_respo."','" .$tel_respo."','".$nom_transport."','" .$tel_transport."',".$alpage.",'".$nbr_cap_m."','".$nbr_cap_p."','" .$nbr_ov_m. "','" .$nbr_ov_p. "')");
-    
-    echo "La transhumance a bien été enregistrée";
+   
 
 // Exécution de la requête SQL
 
@@ -86,7 +90,7 @@ $query3 = $connex->requete("INSERT INTO lot_mvt VALUES ('".$id_transhumance."','
 echo "La transhumance a bien été enregistrée.<br/><br/>";
 // Ferme la connexion
 $connex->fermer();
-?>
+?>  
 <form action='liste_transhumance.php' method='POST' name='form_liste'>
     <input type='submit' name='bt_retour' value='Retour'>
 </form> 

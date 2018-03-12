@@ -21,7 +21,7 @@
             $id_compte_utilisateur=$_SESSION['id_type_utilisateur'];
         //A partir de l'id_diagnostic de la liste des diagnostics, on peut réussir à visualiser la totalité du diagnostic
         $id_diagnostic=$_GET["id_diagnostic"];
-
+        
         echo "<h2>Caractéristiques générales :</h2>";
 
         echo "<U>Nom de l'exploitant</U> :<br/>";	
@@ -101,12 +101,13 @@
             echo "</br>";
         }
         echo "</br>";
-            echo "<a href =modif_diagnostic.php?id_diagnostic=$id_diagnostic><button type='button'>Confirmer une maladie</button></a></br></br>";
+            echo "<a href ='modif_diagnostic.php?id_diagnostic=$id_diagnostic'><button type='button'>Confirmer une maladie</button></a></br></br>";
             }else if($id_compte_utilisateur==5){
-                echo "<form action='modif_diagnostic_labo.php'>";
-                echo "<br/>Laisser une remarque sur les echantillons:<br/><textarea rows='5' id='remarq_labo'></textarea><br/><br/>";
-                 echo "<a href =modif_diagnostic_labo.php?id_diagnostic=$id_diagnostic><button type='button'>Valider</button></a></br></br>";
-                   echo "</form>";
+                 echo "<form action='modif_diagnostic_labo.php' method='POST'>";
+                echo "<br/>Laisser une remarque sur les echantillons:<br/><textarea rows='5' id='remarq_labo' name='comm_labo'></textarea><br/><br/>";
+                 echo "<a><input type='Submit' value='Valider' \></a></br></br>";
+                 echo "<input type='hidden' value='$id_diagnostic' name='id_diagnostic'>";
+                echo "</form>";
             }
                     ?>
         <?php

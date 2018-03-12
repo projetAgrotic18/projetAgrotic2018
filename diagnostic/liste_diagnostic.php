@@ -5,20 +5,15 @@
     <META charset="UTF-8"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-    <!--- Style Sonnaille -->
-    <link href="../general/front/style.css" rel="stylesheet">
-
-    <!--Deux lignes de code pour le tableau-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-    <script type="text/javascript">
-        //Code pour la mise en forme du tableau (voir datatable)
-        $(document).ready(function() {
-             $('#example').DataTable();
-        });
-    </script>
-</head>
+        <script type="text/javascript">
+            //Code pour la mise en forme du tableau (voir datatable)
+            $(document).ready(function() {
+                 $('#example').DataTable();
+            });
+            
+        </script>
+        
+	</head>
 		
 <body>
     <!-- Barre de navigation en fonction de l'utilisateur -->
@@ -100,25 +95,12 @@
                         for($i = 1; $i < $nbr_col; $i++) {
                             echo "<td>".$row[$i]."</td>";
                         }
-                        //Affichage des maladies
-                        $id_diagnostic=$row[0];
-                        $result_conf=$connex->requete("select libelle_maladie from maladie_diag md join maladie m on md.id_maladie=m.id_maladie where md.id_diagnostic=$id_diagnostic and confirme=true");
-                        echo "<td>";
-                            //Diagnostiquées
-                            if (pg_num_rows($result_conf)==0){
-                                $result_diag=$connex->requete("select libelle_maladie from maladie_diag md join maladie m on md.id_maladie=m.id_maladie where md.id_diagnostic=$id_diagnostic and confirme=false");
-                                echo "<p>Diagnostiquées :</p>";
-                                while ($row = pg_fetch_array($result_diag)){
-                                    echo "<p>".$row[0]."</p>";
-                                }
-                            }
-                            //Confirmées
-                            else{
-                                echo "<b>Confirmées :</b>";
-                                while ($row = pg_fetch_array($result_conf)){
-                                    echo "<p>".$row[0]."</p>";
-                                }
-                            }
+                        ?>
+                            
+                        
+                    </TBODY>
+                </TABLE>
+			
 
                         echo "</td>";
 

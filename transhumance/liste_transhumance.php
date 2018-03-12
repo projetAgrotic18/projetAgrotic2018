@@ -86,8 +86,8 @@
             <TABLE border=1 id="example">
                 <THEAD>
                     <TR>
-                        <TH>Date de départ</TH>
-                        <TH>Date d'arrivée</TH>
+                        <TH>Début de transhumance</TH>
+                        <TH>Fin de transhumance</TH>
                         <TH>Nom du responsable</TH>
                         <TH></TH>
                         <TH></TH>
