@@ -8,16 +8,16 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-		
+
         <script type="text/javascript">
             //Code pour la mise en forme du tableau (voir datatable)
             $(document).ready(function () {
-                
-                $('#proph').DataTable( {
-            "aaSorting": [ [3,'asc']]
-            } );
+
+                $('#proph').DataTable({
+                    "aaSorting": [[3, 'asc']]
+                });
             });
-		
+
         </script>
 
     </head>
@@ -54,35 +54,38 @@
             $result = $connex->requete("UPDATE visite_proph SET date_visite='" . $date_visite . "',com_proph='" . $remarques . "' WHERE id_compte='" . $id_compte . "'");
         }
 
-         if (isset($_POST['date_proph'])) {
+        if (isset($_POST['date_proph'])) {
             $result1 = $connex->requete("SELECT id_visite,id_compte FROM visite_proph ORDER BY id_visite"); //sélectionne le premier id  de transhumance disponible
             $nbre_col = pg_num_fields($result1);
             $id_visite = 1;
 
             while ($row = pg_fetch_array($result1, null, PGSQL_NUM)) {
-                
+
                 if ($id_visite < $row[0]) {
                     break;
                 }
                 $id_visite++;
             }
-            
-            pg_result_seek($result1,0);
+
+            pg_result_seek($result1, 0);
             $ids_comptes = array();
             while ($row = pg_fetch_array($result1, null, PGSQL_NUM)) {
-                
-               array_push($ids_comptes,$row[1]);
+
+                array_push($ids_comptes, $row[1]);
             }
-            
+
             $date_visite = $_POST['date_proph'];
             $remarques = $_POST['remarque'];
             $id_periode_proph = $_POST['id_periode_proph'];
+
             if ($remarques == NULL) {
                 $remarques = "N/A";
             }
             $id_compte = $_POST['id_compte_eleveur'];
-            if (!in_array($id_compte, $ids_comptes)){
-            $result = $connex->requete("INSERT INTO visite_proph VALUES ('" . $id_visite . "','" . $id_compte . "','" . $id . "','" . $date_visite . "','" . $remarques . "','" . $id_periode_proph . "')");
+            
+            if (!in_array(strval($id_compte), $ids_comptes)) {
+                
+                $result = $connex->requete("INSERT INTO visite_proph VALUES ('" . $id_visite . "','" . $id_compte . "','" . $id . "','" . $date_visite . "','" . $remarques . "','" . $id_periode_proph . "')");
             }
         }
 
@@ -109,7 +112,7 @@
         $liste_fait_date = array();
         $liste_fait_com = array();
         $liste_fait_name = array();
-
+        
         while ($row2 = pg_fetch_array($result2)) {
             array_push($liste_fait, $row2[3]);
             array_push($liste_fait_nom, $row2[0]);
@@ -117,10 +120,11 @@
             array_push($liste_fait_com, $row2[2]);
             array_push($liste_fait_name, $row2[4]);
         }
+        
 
         // Liste complète des éleveurs du veterinaire identifié, concernés par la prophylaxie
 
-        $result3 = $connex->requete("SELECT id_compte from eleveur_concerne_prophy WHERE id_periode_proph=$periode_max");
+        $result3 = $connex->requete("SELECT e.id_compte FROM eleveur_concerne_prophy as e LEFT JOIN compte_utilisateur as c ON e.id_compte = c.id_compte WHERE e.id_periode_proph=$periode_max AND c.com_id_compte= '" . $id . "' ");
 
         $liste_exp = array();
         while ($row3 = pg_fetch_array($result3)) {
@@ -163,8 +167,8 @@
             echo "<tr>";
             echo "<form method='post' action='prophylaxie.php' id = 'form$i' >";
             echo "<input type='hidden' name='id_compte_eleveur'  value=$liste_fait[$i] >";
-           
-            echo "<td>". $liste_fait_name[$i] ."</td><td>" . $liste_fait_nom[$i] . "</td><td><input id='date_proph$i' name='date_proph2'  type='date' readonly  value=$liste_fait_date[$i]></td><td><TEXTAREA id='remarque$i' name='remarque2'  readonly>$liste_fait_com[$i]</TEXTAREA></td><td><input type='button' id = 'bouton$i'  value='modifier les informations' onclick = modifier($i)></td>";
+
+            echo "<td>" . $liste_fait_name[$i] . "</td><td>" . $liste_fait_nom[$i] . "</td><td><input id='date_proph$i' name='date_proph2'  type='date' readonly  value=$liste_fait_date[$i]></td><td><TEXTAREA id='remarque$i' name='remarque2'  readonly>$liste_fait_com[$i]</TEXTAREA></td><td><input type='button' id = 'bouton$i'  value='modifier les informations' onclick = modifier($i)></td>";
 
             echo "</form>";
             echo "</tr>";
