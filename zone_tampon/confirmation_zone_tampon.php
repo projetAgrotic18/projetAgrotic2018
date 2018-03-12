@@ -32,10 +32,10 @@
 
             $rayonztprot=$_POST['zt_rayon'];
             $rayonztsurv=$_POST['zt_rayon2'];
-            $commune=addslashes($_POST['commune']);
+            $commune=($_POST['commune']);
         echo $commune;
 
-            $query5 = $connex->requete("SELECT id_dpt FROM commune WHERE nom_commune='".$commune."'");
+            $query5 = $connex->requete("SELECT id_dpt FROM commune WHERE nom_commune=\'".$commune."\'");
             while ($row = pg_fetch_array($query5)) 
                 {
                     $id_dpt = $row[0];

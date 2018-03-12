@@ -35,6 +35,7 @@
 							<TH>Nom</TH>
 							<TH>Téléphone</TH>
 							<TH>Mail</TH>
+							<TH>Sélectionner</TH>
 						</TR>
 					</THEAD>
 					<TBODY>
@@ -44,7 +45,8 @@
 								echo "<td>".$row[0]."</td>";
 								echo "<td>".$row[1]."</td>";
 								echo "<td>".$row[2]."</td>";
-								echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
+								echo "<td>".$row[4]."</td>";
+								echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[0]."'></td>";
 							echo "</TR>";
 						}
 						?>
@@ -73,6 +75,7 @@
 							<TH>Nom</TH>
 							<TH>Téléphone</TH>
 							<TH>Mail</TH>
+							<TH>Sélectionner</TH>
 						</TR>
 					</THEAD>
 					<TBODY>
@@ -82,7 +85,8 @@
 								echo "<td>".$row[0]."</td>";
 								echo "<td>".$row[1]."</td>";
 								echo "<td>".$row[2]."</td>";
-								echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[3]."'><label for='check[]'> ".$row[3]."</label></td>";
+								echo "<td>".$row[4]."</td>";
+								echo "<td> <input type='checkbox' id='check[]' name='check[]' value='".$row[0]."'></td>";
 							echo "</TR>";
 						}
 						?>
