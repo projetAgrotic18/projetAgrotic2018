@@ -79,18 +79,21 @@
 		}
 	}
 	//on a les maladies dans $libelle_maladie
-	
+	$message_gds='Un cas de '.$libelle_maladie[0].$libelle_maladie[1].$libelle_maladie[2].' dans votre département a été recensé et validé par un vétérinaire. 
+				Vous pouvez le consulter en cliquant sur ce lien : 
+				<a href="/projetAgrotic2018/diagnostic/consultation_diagnostic.php?id_diagnostic='.$id_diagnostic.'"> Consulter ce diagnostic</a>';
+	$message_gds=pg_escape_string($message_gds);
 	//ENVOI AUX MEMBRES DU GDS DU DEPARTEMENT CORRESPONDANT UNE NOTIF :
     for ($i=0; $i<count($id_comptes_GDS); $i++){
         $result= $connex->requete("INSERT INTO notification (id_notification, date_notification, titre_notification, message) 
-				VALUES ('".$id_notification."', '".$date."', 'Confirmation de maladie(s) dans votre département', 
-				'Un cas de ".$libelle_maladie[0].$libelle_maladie[1].$libelle_maladie[2]." dans votre département a été recensé et validé par un vétérinaire. 
-				Vous pouvez le consulter en cliquant sur ce lien.')");
+				VALUES ('".$id_notification."', '".$date."', 'Cas de maladie(s) dans votre département', '".$message_gds."')");
 		$result= $connex->requete("INSERT INTO notification_compte (id_notification, id_compte, lu) 
 				VALUES ('".$id_notification."', '".$id_comptes_GDS[$i]."', FALSE)");
 		$id_notification = $id_notification +1;
     }	  
 	  
+	echo "Une notification a été envoyée aux membres du GDS du département concerné<br/>";
+	
 	//ENVOI A LA FRGDS
 
         echo "</br>";
