@@ -18,7 +18,7 @@
         require "../general/connexionPostgreSQL.class.php";
         $connex = new connexionPostgreSQL();
 
-            $id_compte_utilisateur=$_SESSION['id_type_utilisateur'];
+        $id_type_utilisateur=$_SESSION['id_type_utilisateur'];
         //A partir de l'id_diagnostic de la liste des diagnostics, on peut réussir à visualiser la totalité du diagnostic
         $id_diagnostic=$_GET["id_diagnostic"];
         
@@ -88,8 +88,8 @@
         ?>
 
         <?php 
-            if($id_compte_utilisateur==1){
-                echo "<U>Maladies possibles</U> :<br/>";
+        if($id_type_utilisateur==1){
+            echo "<U>Maladies possibles</U> :<br/>";
         $result= $connex->requete("SELECT m.libelle_maladie, md.confirme FROM maladie m JOIN maladie_diag md ON m.id_maladie=md.id_maladie WHERE md.id_diagnostic='".$id_diagnostic."'");
         while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
             echo $row[0];
@@ -101,14 +101,13 @@
             echo "</br>";
         }
         echo "</br>";
-            echo "<a href ='modif_diagnostic.php?id_diagnostic=$id_diagnostic'><button type='button'>Confirmer une maladie</button></a></br></br>";
-            }else if($id_compte_utilisateur==5){
-                 echo "<form action='modif_diagnostic_labo.php' method='POST'>";
-                echo "<br/>Laisser une remarque sur les echantillons:<br/><textarea rows='5' id='remarq_labo' name='comm_labo'></textarea><br/><br/>";
-                 echo "<a><input type='Submit' value='Valider' \></a></br></br>";
-                 echo "<input type='hidden' value='$id_diagnostic' name='id_diagnostic'>";
-                echo "</form>";
-            }
+        echo "<a href =modif_diagnostic.php?id_diagnostic=$id_diagnostic><button type='button'>Confirmer une maladie</button></a></br></br>";
+        }else if($id_type_utilisateur==5){
+        echo "<form action='modif_diagnostic_labo.php'>";
+        echo "<br/>Laisser une remarque sur les echantillons:<br/><textarea rows='5' id='remarq_labo'></textarea><br/><br/>";
+        echo "<a href =modif_diagnostic_labo.php?id_diagnostic=$id_diagnostic><button type='button'>Valider</button></a></br></br>";
+        echo "</form>";
+        }
                     ?>
         <?php
 
