@@ -45,7 +45,7 @@ session_start();
             //Requête pour afficher la liste des transhumances pour le GDS
             $transhumance_gds = $connex->requete("SELECT lm.id_compte, cu.nom, lm.date_depart, lm.date_arrivee, lm.nom_responsable, lm.id_lot_mvt FROM lot_mvt lm JOIN compte_utilisateur cu ON lm.id_compte=cu.id_compte ORDER BY date_arrivee");
             
-            echo "<h1> Liste des tranhumances </h1><br/>";
+            echo "<h1> Liste des transhumances </h1><br/>";
             ?>
             <br/>
             <TABLE border=1 id="example">
@@ -87,14 +87,14 @@ session_start();
             //Requête pour afficher la liste des transhumances pour les éleveurs
             $transhumance_eleveur = $connex->requete("SELECT id_compte, date_arrivee, date_depart, nom_responsable, id_lot_mvt FROM lot_mvt WHERE id_compte = '$id_compte_utilisateur'");
             
-            echo "<h1> Liste de vos tranhumances </h1><br/>";
+            echo "<h2> Liste de vos transhumances </h2><br/>";
             ?>
             <br/>
             <TABLE border=1 id="example">
                 <THEAD>
                     <TR>
-                        <TH>Date de départ</TH>
-                        <TH>Date d'arrivée</TH>
+                        <TH>Début de transhumance</TH>
+                        <TH>Fin de transhumance</TH>
                         <TH>Nom du responsable</TH>
                         <TH></TH>
                         <TH></TH>
