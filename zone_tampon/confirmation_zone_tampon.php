@@ -4,14 +4,12 @@
     <title>Confirmation de saisie d'une zone tampon</title>
     <META charset="UTF-8"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-    <!--- Style Sonnaille -->
-    <link href="../general/front/style.css" rel="stylesheet">
 </head>
 <body>
     <!-- Barre de navigation en fonction de l'utilisateur -->
-    <?php //include('../general/switchbar.php'); ?>
-    <div class="padding">    
+    <?php include("../general/switchbar.php"); ?>
+    
+    <div class="padding">
         <h1>Confirmation de saisie d'une zone tampon</h1><br/>
 
         <?php
@@ -21,7 +19,7 @@
             $connex = new connexionPostgreSQL();
 
             $exploit=$_POST['exploi'];
-            echo $exploit;
+            //echo $exploit;
             $query4 = $connex->requete("SELECT id_compte FROM compte_utilisateur WHERE nom='".$exploit."'");
             while ($row = pg_fetch_array($query4)) 
                 {
@@ -42,15 +40,12 @@
                     $id_dpt = $row[0];
                 }
 
-            $query3 = $connex->requete("INSERT INTO zone_tampon(id_maladie,id_compte,id_zone_tampon,rayon_prot,rayon_surv,date_fin,active,id_dpt) VALUES('".$maladie."','".$id_compte."','". $idzt ."','" .$rayonztprot. "','" .$rayonztsurv. "','" . $date_fin . "','".$active."','".$id_dpt."')");
-            echo "La zone tampon à bien été crée";
+            $query3 = $connex->requete("INSERT INTO zonetampon(id_maladie,id_compte,id_zone_tampon,rayon_prot,rayon_surv,date_fin,active,id_dpt) VALUES('".$maladie."','".$id_compte."','". $idzt ."','" .$rayonztprot. "','" .$rayonztsurv. "','" . $date_fin . "','".$active."','".$id_dpt."')");
+            echo "<h6>La zone tampon à bien été crée.</h6><BR/>";
         ?>
 
-        <form type="POST" action="liste_zone_tampon.php" >
-        <INPUT TYPE = "SUBMIT" VALUE = "Consulter la liste des zones tampon"/>
-        </form><BR/>
-
-        <INPUT TYPE = "BUTTON" ACTION = "cartepaca.php" VALUE = "Consulter la carte"/>
+        <INPUT TYPE = "BUTTON" VALUE = "Consulter la carte" ONCLICK = "self.location.href='liste_zone_tampon.php'"/><BR/><BR/>
+        <INPUT TYPE = "BUTTON" VALUE = "Consulter la carte" ONCLICK = "self.location.href='../carte/cartepaca.php'"/><BR/><BR/><BR/>
     </div>
     <?php include('../general/front/footer.html');?>
 </body>
