@@ -198,12 +198,12 @@
                 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputDateDepart">(*)Date départ :</label>
+                    <label for="inputDateDepart">(*)Date D�but Transhumance :</label>
                     <input type="date" class="form-control" id="inputDateDepart" placeholder="Date_depart" name="date_arrivee">
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="inputDateSortie">(*)Date Arrivée :</label>
+                        <label for="inputDateSortie">(*)Date Fin Transhumance :</label>
                         <input type="date" class="form-control" id="inputDateSortie" placeholder="Date_sortie" name="date_sortie">
                     </div>
                 </div>
