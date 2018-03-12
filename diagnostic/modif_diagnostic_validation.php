@@ -43,6 +43,7 @@
 	  while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		$id_dpt_diagnostic=$row[0];
 	  }
+	  
 	  //On a bien l'id du département du diagnostic. on va sélectionner les comptes GDS qui ont une commune dans le même département que le diagnostic.
 	  //RECUPERATION DES ID COMPTE GDS DU MEME DEPARTEMENT 
 	  $result= $connex->requete("SELECT co.id_compte 
@@ -50,6 +51,8 @@
           JOIN compte_utilisateur co ON c.id_commune=co.id_commune 
           WHERE co.id_type_utilisateur = 3 AND c.id_dpt=".$id_dpt_diagnostic);
 	
+	
+	// TABLEAU DES COMPTES UTILISATEURS DES GDS
 	$id_comptes_GDS=array();
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		for ($j=0 ; $j < pg_num_fields($result) ; $j++){
@@ -80,7 +83,9 @@
 	//ENVOI AUX MEMBRES DU GDS DU DEPARTEMENT CORRESPONDANT UNE NOTIF :
     for ($i=0; $i<count($id_comptes_GDS); $i++){
         $result= $connex->requete("INSERT INTO notification (id_notification, date_notification, titre_notification, message) 
-				VALUES ('".$id_notification."', '".$date."', 'Confirmation de maladie(s) dans votre département', 'Un cas de ".$libelle_maladie[0].$libelle_maladie[1].$libelle_maladie[2]." dans votre département a été recensé et validé par un vétérinaire.')");
+				VALUES ('".$id_notification."', '".$date."', 'Confirmation de maladie(s) dans votre département', 
+				'Un cas de ".$libelle_maladie[0].$libelle_maladie[1].$libelle_maladie[2]." dans votre département a été recensé et validé par un vétérinaire. 
+				Vous pouvez le consulter en cliquant sur ce lien.')");
 		$result= $connex->requete("INSERT INTO notification_compte (id_notification, id_compte, lu) 
 				VALUES ('".$id_notification."', '".$id_comptes_GDS[$i]."', FALSE)");
 		$id_notification = $id_notification +1;

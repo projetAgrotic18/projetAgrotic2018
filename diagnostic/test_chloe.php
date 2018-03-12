@@ -8,7 +8,7 @@ $connex = new connexionPostgreSQL();
 	//RECUPERATION DES ID COMPTE GDS DU MEME DEPARTEMENT 
 	
 	$id_espece=array();
-	$result= $connex->requete("SELECT * FROM notification ");
+	$result= $connex->requete("SELECT * FROM notification");
 
 	// while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		// echo "<tr>";
