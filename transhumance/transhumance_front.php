@@ -76,20 +76,30 @@
         <script type='text/javascript'>
 
             function valider() {
-
-                var regexmot = /[(\d)]/g;
+                
+               
                 var $msg = "";
 
-                if (document.form.nom_responsable.value === "" || regexmot.test(document.form.nom_responsable.value)) {
+                if (document.form1.nom_responsable.value === "" ) {
+                    console.log('coucou');
                     $msg += "saisissez un nom  \n";
                 }
-                if (document.form.prenom_responsable.value === "" || regexmot.test(document.form.prenom_responsable.value)) {
+                if (document.form1.prenom_responsable.value === "" ) {
+                    console.log('coucou');
                     $msg += "saisissez un prénom  \n";
                 }
-                if (document.form.num_responsable.value === "") {
+                if (document.form1.num_responsable.value === "") {
                     $msg += "saisissez un numéro  \n";
                 }
-
+                if (document.form1.marquage.value === "") {
+                    $msg += "saisissez un marquage \n";
+                }
+                if (document.form1.date_sortie.value === "") {
+                    $msg += "saisissez une date de sortie \n";
+                }
+                if (document.form1.date_arrivee.value === "") {
+                    $msg += "saisissez une date d'arrivee \n";
+                }
                 if ($msg === "") {
                     return true;
                 } else {
@@ -97,9 +107,10 @@
 
                     return false;
                 }
+                
 
             }
-
+            
         </script>
         
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -147,7 +158,7 @@
         <div class="fond_gris">
             <div class="padding">
                 <h2>Renseignements responsable alpage</h2>
-                <form method="post" action="validation_transhumance.php" name='form' onsubmit='return valider()' >
+                <form method="post" action="validation_transhumance.php" name='form1' onsubmit='return valider()' >
 
                     <div class="form-row">
                     <div class="form-group col-md-6">
@@ -159,7 +170,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                             <label for="inputNom">(*) Nom</label>
-                            <?php echo "<input type='text' name='nom_responsable' value =  $nom  pattern='^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$' class='form-control'>";?>
+                            <?php echo "<input type='text' name='nom_responsable' id= 'nom_responsable' value =  $nom  pattern='^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$' class='form-control'>";?>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputNom">(*) Prenom</label>
