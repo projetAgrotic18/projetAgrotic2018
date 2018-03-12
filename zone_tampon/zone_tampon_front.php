@@ -1,6 +1,6 @@
 <html>
     <head>
-        <META charset="UTF-8">
+        <META charset="UTF-8"/>
        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
         
          <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -26,11 +26,11 @@
             $connex = new connexionPostgreSQL();
             $result1 = $connex->requete("SELECT libelle_maladie, id_maladie FROM maladie");
             $result2 = $connex->requete("SELECT id_dpt, libelle_dep FROM departement");
-             $result3 =  $connex->requete("SELECT id_zone_tampon FROM zone_tampon ORDER BY id_zone_tampon"); //sélectionne le premier id  de transhumance disponible
+            $result5 =  $connex->requete("SELECT id_zone_tampon FROM zonetampon ORDER BY id_zone_tampon"); //sélectionne le premier id  de transhumance disponible
             $nbre_col = pg_num_fields($result1);
             $id = 1;
 
-            while ($row = pg_fetch_array($result3, null, PGSQL_NUM)) {
+            while ($row = pg_fetch_array($result5, null, PGSQL_NUM)) {
 
                 if ($id < $row[0]) {
                     break;
@@ -47,23 +47,23 @@
 
 
 
-           $array = array(); // on cr�� le tableau 
+           $array = array(); // on créé le tableau 
 
-           while ($row = pg_fetch_array($result4))   // on effectue une boucle pour obtenir les donn�es 
+           while ($row = pg_fetch_array($result4))   // on effectue une boucle pour obtenir les données 
            { 
-               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci � notre tableau 
+               //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci à notre tableau 
                    array_push($array,array('value'=>$row[0],'label'=>$row[1],'desc'=>$row[2]));
            }  
 
                    // Affichage des résultats en HTML
-                   // Libère le résultat
+                   // LibÃ¨re le résultat
            //Nom exploitant(gestion de l'autocomplétion) : 
-            $rqt3="SELECT nom, nom_exploitation FROM compte_utilisateur WHERE id_type_utilisateur='2'";
-            $result3 = $connex->requete($rqt3);// requête SQL grâce au mot-clé
+            $rqt3="SELECT gid, nom_exploi FROM exploitation2";
+            $result3 = $connex->requete($rqt3);// requÃªte SQL grÃ¢ce au mot-clé
             $array3 = array(); // création du tableau
 
             while ($row = pg_fetch_array($result3)){   // boucle pour obtenir toutes les données
-                        array_push($array3,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+                        array_push($array3,array('value'=>$row[1],'label'=>$row[1],'desc'=>$row[1]));
             }  
 
         ?>
@@ -76,7 +76,7 @@
           
        <script type="text/javascript"> 
 
-                    //   Charge la version 1.4.1. 
+                //   Charge la version 1.4.1. 
                 //  google.load('jquery','1.4.1'); 
                 var liste= <?php echo json_encode($array);?>;
                    $(function () {      
@@ -87,7 +87,7 @@
               return false;
               },
                 //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
-                select : function(event, ui){ // lors de la s�lection d'une proposition
+                select : function(event, ui){ // lors de la sélection d'une proposition
                $( '#commune' ).val( ui.item.label);     
                $('#commune_id').val(ui.item.value);
               $('#description').html( ui.item.desc );// on ajoute la description de l'objet dans un bloc
@@ -107,7 +107,7 @@
 			$('#exploi').autocomplete({ //apres le #
 					source : liste2,  //a definir( c'est un fichier php)  
 					focus: function( event, ui ) {
-					$( "#nom" ).val( ui.item.label );
+					$( "#nom_exploi" ).val( ui.item.label );
 					return false;
 			},
                 //minLength : 1 // on indique qu'il faut taper au moins 2 caract?res pour afficher l'autocompl?t
@@ -120,7 +120,7 @@
           })
           .autocomplete( "instance" )._renderItem = function( ul, item ) {
             return $( "<li>" )
-              .append( "<div>" + item.label + "(" + item.desc + ") </div>" )
+              .append( "<div>" + item.label + "</div>" )
               .appendTo( ul );
           };
         } );    
@@ -175,7 +175,7 @@
                     <div class="form-group col-lg-6">
                         <label for="zt_rayon">Rayon de protection</label>
                         <div class="input-group mb-2">
-                            <INPUT TYPE = "text" class="form-control" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?" id="zt_rayon">
+                            <INPUT TYPE = "text" class="form-control" NAME = "zt_rayon" PATTERN = "\d+(,\d{2})?" id="zt_rayon"/>
                             <div class="input-group-prepend">
                               <div class="input-group-text">km</div>
                             </div>
@@ -184,7 +184,7 @@
                     <div class="form-group col-lg-6">
                         <label for="zt_rayon2">Rayon de surveillance</label>
                         <div class="input-group mb-2">
-                             <INPUT TYPE = "text" class="form-control" NAME = "zt_rayon2" PATTERN = "\d+(,\d{2})?" id="zt_rayon2">
+                             <INPUT TYPE = "text" class="form-control" NAME = "zt_rayon2" PATTERN = "\d+(,\d{2})?" id="zt_rayon2"/>
                             <div class="input-group-prepend">
                               <div class="input-group-text">km</div>
                             </div>
@@ -195,13 +195,13 @@
                 
                 <div class="form-row col-lg-6">
                     <label for="datefin">Date de fin de quarantaine </label>
-                    <INPUT  TYPE = 'date' class="form-control" NAME='datefin' ID="datefin">
+                    <INPUT  TYPE = 'date' class="form-control" NAME='datefin' ID="datefin"/>
                 </div>
             </div>
                 
             <br>
            <div class="center">
-                <INPUT TYPE = "SUBMIT"  class="btn bouton-sonnaille bouton-m" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon">
+                <INPUT TYPE = "SUBMIT"  class="btn bouton-sonnaille bouton-m" NAME = "zt_ajout" VALUE = "Ajouter cette zone tampon"/>
             </div>
             <br>       
                     

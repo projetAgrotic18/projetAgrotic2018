@@ -1,123 +1,36 @@
+<?php session_start() ?>
 <html>
-<head> 
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-<!--By les Pokemen-->
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href='../general/front/style.css'>
-    
-	<script type="text/javascript" src="http://194.199.251.68/ProjetAgrotic2018/compte_utilisateur/confirm_valid.js"></script>
-	
-<!-- Load CSS--->
-    <!--- Style Sonnaille-->
-    <LINK rel="stylesheet" type="text/css" href="style.css">
-    <!--- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        
+<head>
     <title> Création de Compte </title>
-    <link rel="icon" href="sonnaille.ico">
-	
-	
-	
+    <META charset="UTF-8"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="http://194.199.251.68/ProjetAgrotic2018/compte_utilisateur/confirm_valid.js"></script>
+
 	<!-- Partie ajax -->
 	<script type="text/javascript">
-	
-	/*function validation_compte_utilisateur()
-	{
-		//alert("début");
-		var ok=1;
-		var msg="";
-		if (document.form_eleveur.rb.value=="")
-		{
-			//alert("rb");
-			ok = 0;
-			msg = msg + "Veuillez saisir un type d'utilisateur\n";			
-		}
-		if (document.form_eleveur.login.value=="")
-		{
-			//alert("login");
-			ok = 0;
-			msg = msg + "Veuillez saisir le login du compte\n";
-		}
-		if (document.form_eleveur.mot_de_passe.value=="")
-		{
-			//alert("mdp");
-			ok = 0;
-			msg = msg + "Veuillez saisir le mot de passe\n";
-		}
-		if (document.form_eleveur.nom.value=="")
-		{
-			//alert("nom");
-			ok = 0;
-			msg = msg + "Veuillez saisir le nom du compte\n";
-		}
-		if (document.form_eleveur.adresse.value=="")
-		{
-			//alert("adresse");
-			ok = 0;
-			msg = msg + "Veuillez saisir l'adresse du compte\n";
-		}
-		if (document.form_eleveur.commu.value=="")
-		{
-			//alert("commu");
-			ok = 0;
-			msg = msg + "Veuillez saisir la commune du compte\n";
-		}
-		if (document.form_eleveur.code_postal.value=="")
-		{
-			//alert("cp");
-			ok = 0;
-			msg = msg + "Veuillez saisir le code postal\n";
-		}
-		if (document.form_eleveur.telephone.value=="")
-		{
-			//alert("telephone");
-			ok = 0;
-			msg = msg + "Veuillez saisir le numéro de téléphone associé au compte\n";
-		}
-		if (document.form_eleveur.mail.value=="")
-		{
-			//alert("mail");
-			ok = 0;
-			msg = msg + "Veuillez saisir l'adresse mail du compte\n";
-		}					
-		if(ok == 1)
-		{
-			//alert("ok");
-			return true;
-		}
-				
-		else
-		{
-			//alert("pas ok");
-			alert(msg);
-			return false;
-		}
-	}*/
-
-	function afficheNomExploit(str){
-		$.ajax({
-			type: 'get',
-			url: 'majNomExploit.php',
-			data: {
-				rb:str
-				},
-			success: function (response) {
-				document.getElementById("txtNomExploit").innerHTML=response; 
-			}
-		});
-	
-	}
-	
-</script>
+        function afficheNomExploit(str){
+            $.ajax({
+                type: 'get',
+                url: 'majNomExploit.php',
+                data: {
+                    rb:str
+                    },
+                success: function (response) {
+                    document.getElementById("txtNomExploit").innerHTML=response; 
+                }
+            });
+        }
+    </script>
         
 </head>
-	<body>
+<body>
+    <!-- Barre de navigation en fonction de l'utilisateur -->
+    <?php include('../general/switchbar.php'); ?>
+    
+    <div class="padding">
+        <center><h1 class='sonnaille_titre'>Création de compte Utilisateur</h1></center><br><br>
+        
         <?php 
-            include('../general/front/navigation.html');
-            echo "<center><h1 class='sonnaille_titre'>Création de compte Utilisateur</h1></center><br><br>";
-            echo "<div class='padding'>";
- 
             //Pour appeler la fonction d'ouverture de la BDD,
             //Mettre juste après la balise ouvrante de php (<?php) :
             require "../general/connexionPostgreSQL.class.php";
@@ -137,7 +50,7 @@
             while ($row = pg_fetch_array($result))   // on effectue une boucle pour obtenir les données 
             { 
                 //$array[]=$row['nom_commune']." (".$row['code_postal'].")"; // et on ajoute celles-ci à notre tableau 
-                    array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[1]));
+                    array_push($array,array('value'=>$row[0],'label'=>$row[0],'desc'=>$row[0]));
             }  
 
             $connex->fermer; 
@@ -182,26 +95,26 @@
 		<!-- Radio-boutonpour selectionner le type de formulaire à remplir-->
 		<form method = 'POST' name = 'form_eleveur' action = 'validation_compte_utilisateur.php' onsubmit="return validation_compte_utilisateur()">
             <h4>Type de compte:</h4>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline1" name = rb class="custom-control-input"value = 'DDPP' onclick='afficheNomExploit(this.value)'>
-                  <label class="custom-control-label" for="customRadioInline1">DDPP</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline2" name = rb class="custom-control-input" value = 'GDS' onclick='afficheNomExploit(this.value)'>
-                  <label class="custom-control-label" for="customRadioInline2">GDS</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline3" name = rb class="custom-control-input" value = 'veterinaire' onclick='afficheNomExploit(this.value)'>
-                  <label class="custom-control-label" for="customRadioInline3">Vétérinaire / GTV</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline4" name = rb class="custom-control-input" value = 'laboratoire' onclick='afficheNomExploit(this.value)'>
-                  <label class="custom-control-label" for="customRadioInline4">Laboratoire </label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline5" name = rb class="custom-control-input" value = 'eleveur' onclick='afficheNomExploit(this.value)'>
-                  <label class="custom-control-label" for="customRadioInline5">Eleveur</label>
-                </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline1" name = rb class="custom-control-input"value = 'DDPP' onclick='afficheNomExploit(this.value)'>
+              <label class="custom-control-label" for="customRadioInline1">DDPP</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline2" name = rb class="custom-control-input" value = 'GDS' onclick='afficheNomExploit(this.value)'>
+              <label class="custom-control-label" for="customRadioInline2">GDS</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline3" name = rb class="custom-control-input" value = 'veterinaire' onclick='afficheNomExploit(this.value)'>
+              <label class="custom-control-label" for="customRadioInline3">Vétérinaire / GTV</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline4" name = rb class="custom-control-input" value = 'laboratoire' onclick='afficheNomExploit(this.value)'>
+              <label class="custom-control-label" for="customRadioInline4">Laboratoire </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline5" name = rb class="custom-control-input" value = 'eleveur' onclick='afficheNomExploit(this.value)'>
+              <label class="custom-control-label" for="customRadioInline5">Eleveur</label>
+            </div>
 
             <br/><br/>
             <div class="form-row">
@@ -231,6 +144,7 @@
                 <div class="form-group col-lg-6">
                     <label for="commune">(*)Commune :</label>
                     <input type="text" class="form-control" placeholder="Commune" name="commu" id='commune'>
+					<input type="hidden" name="commune" id="commune_id">
                 </div>
                 <div class="form-group col-lg-6">
                     <label for="code_postal">(*)Code postal :</label>
@@ -250,13 +164,13 @@
 			<div class="form-group">
 			    <span id="txtNomExploit" class="form-group"></span>
 			</div>
-        <br>
-        <div class="center">
-            <input type="submit" name="bt_submit" value="M'enregistrer" class="btn bouton-sonnaille bouton-m">
-        </div>
-        <br>
+            <br>
+            <div class="center">
+                <input type="submit" name="bt_submit" value="M'enregistrer" class="btn bouton-sonnaille bouton-m">
+            </div>
+            <br>
         </form>
-        <?php include('../general/front/footer.html');?>
-
-	</body>
+    </div>
+     <?php include('../general/front/footer.html');?>
+</body>
 </html>

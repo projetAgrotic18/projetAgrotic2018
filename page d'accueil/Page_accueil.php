@@ -171,7 +171,7 @@
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='users.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p>Saisir un nouveau compte utilisateur</p></center>";
-                echo "<center><a class='btn bouton-sonnaille' href='../compte_utilisateur/compte_utilisateur.php' role='button'>Comptes utilisateurs</a></center>";
+                echo "<center><a class='btn bouton-sonnaille' href='../compte_utilisateur/compte_utilisateur_front.php' role='button'>Comptes utilisateurs</a></center>";
             
             $compteur_row=$compteur_row+1;
             echo "</div><br>";
