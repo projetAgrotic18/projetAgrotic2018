@@ -4,20 +4,15 @@
     <title>Liste Diagnostic</title>
     <META charset="UTF-8"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-        <script type="text/javascript">
-            //Code pour la mise en forme du tableau (voir datatable)
-            $(document).ready(function() {
-                 $('#example').DataTable();
-            });
-            
-        </script>
-        
-	</head>
+</head>
 		
 <body>
     <!-- Barre de navigation en fonction de l'utilisateur -->
     <?php include('../general/switchbar.php'); ?>
+    
+    <!--Deux lignes de code pour le tableau-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
     <!-- Appelle de la page regroupant les fonctions -->
     <?php require_once('../general/procedures.php'); ?>
@@ -91,28 +86,47 @@
                 <?php
                 while ($row = pg_fetch_array($result_all_compte)){
                     echo "<TR>";
-                        // affichage pour chaque diagnostic de ses informations principales
-                        for($i = 1; $i < $nbr_col; $i++) {
-                            echo "<td>".$row[$i]."</td>";
-                        }
-                        ?>
-                            
-                        
-                    </TBODY>
-                </TABLE>
-			
+                    // affichage pour chaque diagnostic de ses informations principales
+                    for($i = 1; $i < $nbr_col; $i++) {
+                        echo "<td>".$row[$i]."</td>";
+                    }
+                    //Affichage des maladies 
+                    $id_diagnostic=$row[0]; 
+                    $result_conf=$connex->requete("select libelle_maladie from maladie_diag md join maladie m on md.id_maladie=m.id_maladie where md.id_diagnostic=$id_diagnostic and confirme=true"); 
+                    echo "<td>"; 
+                        //Diagnostiquées 
+                        if (pg_num_rows($result_conf)==0){ 
+                            $result_diag=$connex->requete("select libelle_maladie from maladie_diag md join maladie m on md.id_maladie=m.id_maladie where md.id_diagnostic=$id_diagnostic and confirme=false"); 
+                            echo "<p>Diagnostiquées :</p>"; 
+                            while ($row = pg_fetch_array($result_diag)){ 
+                                echo "<p>".$row[0]."</p>"; 
+                            } 
+                        } 
+                        //Confirmées 
+                        else{ 
+                            echo "<b>Confirmées :</b>"; 
+                            while ($row = pg_fetch_array($result_conf)){ 
+                                echo "<p>".$row[0]."</p>"; 
+                            } 
+                        } 
 
-                        echo "</td>";
-
-                        //Affichage du bouton détail
-                        echo "<td><a href = 'consultation_diagnostic.php?id_diagnostic=$id_diagnostic'><button type='button'>Détails</button></a></td>";
-                        echo "</TR>";
+                    echo "</td>"; 
+                    //Affichage du bouton détail
+                    echo "<td><a href = 'consultation_diagnostic.php?id_diagnostic=$id_diagnostic'><button type='button'>Détails</button></a></td>";
+                    echo "</TR>";
                 }
                 ?>
             </TBODY>
         </TABLE>
     </div>
-
+    
+    <script type="text/javascript">
+        //Code pour la mise en forme du tableau (voir datatable)
+        $(document).ready(function() {
+             $('#example').DataTable();
+        });
+    </script>
+    
     <!-- Pied de page -->		
     <?php include("../general/front/footer.html"); ?>
 </body>

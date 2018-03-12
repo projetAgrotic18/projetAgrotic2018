@@ -86,7 +86,7 @@
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='virus.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p> Saisir une nouvelle prophylaxie </p></center>";
-                echo "<center><br><a class='btn bouton-sonnaille' href='../prophylaxie/prophylaxie.php' role='button'>Prophylaxie</a></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../prophylaxie/prophylaxie_front.php' role='button'>Prophylaxie</a></center>";
             echo "</div><br>";
             $compteur_row=$compteur_row+1;
         }
