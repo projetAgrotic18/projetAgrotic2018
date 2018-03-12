@@ -96,8 +96,8 @@
         echo "<br><br>";
     }
      
-    //Module Liste diagnostics (Véto, GDS)
-        $tab_liste_diag=array(1,3,6);
+    //Module Liste diagnostics (Véto, GDS, labo)
+        $tab_liste_diag=array(1,3,5,6);
         if (in_array($type,$tab_liste_diag)){    
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='liste_diagnostics.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
