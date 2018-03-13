@@ -88,7 +88,7 @@
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='virus.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p> Saisir une nouvelle prophylaxie </p></center>";
-                echo "<center><br><a class='btn bouton-sonnaille' href='../prophylaxie/prophylaxie_front.php' role='button'>Prophylaxie</a></center>";
+                echo "<center><br><a class='btn bouton-sonnaille' href='../prophylaxie/prophylaxie.php' role='button'>Prophylaxie</a></center>";
             echo "</div><br>";
             $compteur_row=$compteur_row+1;
         }
@@ -98,8 +98,8 @@
         echo "<br><br>";
     }
      
-    //Module Liste diagnostics (Véto, GDS, labo)
-        $tab_liste_diag=array(1,3,5,6);
+    //Module Liste diagnostics (Véto, GDS)
+        $tab_liste_diag=array(1,3,6);
         if (in_array($type,$tab_liste_diag)){    
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='liste_diagnostics.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
@@ -173,7 +173,7 @@
             echo "<br><div class='col-lg-3'><br>";
                 echo "<center><img class='rounded-circle' src='users.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p>Saisir un nouveau compte utilisateur</p></center>";
-                echo "<center><a class='btn bouton-sonnaille' href='../compte_utilisateur/compte_utilisateur_front.php' role='button'>Comptes utilisateurs</a></center>";
+                echo "<center><a class='btn bouton-sonnaille' href='../compte_utilisateur/compte_utilisateur.php' role='button'>Comptes utilisateurs</a></center>";
             
             $compteur_row=$compteur_row+1;
             echo "</div><br>";
