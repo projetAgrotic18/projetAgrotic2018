@@ -3,6 +3,7 @@
 <head>
     <title> Création de Compte </title>
     <META charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="http://194.199.251.68/ProjetAgrotic2018/compte_utilisateur/confirm_valid.js"></script>
 
@@ -25,16 +26,12 @@
 </head>
 <body>
     <!-- Barre de navigation en fonction de l'utilisateur -->
-    <?php include('../general/switchbar.php'); ?>
+    <?php include('../general/front/navigation.php'); ?>
     
     <div class="padding">
         <center><h1 class='sonnaille_titre'>Création de compte Utilisateur</h1></center><br><br>
         
         <?php 
-            //Pour appeler la fonction d'ouverture de la BDD,
-            //Mettre juste après la balise ouvrante de php (<?php) :
-            require "../general/connexionPostgreSQL.class.php";
-
             //Puis la ligne suivante pour établir une connexion avec la BDD du projet :
             $connex = new connexionPostgreSQL();
 

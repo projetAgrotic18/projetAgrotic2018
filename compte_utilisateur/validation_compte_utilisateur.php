@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <html>
 <head>
     <META charset="UTF-8"/>
@@ -6,13 +7,13 @@
 </head>
 <body>
     <!-- Barre de navigation en fonction de l'utilisateur -->
-    <?php include('../general/switchbar.php'); ?>
+    <?php include('../general/front/navigation.php'); ?>
     
     <div class="padding">
         <center><h1 class='sonnaille_titre'>Création de compte Utilisateur</h1></center><br><br>
         
 		<?php
-        require "../general/connexionPostgreSQL.class.php";
+
         
         $login = $_POST["login"];
         $mdp = $_POST["mot_de_passe"];
@@ -38,7 +39,7 @@
 			$result = $connex->requete("INSERT INTO compte_utilisateur (id_type_utilisateur, id_commune, identifiant, mdp, nom, portable, mail, adresse, adresse2) VALUES ( (SELECT id_type_utilisateur FROM type_utilisateur WHERE libelle_type_utilisateur='$type'), (SELECT id_commune FROM commune WHERE nom_commune='$commune'),'$login', '$mdp', '$nom', '$tel', '$mail', '$adresse','$adresse2')");
 		}
 		
-		echo "<br><br><div align='center'><h1>Votre compte a bien été créé</div><br>";
+		echo "<br><br><div align='center'><h5>Votre compte a bien été créé.</h5></div><br>";
 
 		pg_free_result($result);
 

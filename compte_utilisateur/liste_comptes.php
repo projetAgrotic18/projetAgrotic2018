@@ -5,13 +5,6 @@
     <META charset="UTF-8"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     
-    <!--- Style Sonnaille -->
-    <link href="../general/front/style.css" rel="stylesheet">
-        
-    <!--Deux lignes de code pour le tableau-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    
     <script>
         function confirm_s(id){
             if(confirm("Voulez vous vraiment supprimer ce compte ?")){
@@ -33,17 +26,19 @@
     <?php require_once('../general/procedures.php'); ?>
 
     <!-- Barre de navigation en fonction de l'utilisateur -->
-    <?php include('../general/switchbar.php');?>
+    <?php include('../general/front/navigation.php');?>
+    
+    <!--Deux lignes de code pour le tableau-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     
     <div class="padding">
         <h1>Comptes utilisateurs</h1><br>
         <h2>Liste des comptes</h2><br>
         
-
-        
         <?php 
         // Connexion, sélection de la base de données
-        require "../general/connexionPostgreSQL.class.php";
+
         $connex = new connexionPostgreSQL();
         
         //Suppression d'un client
@@ -79,6 +74,13 @@
             </table>
         </div>
     </div>
+    
+    <script type="text/javascript">
+        //Code pour la mise en forme du tableau (voir datatable)
+        $(document).ready(function() {
+             $('#example').DataTable();
+        });
+    </script>
     
     <?php
     // Libère le résultat
