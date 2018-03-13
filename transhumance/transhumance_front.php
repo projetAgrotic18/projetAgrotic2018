@@ -1,6 +1,4 @@
-<?php session_start();
-
-?>
+<?php session_start();?>
 <html>
     
         <META charset="UTF-8">  
@@ -20,7 +18,7 @@
        
     </head>
     <body>
-        <?php include ("../general/Front/navigation_eleveur.html"); ?>
+        <?php include ("../general/Front/navigation.php"); ?>
         
         <?php
             require "../general/connexionPostgreSQL.class.php";

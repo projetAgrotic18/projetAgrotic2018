@@ -12,7 +12,7 @@
     	<!-- Entête -->
     
     	<!-- DIV Navigation (Menus) -->
-        <?php include("../general/switchbar.php"); ?>
+        <?php include("../general/Front/navigation.php"); ?>
     
     	<!-- Appelle de la page regroupant les fonctions -->
         <?php require_once('../general/procedures.php'); ?>

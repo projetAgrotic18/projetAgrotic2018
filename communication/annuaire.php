@@ -13,7 +13,7 @@
     	<!-- Entête -->
     
     	<!-- DIV Navigation (Menus) -->
-        <?php include("../general/switchbar.php"); ?>
+        <?php include("../general/Front/navigation.php"); ?>
 		
         <!--Deux lignes de code pour le tableau-->
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
