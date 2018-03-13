@@ -62,7 +62,7 @@
   
 	</head>
 	<body> 
-    <?php include ("../general/Front/navigation_veto.html"); ?>
+    <?php include ("../general/Front/navigation.php"); ?>
 	<form method="GET" action="diagnostic_2.php" onsubmit="return valider()" name="formsaisie">
 	
 	<h1 class="sonnaille_titre">Diagnostic vétérinaire</h1>
@@ -106,7 +106,7 @@
 	<div class="padding">
         
         <h2>Caractéristiques du diagnostic :</h2>
-        (*) Espèce : <br/>
+        <strong>(*) Espèce : </strong><br/>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="customRadioInline1" id='espece' name="espece" class="custom-control-input" value="1">
           <label class="custom-control-label" for="customRadioInline1">Bovin</label>
@@ -133,16 +133,22 @@
 	$_SESSION["choix_maladies"]=array();
 	$_SESSION["choix_prelevements"]=array();
 	
-	//Symptomes : 
-	echo "<br/>Symptomes : <br/>";	
+	echo "<br/><strong>Symptomes : </strong><br/>";	
 	$result = $connex->requete("SELECT id_sympt, libelle_symptome FROM symp ORDER BY libelle_symptome");
-	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
-		echo "<input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."<br/>";
+	echo "<table>";
+	$i=0;
+	while ($row = pg_fetch_array($result, null, PGSQL_NUM) AND $i<20) {
+		echo "<td><input type=checkbox name='symptome[]' onclick='actu_maladie(this.value)' value=".$row[0].">".$row[1]."</td>";
+		$i=$i+1;
+		if ($i % 3 ==0){
+			echo "</tr>";
+		}
 	}
+	echo "</table>";
 	echo "<span id='actuFormulaire_maladie'></id>";
 
 	//Maladies :
-	echo "<br/>Maladies possibles : <br/>";
+	echo "<br/><strong>Maladies possibles : </strong><br/>";
 	$result = $connex->requete("SELECT id_maladie, libelle_maladie FROM maladie ORDER BY libelle_maladie");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='maladie[]' onclick='actu_prelevement(this.value)' value=".$row[0].">".$row[1]."<br/>";
@@ -151,7 +157,7 @@
 	echo "<span id='actuFormulaire_prelevement'></id>";
 	
 	//Prélèvements :
-	echo "<br/>Prélèvements : <br/>";
+	echo "<br/><strong>Prélèvements à réaliser : </strong><br/>";
 	$result = $connex->requete("SELECT id_prele, libelle_prelevement FROM prelev ORDER BY libelle_prelevement");
 	while ($row = pg_fetch_array($result, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='prelevement[]' onclick='actu_analyse(this.value)' value=".$row[0].">".$row[1]."<br/>";
@@ -160,7 +166,7 @@
 	echo "<span id='actuFormulaire_analyse'></id>";
 	
 	//Analyses :
-	echo "<br/>Analyses : <br/>";
+	echo "<br/><strong>Analyses : </strong><br/>";
 	$result2 = $connex->requete('SELECT id_analyse, libelle_analyse FROM "ANALYSE" ORDER BY libelle_analyse');
 	while ($row = pg_fetch_array($result2, null, PGSQL_NUM)) {
 		echo "<input type=checkbox name='analyse[]' value=".$row[0].">".$row[1]."<br/>";
