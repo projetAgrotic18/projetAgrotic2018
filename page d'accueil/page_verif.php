@@ -23,6 +23,7 @@
         while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
                 $_SESSION["id_compte"]=$row[0];
                 $_SESSION["id_type_utilisateur"]=$row[1];
+                $_SESSION["identifiant"]=$nom;
             }
         echo 'Success';
     }

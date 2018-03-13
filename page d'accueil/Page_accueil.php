@@ -3,20 +3,19 @@
 <head>
     <META charset="UTF-8" />
     <title>Accueil</title>
-    <link rel="icon" href="sonnaille.ico">
     <script type="text/javascript" src="javascript.js" language="javascript"></script>
-    <link rel="stylesheet" href='../general/front/style.css'>
 </head>
     
 <body> 
     
     <?php
         //Barre de navigation en fonction de l'utilisateur
-        include('../general/switchbar.php');        
+        include('../general/front/navigation.php');        
 
         //Récupération des infos page précédente
         $id_compte=$_SESSION["id_compte"];
         $type=$_SESSION["id_type_utilisateur"];
+        $identifiant=$_SESSION["identifiant"];
         
         // tableau de vérification de la requête
         /*echo "<table border=1 bordorcolor=black>";
@@ -37,6 +36,8 @@
     
         echo "<br><br>";
         echo "<div class='row'><div class='col-lg-4'> </div><div class='col-lg-'><br><br><br><br><h1>Bienvenue sur</h1></div><div class='col-lg-4'> <img src='../general/front/logo_complet_petit.png'></div></div><br><br>";
+        
+    
 
     //Gestion des modules par type d'utilisateur
     //Pour chaqsue module, on crée un tableau qui stocke les id des types d'utilisateur ayant accès à un module
@@ -45,6 +46,7 @@
     //Module saisie transhumance (éleveur seulement)
     $compteur_row=0;
     echo "<div class='container'>";
+    echo "<h3>Bonjour $identifiant !</h3><BR/>";
     echo "<div class='row padding_accueil'>";
         $tab_saisi_trans=array(2,6);
         if (in_array($type,$tab_saisi_trans)){    
@@ -134,7 +136,7 @@
         $tab_saisi_ZT=array(3,6);
         if (in_array($type,$tab_saisi_ZT)){
             echo "<br><div class='col-lg-3'><br>";
-                echo "<center><img class='rounded-circle' src='zone_tampon.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
+                echo "<center><img class='rounded-circle' src='exploitations.png' alt='Generic placeholder image' width='140' height='140'></center><br>";
                 echo "<center><p>Consulter la liste des exploitations</p></center>";
                 echo "<center><br><a class='btn bouton-sonnaille' href='../prophylaxie/liste_exploitation.php' role='button'>Liste des exploitations</a></center>";
             

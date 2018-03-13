@@ -15,7 +15,7 @@ if (isset($_POST['nom']) and $_POST['nom']!="" and isset($_SESSION["id_compte"])
         
     <!-- Load CSS--->
     <!--- Style Sonnaille-->
-    <LINK rel="stylesheet" type="text/css" href="style.css">
+    <LINK rel="stylesheet" type="text/css" href="style.css"/>
     <!--- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         
