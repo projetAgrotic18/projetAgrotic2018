@@ -29,10 +29,20 @@
                 echo "<form action='zone_tampon_front.php' method='POST'><input type='submit' name='bt_submit_ajout' value='Ajouter une zone tampon'/></form>"; 
             }
 
-            //Requête
-            $result = $connex->requete("SELECT libelle_maladie,rayon_prot,rayon_surv,date_fin,id_zone_tampon, active FROM zonetampon zt JOIN maladie m on m.id_maladie=zt.id_maladie WHERE active='t'");
         ?>
         <div class="container">
+            <?php
+                //Suppression d'une zone tampon
+                if (isset($_GET["id_zone_tampon"])){
+                    $idzt=$_GET["id_zone_tampon"];
+                    $connex = new connexionPostgreSQL();
+                    $result= $connex->requete("UPDATE zonetampon SET active='FALSE' WHERE id_zone_tampon=".$idzt); 
+                    $query7 = $connex->requete("UPDATE public.zonetampon SET geom=tampon(id_zone_tampon)");
+                    echo "<h6>La zone tampon a bien été désactivée !</h6>";
+                }
+                //Requête
+                $result = $connex->requete("SELECT libelle_maladie,rayon_prot,rayon_surv,date_fin,id_zone_tampon, active FROM zonetampon zt JOIN maladie m on m.id_maladie=zt.id_maladie WHERE active='t'");
+            ?>
             <TABLE border=1 id="example">
                 <THEAD>
                     <TR>
@@ -54,7 +64,7 @@
 
                     while ($row=pg_fetch_array($result,null,PGSQL_NUM)){
                         echo "<TR>";
-                            // affichage pour chaque diagnostic de ses informations principales
+                            // affichage pour chaque zone tampon de ses informations principales
                             for($i = 0; $i < 5; $i++) {
                                 echo "<TD>".$row[$i]."</TD>";
                             }
@@ -65,9 +75,12 @@
                                         <form action='modif_zone_tampon.php?id_zone_tampon=".$row[4]."' method='POST'><input type='submit' name='bt_submit_modif' value='Modifier'/></form>
                                      </TD>";   // envoie vers la fiche récapitulative de la transhumance
                                 //Affichage du bouton détail
-                                echo "<TD>
+                                /*echo "<TD>
                                         <form action='desac_zone_tampon.php?id_zone_tampon=".$row[4]."' method='POST'><input type='submit' name='bt_submit' value='Désactiver la zone'/></form>
-                                     </TD>"; 
+                                     </TD>"; */
+                                echo "<TD>
+                                        <form action='liste_zone_tampon.php?id_zone_tampon=".$row[4]."' method='POST'><input type='submit' name='bt_submit' value='Désactiver la zone'/></form>
+                                     </TD>";
                             }
                         echo "</TR>";
                     }

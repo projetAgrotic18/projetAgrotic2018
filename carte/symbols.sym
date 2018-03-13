@@ -1,0 +1,66 @@
+SYMBOLSET
+
+SYMBOL
+	NAME 'point'
+	TYPE ELLIPSE
+	POINTS 
+		1 1
+	END
+	FILLED TRUE
+END 
+END	
+
+SYMBOL
+  	NAME "croix"
+  	TYPE VECTOR 
+  	POINTS 			# permet de définir les sommets du symbole
+    		0.5 0
+    		0.5 1 		# on dessine un vecteur entre les points 0.5 0 et 0.5 1.
+    		-99 -99	        #  les points 0.5 1 et 0 0.5 ne seront pas liés par un vecteur
+   		0 0.5
+    		1 0.5 		# on dessine un vecteur entre les points 0 0.5 et 1 0.5.
+  	END
+END
+
+
+SYMBOL
+  	NAME "maison"
+  	TYPE VECTOR
+  	POINTS
+   		0 1
+    		0 0.5
+    		0.5 0
+    		1 0.5
+    		1 1
+   		0 1
+  	END
+  	FILLED TRUE
+  	END
+END
+
+# à partir d’une police de caractères : il faut vérifier que cette police est présente dans les font.
+SYMBOL 
+  	NAME "Sonne"
+  	TYPE TRUETYPE
+ 	FONT "arialbd"
+ 	CHARACTER "&#9788;”
+  	ANTIALIAS TRUE
+  	GAP 10
+END
+
+
+SYMBOL
+  	NAME "fleche"
+  	TYPE PIXMAP
+  	IMAGE "fleche.png"	#à partir d’une image png : il faut créer cette image fleche.png auparavant.
+  	TRANSPARENT 13
+END
+
+
+END
+
+
+
+
+
+
