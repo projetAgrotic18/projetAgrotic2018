@@ -4,7 +4,6 @@
     <title>Validation de modification d'une zone tampon</title> 
     <META charset="UTF-8"/> 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
- 
 </head> 
 <body> 
     <!-- Barre de navigation en fonction de l'utilisateur --> 
@@ -18,10 +17,10 @@
     
         // Récupération du nom de l'exploitation
         // La fonction permet d'éviter les problèmes duent aux apostrophes dans les noms
-        $exploit=pg_escape_string($_POST['exploi']); 
+        $id_compte=$_POST['exploi']; 
         
         //Récupération des infos de l'exploitation
-            $query4 = $connex->requete("SELECT tr.id_compte, gid FROM compte_utilisateur cu JOIN troupeaux2 tr ON cu.id_compte=tr.id_compte WHERE nom_exploitation='".$exploit."'"); 
+            $query4 = $connex->requete("SELECT tr.id_compte, gid, nom_exploitation FROM compte_utilisateur cu JOIN troupeaux2 tr on cu.id_compte=tr.id_compte WHERE tr.id_compte='".$id_compte."'"); 
             while ($row = pg_fetch_array($query4))  
                   { 
                         $id_compte = $row[0];

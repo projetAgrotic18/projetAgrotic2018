@@ -30,7 +30,7 @@
             $libelle_maladie = $row[0];
             $nom_exploitation = $row[1];
             $nom_commune = $row[2];
-            $rayon_prot = $row[3];
+            $rayon_prot = $row[3]/1000;
             $rayon_surv = $row[4];
             $date_fin = $row[5];
             $nom_exploitant=$row[6];
@@ -57,11 +57,12 @@
             }  
     
         //Récupération des exploitations et stockage dans un tableau
-            $rqt3="SELECT gid, nom_exploi FROM exploitation2 ORDER BY nom_exploi";
+            $rqt3="SELECT gid, nom_exploi, id_compte FROM exploitation2 join compte_utilisateur on nom_exploitation=nom_exploi ORDER BY nom_exploi";
             $result3 = $connex->requete($rqt3);
             $array3 = array();
-            while ($row = pg_fetch_array($result3)){ 
-                array_push($array3,array('value'=>$row[1],'label'=>$row[1],'desc'=>$row[1]));
+            while ($row = pg_fetch_array($result3)){
+                $id_compte=$row[2];
+                array_push($array3,array('value'=>$row[2],'label'=>$row[1],'desc'=>$row[1]));
             }  
 
     ?>
@@ -103,12 +104,12 @@
             $('#exploi').autocomplete({ 
                 source : liste2,  
                 focus: function( event, ui ) {
-                    $( "#nom_exploitation" ).val( ui.item.label );
+                    $( "#exploi" ).val( ui.item.label );
                     return false;
                 },
                 select : function(event, ui){
-                    $( '#id_compte' ).val( ui.item.label);     
-                    $('#exploi').val(ui.item.value);
+                    $( '#exploi' ).val(ui.item.label);
+                    $('#id_compte').val(ui.item.value);
                     $('#description2').html( ui.item.desc );
                     return false;
                 }
@@ -143,8 +144,8 @@
                 <div class= "form-row">
                     <div class="form-group col-lg-6">
                         <label for="exploi">Nom de l'exploitation</label>
-                        <input type='text' class="form-control" id="exploi" name="exploi" value="<?php echo $nom_exploitation; ?>"/>
-                        <input type="hidden" id="id_compte" name="exploi" value='<?php echo $nom_exploitant;?>'/>
+                        <input type='text' class="form-control" id="exploi" name="exploit" value="<?php echo $nom_exploitation; ?>"/>
+                        <input type="hidden" id="id_compte" name="exploi" value='<?php echo $id_compte;?>'/>
                     </div>
                     <div class="form-group col-lg-6">
                         <label for="commune">Commune</label>

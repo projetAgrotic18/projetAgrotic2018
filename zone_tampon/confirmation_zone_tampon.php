@@ -15,12 +15,12 @@
             // Connexion, sélection de la base de données du projet
             $connex = new connexionPostgreSQL();
             
-            // Récupération du nom de l'exploitation
-            // La fonction permet d'éviter les problèmes duent aux apostrophes dans les noms
-            $exploit=$_POST['exploi'];
+            // Récupération de l'id du compte de l'exploitant
+            $id_compte=$_POST['exploi'];
         
             //Récupération des infos de l'exploitation
-                $query4 = $connex->requete("SELECT tr.id_compte, gid FROM compte_utilisateur cu JOIN troupeaux2 tr on cu.id_compte=tr.id_compte WHERE nom_exploitation='".$exploit."'");
+                $query4 = $connex->requete("SELECT tr.id_compte, gid, nom_exploitation FROM compte_utilisateur cu JOIN troupeaux2 tr on cu.id_compte=tr.id_compte WHERE tr.id_compte='".$id_compte."'");
+
                 while ($row = pg_fetch_array($query4)) 
                     {
                         $id_compte = $row[0];

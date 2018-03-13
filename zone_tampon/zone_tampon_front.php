@@ -45,12 +45,12 @@
             }  
 
         //Récupération des exploitations et stockage dans un tableau
-            $rqt3="SELECT gid, nom_exploi FROM exploitation2 ORDER BY nom_exploi";
+            $rqt3="SELECT gid, nom_exploi, id_compte FROM exploitation2 join compte_utilisateur on nom_exploitation=nom_exploi ORDER BY nom_exploi";
             $result3 = $connex->requete($rqt3);
             $array3 = array();
             while ($row = pg_fetch_array($result3))
             {   
-                array_push($array3,array('value'=>$row[1],'label'=>$row[1],'desc'=>$row[1]));
+                array_push($array3,array('value'=>$row[2],'label'=>$row[1],'desc'=>$row[1]));
             } 
     ?>
     
@@ -91,11 +91,11 @@
             $('#exploi').autocomplete({
                 source : liste2,
                 focus: function( event, ui ) {
-                    $( "#nom_exploi" ).val( ui.item.label );
+                    $( "#exploi" ).val( ui.item.label );
                     return false;
                 },
                 select : function(event, ui){
-                    $( '#exploi' ).val( ui.item.label);     
+                    $( '#exploi' ).val( ui.item.label);
                     $('#id_compte').val(ui.item.value);
                     $('#description2').html( ui.item.desc );
                     return false;
@@ -129,8 +129,8 @@
                 <div class= "form-row">
                    <div class="form-group col-lg-6">
                         <label for="exploi">Nom de l'exploitation</label>
-                        <input type='text' class="form-control" id="exploi" name="exploi" value="">
-                        <input type="hidden" id="id_compte">
+                        <input type='text' class="form-control" id="exploi" name='exploit' value="">
+                        <input type="hidden" name="exploi" id="id_compte">
                     </div>
                     <div class="form-group col-lg-6">
                         <label for="commune">Commune</label>
